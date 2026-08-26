@@ -1,0 +1,16 @@
+# generated
+site/
+__pycache__/
+*.pyc
+
+# never commit
+.env
+credentials/
+*.pem
+*.key
+kaggle.json
+
+# data
+*.csv
+*.parquet
+data/
