@@ -144,7 +144,7 @@ flowchart TD
     style EDGE fill:#f3e8fd,stroke:#8430ce
 ```
 
-| Where | Cost when idle | Pick it when | Covered in |
+| Serving option | Cost when idle | Pick it when | Covered in |
 |---|---|---|---|
 | **Scheduled query → table** | **zero** | Nothing is blocked on the answer. **The common case.** | [Lab 3](labs/lab-03-serving-ml-models-lowcode.md) Task 2 |
 | **Vertex batch prediction** | **zero** | Nothing is blocked, and the model lives in the Model Registry rather than BigQuery | [Batch prediction](modules/VERTEX-BATCH-PREDICTION.md) |
