@@ -8,7 +8,7 @@
 
 ## Autoscaling changes in 2026
 
-| When | What |
+| When | Change |
 |---|---|
 | **6 Mar 2026** | **GKE sources custom metrics natively** — no Stackdriver adapter. New `AutoscalingMetric` CRD (`autoscaling.gke.io/v1beta1`). **Preview**, and the autoscaling docs still describe the adapter path. See §6. |
 | **2026** | **GKE Inference Gateway**, now powered by llm-d — an inference-aware load balancer routing on KV cache utilisation, queue length and prefix cache. Complements HPA rather than replacing it. |
@@ -166,7 +166,7 @@ The labels GKE puts on GPU nodes for you to select on:
 | `cloud.google.com/gke-gpu-sharing-strategy` | `time-sharing`, `mps` |
 | `cloud.google.com/gke-gpu-partition-size` | MIG partition, e.g. `1g.5gb` |
 
-### Why the alternatives are worse
+### The weaker alternatives
 
 | Approach | Problem |
 |---|---|
@@ -286,7 +286,7 @@ model server /metrics  →  PodMonitoring (Managed Service for Prometheus)
                        →  HPA
 ```
 
-### What each piece in that chain is
+### The role of each piece in that chain
 
 Four products with confusing names, each doing one job.
 
@@ -453,7 +453,7 @@ gcloud container clusters update CLUSTER_NAME \
 | **`minReplicas: 0` / min nodes 0 on the GPU pool** | The cheapest possible idle state and the worst possible cold start: node provisioning, GPU driver init, a large image pull, and loading tens of gigabytes of weights — all in the first user's face. Directly contradicts a low-latency requirement. |
 | **Disabling autoscaling and managing node counts by hand** | You now choose permanently between over-provisioning and being caught short, and you've swapped an automated response for a human one. |
 
-### What blocks a node from being removed
+### Node-removal blockers
 
 Know these, because "why won't this scale down" is the other half of the complaint. A node is not deleted if it hosts a pod with:
 
@@ -468,7 +468,7 @@ That last one is the connection back to §4a. PDBs govern *voluntary disruption*
 
 ---
 
-## 9. Where GPU autoscaling breaks down
+## 9. Common GPU autoscaling failure modes
 
 **Autoscaling GPU inference on CPU utilisation.** The single most common mistake, and the reason this module exists.
 
@@ -524,7 +524,7 @@ Three things. **The metrics pipeline**: PodMonitoring scraping the right port, t
 
 ---
 
-## Why queue size wins
+## Recap: the case for queue size
 
 Keeping non-GPU pods off GPU nodes is a job for a **taint**, not for per-workload affinity. GKE applies `nvidia.com/gpu=present:NoSchedule`, and its **`ExtendedResourceToleration`** admission controller injects the matching toleration into any pod requesting `nvidia.com/gpu`, so you never write one. But the taint is only added when the cluster already has a non-GPU node pool, and never retroactively. GKE is the serving option where **you own the cluster**. It is the right call when you already run Kubernetes, not as a way to avoid a managed service: a Vertex **dedicated public endpoint** gives you managed GPUs and gRPC with none of this. Serving is done by a **continuous-batching model server** (vLLM, TGI, Triton), and that batching behaviour explains how autoscaling works here. **CPU and memory are explicitly not recommended as sole indicators for GPU inference.** System memory barely moves, because GPU memory is pre-allocated. RPS ignores that requests vary hugely in cost. The recommended signal is **queue size** (`tgi_queue_size`, `vllm:num_requests_waiting`), because the queue stays near zero while batch space lasts and grows sharply when it runs out. Move to **batch size** only when queue-based scaling cannot meet a latency target. Metrics reach HPA via **Managed Service for Prometheus plus the custom metrics adapter** (server metrics `type: Pods`, GPU metrics `type: External` with a lowercase name), or via **native custom metrics**, in preview since March 2026. Pick the target by load testing from 3–5 upward, mind HPA's 0.1 tolerance, and remember that the slow part is not the scaling decision. It is node provisioning and loading tens of gigabytes of weights.
 
