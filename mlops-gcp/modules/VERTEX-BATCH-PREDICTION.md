@@ -6,11 +6,11 @@
 
 ---
 
-## ⏱ What changed recently
+## What changed recently
 
 | When | What |
 |---|---|
-| **22 Apr – 21 May 2026** | Vertex AI became the **Gemini Enterprise Agent Platform** in console and docs. The batch prediction API, the `BatchPredictionJob` resource and the SDK are unchanged — only the branding moved. |
+| **22 Apr – 21 May 2026** | Vertex AI became the **Gemini Enterprise Agent Platform** in console and docs. The batch prediction API, the `BatchPredictionJob` resource and the SDK are unchanged. Only the branding moved. |
 | **Ongoing** | Generative batch prediction (Gemini over a table of prompts) is a **separate** service with its own quotas and its own docs. This module is about batch prediction for *your* models — custom-trained, AutoML, and BQML. |
 
 ---
@@ -38,7 +38,7 @@ That is the economic argument. Deploying a model to an endpoint so you can loop 
 
 This part quietly decides whether a job takes four minutes or forty.
 
-**Three things have a location: the input data, the model, and the output destination. They must all be in the same region — or the same multi-region.**
+**Three things have a location: the input data, the model, and the output destination. They must all be in the same region, or the same multi-region.**
 
 ![Input, model and output must share a region](assets/batchpred/bp-01-colocation.svg)
 
@@ -86,7 +86,7 @@ Which one is cheaper depends on sizes. Copying a terabyte of JSONL costs egress 
 | **File list** | A text file of Cloud Storage URIs — used for images and other blobs. |
 | **BigQuery table** | Point at `project.dataset.table` and skip the export entirely. |
 
-**Output destinations:** a **Cloud Storage** prefix (JSONL out), or a **BigQuery table**. You pick independently of the input — BigQuery in, Cloud Storage out is fine, as long as the regions line up.
+**Output destinations:** a **Cloud Storage** prefix (JSONL out), or a **BigQuery table**. You pick independently of the input: BigQuery in, Cloud Storage out is fine, as long as the regions line up.
 
 > **If your data is already in BigQuery, use BigQuery as both input and output.** Exporting to JSONL just to feed a batch job adds a step, a storage cost, and a second thing whose region has to match.
 

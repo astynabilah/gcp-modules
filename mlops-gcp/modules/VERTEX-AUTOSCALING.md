@@ -11,7 +11,7 @@
 
 Almost everything about Vertex AI autoscaling follows from a single asymmetric rule:
 
-> **With a GPU attached, Vertex AI watches two metrics — CPU utilization and GPU duty cycle.**
+> **With a GPU attached, Vertex AI watches two metrics: CPU utilization and GPU duty cycle.**
 > **It scales UP when *either* exceeds its target. It scales DOWN only when *both* are below.**
 
 Default target: **60** for both.
@@ -23,7 +23,7 @@ That single OR/AND asymmetry produces two *opposite* complaints. Here are both:
 | Symptom | What's happening |
 |---|---|
 | *"It scales constantly even though the GPU is idle"* | CPU-heavy preprocessing pushes CPU past 60%. The **OR** fires. A replica is added while the GPU sits at 20%. Working as designed. |
-| *"GPU is at 85% and it won't scale up"* | The **OR** should already be firing. The default is correct here — so something overrode it. |
+| *"GPU is at 85% and it won't scale up"* | The **OR** should already be firing. The default is correct here, so something overrode it. |
 
 Same rule, opposite outcomes. **Diagnose by asking which metric crossed 60%**, not by assuming autoscaling is broken.
 
@@ -88,7 +88,7 @@ Rules that matter:
 
 - **At most one entry per metric.**
 - **The default target is 60** if you don't set one.
-- **This lives in `DedicatedResources`.** `AutomaticResources` cannot express custom metrics at all — if you need `autoscalingMetricSpecs`, you need `DedicatedResources`.
+- **This lives in `DedicatedResources`.** `AutomaticResources` cannot express custom metrics at all: if you need `autoscalingMetricSpecs`, you need `DedicatedResources`.
 
 ### The scenario this solves
 
@@ -178,7 +178,7 @@ In this module the API version changes **what you can do**, not only what it is 
 |---|---|---|
 | `minReplicaCount` floor | **1** — a node always runs | **0** — scale-to-zero |
 | `ScaleToZeroSpec` / `min_scaleup_period` | not available | available |
-| Everything else in this module | ✅ GA | same |
+| Everything else in this module | GA | same |
 
 **Concretely:** on `v1` you cannot set `minReplicaCount = 0`, so an endpoint has a permanent floor of one node billing 24/7 whether or not anyone calls it. Scale-to-zero is the single most consequential preview-only feature in this series. For a dev or demo endpoint it is the difference between near-zero cost and a standing line item.
 

@@ -47,7 +47,7 @@ Build a complete churn pipeline in SQL: type repair, feature engineering, gradie
 
 ### [Lab 3 — Serve a trained model: batch, online, and back inside SQL](lab-03-serving-ml-models-lowcode.md)
 
-**90–110 min · Intermediate · ⚠️ an online endpoint bills per node-hour while deployed, even with zero traffic**
+**90–110 min · Intermediate · an online endpoint bills per node-hour while deployed, even with zero traffic**
 
 Take the churn model from Lab 2 and serve it three ways, then learn which one you need. Most teams build an endpoint when a scheduled query would have done, and pay for a node 24 hours a day to do twenty minutes of work.
 
@@ -295,16 +295,17 @@ Three tracks. Do **Track 1 first** — it is the spine, and the only track with 
 
 Skip Lab 6. Go **Lab 2 → Lab 3 → Lab 5**, then read all four modules. Lab 2's explanations of precision/recall and class imbalance will be familiar. The new parts are `TRANSFORM`, the registry, and how little infrastructure any of it needs.
 
-### Where they join up
+### If you just want one answer
 
-Track 1 and Track 2 meet at the end: customers who are both **high churn risk** and **writing negative reviews** are the highest-priority contacts in the business. Both scores live in the same warehouse, so that is a join, not an integration project.
-
----|---|
+| Question | Answer |
+|---|---|
 | The fastest visible result | **Lab 1** — a scored table inside 20 minutes |
 | ML fundamentals done properly | **Lab 2** — the most rigorous of the three |
 | The architectural map before any building | **[Scaling prototypes into ML models](../modules/SCALING-PROTOTYPES-TO-ML.md)** |
 | To understand deployment | **Lab 2 → Lab 3** (Lab 3 needs Lab 2's models, or its catch-up script) |
 
-Done in order (concept module, then Labs 1 → 2 → 3), they walk the whole path from "it works in a notebook" to "it runs in production and someone knows when it breaks."
+Done in order (the Scaling module, then Labs 1 → 2 → 3), they walk the whole path from "it works in a notebook" to "it runs in production and someone knows when it breaks."
 
-The labs also join up at the end: customers who are both **high churn risk** and **writing negative reviews** are the highest-priority contacts in the business, and you have both scores in the same warehouse — so that is a join, not an integration project.
+### Where the tracks join up
+
+Track 1 and Track 2 meet at the end: customers who are both **high churn risk** and **writing negative reviews** are the highest-priority contacts in the business. Both scores live in the same warehouse, so that is a join, not an integration project.

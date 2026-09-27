@@ -1,6 +1,6 @@
 # Data engineering on Google Cloud
 
-The platform layer underneath the machine learning — **the parts that would still matter if you never trained a model.** Spark clusters, cross-database queries, workflow orchestration, and the triggering mechanisms that make anything run by itself.
+The platform layer underneath the machine learning: the parts that would still matter if you never trained a model. Spark clusters, cross-database queries, workflow orchestration, and the triggering mechanisms that make anything run by itself.
 
 Its sibling, [`mlops-gcp/`](../mlops-gcp/README.md), covers everything ML-specific. The split is one question:
 

@@ -195,7 +195,7 @@ SELECT user_id, product_id, view_count FROM `mydataset.events`;
 
 Most real data is implicit. People rarely rate things.
 
-> ### ⚠️ This model needs a reservation
+> ### This model needs a reservation
 >
 > *"Matrix factorization models are only available to customers with reservations."*
 >

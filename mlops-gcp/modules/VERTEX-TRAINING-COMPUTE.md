@@ -8,7 +8,7 @@
 
 ## The problem this module solves
 
-You prototyped a deep learning model in a notebook on a small GPU. It works. Now you need to train on the full dataset with multiple GPUs — and every option feels wrong:
+You prototyped a deep learning model in a notebook on a small GPU. It works. Now you need to train on the full dataset with multiple GPUs, and every option feels wrong:
 
 - Resize the notebook VM? Then you pay A100 rates to edit cells.
 - Export to a `.py` and submit a training job? Then you leave the environment you were working in.
@@ -48,7 +48,7 @@ Workbench had three flavours, and two are gone:
 |---|---|
 | **Managed notebooks** | Support ended **30 Jan 2025**. Existing instances kept running until **30 March 2026** — that date has passed, so they are gone. |
 | **User-managed notebooks** | Superseded by Instances; a migration tool exists. |
-| **Workbench Instances** | ✅ The current product. |
+| **Workbench Instances** | The current product. |
 
 This matters when reading older material: **the notebook executor was originally a managed-notebooks feature**, so tutorials about it often reference a product that no longer exists. The executor itself carried over to Workbench Instances and is still there.
 
@@ -67,7 +67,7 @@ G2 machines are the L4-GPU family. So "my instance has an L4, I want an A100 (A2
 
 ![Resizing the instance versus using the executor](assets/training/tr-02-executor.svg)
 
-The executor runs a notebook file **from start to finish as a job on Vertex AI custom training**, with a machine type and accelerators you choose *per run* — independent of the Workbench instance you launched it from.
+The executor runs a notebook file **from start to finish as a job on Vertex AI custom training**, with a machine type and accelerators you choose *per run*, independent of the Workbench instance you launched it from.
 
 One-time or scheduled. The notebook is the job, and there is no export step.
 
@@ -454,7 +454,7 @@ Training bills **per node-hour while the job runs**, across every worker pool. U
 The dangers are different from serving:
 
 - **An idle Workbench instance with a big GPU** bills 24/7 until you stop it. This is the training-side equivalent of the orphaned endpoint from [Lab 3](../labs/lab-03-serving-ml-models-lowcode.md), and it is the most common surprise here. Configure **idle shutdown**.
-- **A distributed job multiplies everything.** 8 A100 workers is 8× the rate. A bug that makes a job hang doesn't fail loudly — it bills quietly.
+- **A distributed job multiplies everything.** 8 A100 workers is 8× the rate. A bug that makes a job hang doesn't fail loudly. It bills quietly.
 - **Set a job timeout.** A run that should take two hours should not be allowed to take twenty.
 
 One more point: **Spot VMs** are much cheaper for interruption-tolerant training, and checkpointing is what makes them usable. If your job checkpoints properly, spot is often the single biggest saving available.
@@ -515,7 +515,7 @@ Three reasons. It ties expensive hardware to your editing session, so you pay A1
 <details markdown="1">
 <summary><b>3.</b> Would a Dataproc-enabled Workbench instance help?</summary>
 
-No. Dataproc is managed Spark — distributed **data processing**, not GPU-accelerated deep learning. It's the right tool for the ETL that produces your training data, and the wrong one for training the model. The confusion comes from "distributed" meaning two different things.
+No. Dataproc is managed Spark: distributed **data processing**, not GPU-accelerated deep learning. It's the right tool for the ETL that produces your training data, and the wrong one for training the model. The confusion comes from "distributed" meaning two different things.
 </details>
 
 <details markdown="1">

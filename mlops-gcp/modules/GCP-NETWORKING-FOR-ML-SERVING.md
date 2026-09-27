@@ -122,7 +122,7 @@ The difference is **where your traffic enters Google's network.**
 
 Same distance, very different latency and variance. This is the argument for Premium.
 
-### Why this decides the multi-region question
+### The multi-region decision
 
 **Global load balancing requires Premium Tier.** In Standard Tier a load balancer's backends must live in **one region**. So "one IP, three regional backends, routed to the nearest" is not a configuration Standard can express.
 
@@ -132,7 +132,7 @@ So for a model served from `us-central1`, `europe-west1` and `asia-east1` with o
 
 The anycast IP (§2) is what makes nearest-region routing automatic: every user resolves the same address, the internet routes each to the nearest Google POP, and the load balancer forwards to the closest **healthy** backend from there. You write no geolocation logic.
 
-### Why the alternatives lose
+### The alternatives, and where they lose
 
 | Approach | Problem |
 |---|---|
@@ -189,7 +189,7 @@ DNS is a cache, and you cannot make clients forget faster than their TTL. Set th
 
 > **Two things regional external ALBs don't support:** Cloud CDN, and Cloud Storage buckets as backends. If your primary uses either, the backup cannot be a like-for-like copy.
 
-### Why the plausible alternatives fail
+### Where the plausible alternatives fail
 
 | Approach | Why not |
 |---|---|

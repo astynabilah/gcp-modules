@@ -4,7 +4,7 @@ Self-paced labs and reference modules covering the path from raw data to a model
 
 Written against the Google Cloud console as of **23 August 2026**, including the Vertex AI → Gemini Enterprise Agent Platform rebrand.
 
-> 🗺️ **New here? Start with [ROADMAP.md](ROADMAP.md)** — the big picture, the options at each stage, and which document covers what.
+> **New here? Start with [ROADMAP.md](ROADMAP.md)** — the big picture, the options at each stage, and which document covers what.
 
 ---
 
@@ -26,7 +26,7 @@ Full descriptions in [`labs/README.md`](labs/README.md).
 |---|---|---|---|
 | 1 | [Sentiment analysis with Gemini in BigQuery](labs/lab-01-sentiment-analysis-bigquery-gemini.md) | 75–90 min | ~$2–4 |
 | 2 | [Customer churn end-to-end with BigQuery ML](labs/lab-02-customer-churn-lowcode-bqml.md) | 90–110 min | low |
-| 3 | [Serving a model: batch, online, and in SQL](labs/lab-03-serving-ml-models-lowcode.md) | 90–110 min | ⚠️ endpoint bills hourly |
+| 3 | [Serving a model: batch, online, and in SQL](labs/lab-03-serving-ml-models-lowcode.md) | 90–110 min | endpoint bills hourly |
 | 4 | [Computer vision without training anything](labs/lab-04-image-vision-lowcode-bigquery.md) | 60–75 min | **< $0.10** |
 | 5 | [Feature engineering for tabular data](labs/lab-05-feature-engineering-tabular.md) | 90–110 min | low |
 | 6 | [Exploring BigQuery data from a notebook](labs/lab-06-data-exploration-bigquery-colab.md) | 45–60 min | **free** |

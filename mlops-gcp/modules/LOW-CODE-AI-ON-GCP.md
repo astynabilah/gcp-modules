@@ -63,7 +63,7 @@ Range **[0, 1.0]**, and it measures **centrality, not frequency**. A product nam
 
 > **`classifyText` is a different axis entirely.** It assigns documents to a content taxonomy (1,091 categories in the V2 model, 621 in V1) with a confidence per category. Confidence is *"the classifier's confidence of the category"*, not an opinion about the subject. Reading a category confidence as sentiment reads a probability as an emotion.
 
-### ⚠️ Three constraints before you build on this
+### Three constraints before you build on this
 
 **`analyzeEntitySentiment` supports three languages: English, Japanese, Spanish.** That is a gate on the whole approach, not a small caveat. Compare `analyzeSentiment` at 15 and `analyzeEntities` at 11. Japanese arrived in 2019, Spanish weeks later, and nothing since.
 
@@ -576,7 +576,7 @@ It is **not** a way to train a custom object detection model for export to edge 
 
 ---
 
-## 6. ⚠️ The 2026 status of AutoML Edge
+## 6. The 2026 status of AutoML Edge
 
 Google's documentation notes that **AutoML Edge object detection is in maintenance mode** — only severe failures are addressed, and migration to alternatives such as open-source models is recommended.
 

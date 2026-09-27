@@ -199,7 +199,7 @@ A bulk upload produces one event per object. Fifty files means **fifty triggers*
 | **Debounce** | The function records arrivals and starts work only after a quiet period |
 | **Batch on a schedule** | Events accumulate; a cron job processes what arrived — the hybrid from §1 |
 
-The sentinel is the simplest and the most robust: the uploader decides when a batch is complete, which is knowledge the trigger doesn't have.
+The sentinel is the simplest option and holds up best in practice: the uploader decides when a batch is complete, which is knowledge the trigger doesn't have.
 
 ---
 

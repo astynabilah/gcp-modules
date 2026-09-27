@@ -6,9 +6,9 @@
 
 ---
 
-## Why this module exists
+## Scope of this module
 
-Cloud Run appears elsewhere in this series only as a *backend behind a load balancer* — the [networking module](GCP-NETWORKING-FOR-ML-SERVING.md) explains serverless NEGs and why they have no health checks. This module is about the other side: **Cloud Run as the service that runs your model.**
+Cloud Run appears elsewhere in this series only as a *backend behind a load balancer*. The [networking module](GCP-NETWORKING-FOR-ML-SERVING.md) explains serverless NEGs and why they have no health checks. This module is about the other side: **Cloud Run as the service that runs your model.**
 
 That surfaces a question the Vertex endpoint path never makes you answer, because Vertex hides it: **where do the model weights live, and when do they arrive?**
 
@@ -72,7 +72,7 @@ Only stage 4 changes based on your design decision, and for a multi-gigabyte mod
 
 ### In the container image
 
-Weights are baked into the image, and Cloud Run's **optimized container streaming infrastructure** materialises it during startup. There is no separate download step — the model arrives as part of the image, and streaming means the container can begin running before every byte has landed.
+Weights are baked into the image, and Cloud Run's **optimized container streaming infrastructure** materialises it during startup. There is no separate download step. The model arrives as part of the image, and streaming means the container can begin running before every byte has landed.
 
 **Good for models under roughly 10 GB.** For a 2 GB BERT model, this is comfortably the right call: fast, reliable, no external dependency, and nothing to retry.
 
@@ -152,7 +152,7 @@ But each of the others is the right choice for a neighbouring problem. Knowing w
 
 ### Concurrency = 1
 
-**Wrong here**, because forcing one request per instance means a spike creates *many* instances, each paying its own cold start — you multiply the problem you were trying to solve.
+**Wrong here**, because forcing one request per instance means a spike creates *many* instances, each paying its own cold start. You multiply the problem you were trying to solve.
 
 **Right when the container really cannot serve two requests at once.** That happens more than you'd think:
 
@@ -225,7 +225,7 @@ This one is a **package of two changes pointing in opposite directions**. That i
 <details markdown="1">
 <summary><b>1.</b> 2 GB BERT model on Cloud Run, optimising startup for traffic spikes. Where do the weights go?</summary>
 
-**In the container image.** At 2 GB you're well under the ~10 GB threshold, so the model is materialised by Cloud Run's optimized container streaming infrastructure — there's no separate download step, no external dependency, and nothing to retry. The cost is rebuilding the image when the model changes, which is manageable for a model that changes rarely.
+**In the container image.** At 2 GB you're well under the ~10 GB threshold, so the model is materialised by Cloud Run's optimized container streaming infrastructure: there's no separate download step, no external dependency, and nothing to retry. The cost is rebuilding the image when the model changes, which is manageable for a model that changes rarely.
 </details>
 
 <details markdown="1">

@@ -38,13 +38,13 @@ In this lab, you learn how to:
 
 ---
 
-## ⏱ What changed recently (read this first)
+## What changed recently (read this first)
 
 Written against the console as of **August 2026**:
 
 | Change | What it means for you |
 |---|---|
-| **Vertex AI became the Gemini Enterprise Agent Platform** (announced 22 Apr 2026; the Vertex AI console entry was removed 21 May 2026). | Model Registry now lives at **Agent Platform → Govern → Registry**. Searching "Vertex AI" in the console redirects you. Crucially, **none of the SQL changed** — the `CREATE MODEL` option is still `MODEL_REGISTRY = 'VERTEX_AI'`, and the API is still `aiplatform.googleapis.com`. |
+| **Vertex AI became the Gemini Enterprise Agent Platform** (announced 22 Apr 2026; the Vertex AI console entry was removed 21 May 2026). | Model Registry now lives at **Agent Platform → Govern → Registry**. Searching "Vertex AI" in the console redirects you. **None of the SQL changed** — the `CREATE MODEL` option is still `MODEL_REGISTRY = 'VERTEX_AI'`, and the API is still `aiplatform.googleapis.com`. |
 | Boosted-tree training is still **not available in every BigQuery region**. | Use the **US multi-region** for this lab. If you must use another region, check the BigQuery ML locations page first — a region mismatch surfaces as an unhelpful "model type not supported" error. |
 
 ---
@@ -142,7 +142,7 @@ To do it in the console instead: **BigQuery → Studio → ⋮ next to `telco_ch
 
 Try it and BigQuery types `TotalCharges` as `STRING` anyway — because of those 11 blank rows, the whole column fails numeric inference. The difference is that auto-detect does it *silently*. Learners who don't notice go on to train a model in which a genuinely predictive feature is being treated as a high-cardinality categorical string, and the model quietly gets worse with no error anywhere. Declaring it `STRING` on purpose means you have to deal with it consciously.
 
-### ✅ Check your work
+### Check your work
 
 ```sql
 SELECT
@@ -259,7 +259,7 @@ What each engineered feature is for:
 
 **A note on the label.** `churn` stays as the strings `'Yes'` / `'No'` rather than a boolean. Both work, but strings keep `ML.PREDICT` output unambiguous: the probability array is labelled `'Yes'`/`'No'`, so `WHERE label = 'Yes'` reads exactly as intended.
 
-### ✅ Check your work
+### Check your work
 
 ```sql
 SELECT
@@ -451,7 +451,7 @@ SELECT * EXCEPT (customer_id)
 FROM `telco_churn.customers_ml`;
 ```
 
-⚠️ **This runs 10 training jobs** — budget **10–20 minutes**. Reduce `NUM_TRIALS` to 4 if you are short on time; the lesson survives.
+**This runs 10 training jobs** — budget **10–20 minutes**. Reduce `NUM_TRIALS` to 4 if you are short on time; the lesson survives.
 
 Inspect the search:
 
@@ -625,7 +625,7 @@ Find the row where `net_value` peaks. It will **not** be at 0.50 — with these 
 
 Change `save_rate` to 0.10 and re-run. The optimum moves sharply, and at pessimistic enough assumptions the whole programme stops being worth running. Being able to show that is more valuable than another 0.01 of AUC.
 
-### ✅ Did you beat the baseline?
+### Did you beat the baseline?
 
 Compare against Task 3's "contact every month-to-month customer" rule at a comparable contact volume:
 
@@ -770,7 +770,7 @@ Because it might win. That rule catches ~88% of churners with zero infrastructur
 
 ---
 
-## Congratulations! 🎉
+## Congratulations!
 
 You built a complete churn pipeline in SQL: loading, type repair, feature engineering, training, evaluation, explanation, tuning, scoring, threshold selection, registry, and dashboard. No Python, no notebooks, no model export.
 

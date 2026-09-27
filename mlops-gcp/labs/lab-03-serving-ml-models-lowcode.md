@@ -1,6 +1,6 @@
 # Lab 3 — Serve a trained model: batch, online, and back inside SQL
 
-> **Level** Intermediate  **Duration** 90–110 minutes  **Cost** ⚠️ an online endpoint bills **per node-hour while deployed, even with zero traffic** — budget a few dollars and do the cleanup in Task 12
+> **Level** Intermediate  **Duration** 90–110 minutes  **Cost** an online endpoint bills **per node-hour while deployed, even with zero traffic** — budget a few dollars and do the cleanup in Task 12
 > **Products** BigQuery ML · Gemini Enterprise Agent Platform (formerly Vertex AI) — Registry, Deployments, Monitoring · Cloud Scheduler · Looker Studio
 > **Last updated** 23 August 2026
 
@@ -42,7 +42,7 @@ In this lab, you learn how to:
 
 ---
 
-## ⏱ What changed recently (read this first)
+## What changed recently (read this first)
 
 Serving is the area the 2026 reorganization touched most. Four things to know:
 
@@ -248,7 +248,7 @@ Run it once manually and confirm it works before you schedule it. A scheduled qu
 
 4. Click **Save**.
 
-### ✅ Check your work
+### Check your work
 
 ```sql
 SELECT
@@ -291,7 +291,7 @@ Start with the **logistic regression**. It is the clean path, and Task 4 explain
 
 ![Deploy to endpoint dialog](figures/l3-02-deploy.svg)
 
-### ⚠️ Read this before you click Deploy
+### Read this before you click Deploy
 
 An endpoint bills **per node-hour for as long as a model is deployed to it**, regardless of whether it serves a single prediction. This is the most common surprise on a Google Cloud bill after someone's first ML project.
 
@@ -567,7 +567,7 @@ Either way the response is the same: **retrain on recent data and re-run the Lab
 
 If your application must score a customer using features it does not already have to hand — "how many support tickets in the last 7 days?" — something has to serve those features with low latency. That is Feature Store: BigQuery as the offline source, an online store synced from it, joined at request time.
 
-⚠️ **Check the deprecation status before building anything here.** As of **17 May 2026** Feature Store **optimized online serving** receives no new features and only critical patches, and its APIs **sunset on 17 Feb 2027**. Only **Bigtable online serving** is supported for new work.
+**Check the deprecation status before building anything here.** As of **17 May 2026** Feature Store **optimized online serving** receives no new features and only critical patches, and its APIs **sunset on 17 Feb 2027**. Only **Bigtable online serving** is supported for new work.
 
 The shape, if you do need it:
 
@@ -704,7 +704,7 @@ So there is one artifact rather than two. After a few retrains, the in-BigQuery 
 
 ---
 
-## Congratulations! 🎉
+## Congratulations!
 
 You served one trained model three ways and — more importantly — can now say which one a given requirement actually needs.
 

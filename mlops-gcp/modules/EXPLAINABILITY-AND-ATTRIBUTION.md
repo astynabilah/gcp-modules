@@ -6,7 +6,7 @@
 
 ---
 
-## ⏱ Read this first
+## Read this first
 
 | When | What |
 |---|---|

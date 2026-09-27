@@ -19,7 +19,7 @@ This page is the map. It answers the five questions once, then sends you to a de
 
 ---
 
-## 1. What is a pretrained AI API?
+## 1. Pretrained AI APIs, Defined
 
 A normal ML project has four costs: collecting data, labelling it, training, and serving. A pretrained API removes all four. Google trained the model on its own data and runs it on its own hardware. You call it.
 
@@ -42,7 +42,7 @@ The habit worth building is trying these left to right, rather than reaching for
 
 ---
 
-## 2. Why do these still exist next to Gemini?
+## 2. Why They Still Exist Next to Gemini
 
 Gemini can read an image, transcribe audio and classify text. So can these APIs. It is a fair question why both exist.
 
@@ -62,7 +62,7 @@ Three practical reasons to still pick an API:
 
 ---
 
-## 3. Who is each one for?
+## 3. Who Each One Is For
 
 | API | Answers the question | Typical caller |
 |---|---|---|
@@ -77,7 +77,7 @@ Three practical reasons to still pick an API:
 
 ---
 
-## 4. When should you use one?
+## 4. When to Use One
 
 Use a pretrained API when **all** of these hold:
 
@@ -98,7 +98,7 @@ Choose something else when:
 
 ---
 
-## 5. How do you call one?
+## 5. The Call Pattern
 
 The pattern is the same across all of them.
 
@@ -158,7 +158,7 @@ The endpoint is still `retail.googleapis.com`. So Recommendations AI and Retail 
 
 ---
 
-## 7. What is dead, and what dies soon
+## 7. What's Dead, and What Dies Soon
 
 **Switched off already:**
 

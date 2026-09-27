@@ -6,7 +6,7 @@
 
 ---
 
-## ⏱ Launch history
+## Launch history
 
 | When | What |
 |---|---|

@@ -103,10 +103,10 @@ The key defines what counts as "the same work". This is where the subtle mistake
 
 | Key | Verdict | Why |
 |---|---|---|
-| **CloudEvent `id`** | ✅ **Correct** | Unchanged across retries of the same event, different for a truly new event |
-| **File name** | ❌ **Wrong** | Identifies the *object*, not the *event*. A legitimate re-upload for a second training run is silently dropped as a duplicate |
-| File name + generation | ⚠️ Sometimes | Distinguishes object versions; reasonable if you want once-per-object-version |
-| Content hash | ⚠️ Sometimes | Same bytes processed once ever; wrong if reprocessing identical data is valid |
+| **CloudEvent `id`** | **Correct** | Unchanged across retries of the same event, different for a truly new event |
+| **File name** | **Wrong** | Identifies the *object*, not the *event*. A legitimate re-upload for a second training run is silently dropped as a duplicate |
+| File name + generation | Sometimes | Distinguishes object versions; reasonable if you want once-per-object-version |
+| Content hash | Sometimes | Same bytes processed once ever; wrong if reprocessing identical data is valid |
 
 **Why the event id:** per the CloudEvents specification, the combination of `source` and `id` uniquely identifies an event. Any two events sharing that combination are duplicates. And **the id stays the same across function retries for the same event**, which is the property deduplication needs.
 

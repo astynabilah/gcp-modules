@@ -6,7 +6,7 @@ Predicting what comes next, when the data has an order. This is the one part of 
 
 ---
 
-## ⏱ Names and status
+## Names and status
 
 | Item | Status |
 |---|---|
@@ -48,7 +48,7 @@ And in the Vertex data-split docs:
 | **Vertex AI** forecasting | **Chronological split by default**, 80/10/10 |
 | **Vertex AI** other tabular models | Random by default. Change it if your data is time-sensitive. |
 
-`SEQ` sorts by a column and takes the **last** rows for evaluation. Compare that with `RANDOM`, which the docs describe as *"based on the `FARM_FINGERPRINT` of the data"* — a hash, completely blind to time.
+`SEQ` sorts by a column and takes the **last** rows for evaluation. Compare that with `RANDOM`, which the docs describe as *"based on the `FARM_FINGERPRINT` of the data"*: a hash, completely blind to time.
 
 The field calls the proper approach **forward chaining** or **walk-forward validation**. Google's docs use *"chronological split"* and *"timestamp split"*. Same idea, different words.
 

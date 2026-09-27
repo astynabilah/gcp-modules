@@ -6,7 +6,7 @@
 
 ---
 
-## ⏱ What changed recently
+## What changed recently
 
 | When | What |
 |---|---|
@@ -116,11 +116,7 @@ trigger_training = TriggerDagRunOperator(
 validate >> trigger_training      # runs only if validate succeeded
 ```
 
-- **Explicit.** The dependency is a visible task in DAG A.
-- **No polling.** Zero cost while waiting, because nothing is waiting.
-- **Passes configuration.** `conf` hands parameters to the triggered DAG — the output path, the partition date.
-- **Fires on success.** It's a downstream task, so upstream failure means it never runs.
-- **B needs no schedule of its own.** It's triggered, not scheduled.
+The dependency is explicit, a visible task in DAG A. There's no polling, so waiting costs nothing, and `conf` passes configuration straight to the triggered DAG — the output path, the partition date. Because it's a downstream task, upstream failure simply means it never runs. And B needs no schedule of its own; it's triggered, not scheduled.
 
 ### `ExternalTaskSensor` — pull
 
@@ -138,9 +134,7 @@ wait_for_preprocessing = ExternalTaskSensor(
 )
 ```
 
-- **Requires matching logical dates.** The sensor looks for a run of A at a *specific* logical date derived from B's. Different schedules mean fiddling with `execution_delta` or `execution_date_fn`, and getting it subtly wrong is a classic Airflow bug.
-- **Polls.** In `poke` mode it occupies a worker slot the entire time. `reschedule` mode is better but still repeated scheduler work.
-- **Inverts ownership.** DAG B now hard-codes a **task id inside DAG A**. The other team renames a task and your DAG silently waits forever.
+It requires matching logical dates: the sensor looks for a run of A at a *specific* logical date derived from B's, and different schedules mean fiddling with `execution_delta` or `execution_date_fn` — getting that subtly wrong is a classic Airflow bug. It also polls. In `poke` mode it occupies a worker slot the entire time; `reschedule` mode is better but still repeated scheduler work. Worst of all, it inverts ownership: DAG B now hard-codes a **task id inside DAG A**, so the other team can rename a task and leave your DAG silently waiting forever.
 
 ### Choosing
 

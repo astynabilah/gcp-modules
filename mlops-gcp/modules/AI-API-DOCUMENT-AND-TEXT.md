@@ -24,7 +24,7 @@ Start at [What AI APIs are in Google Cloud?](AI-APIS-OVERVIEW.md) if you have no
 
 # Part 1 — Document AI
 
-## 1. What is Document AI?
+## 1. Document AI Overview
 
 You send a PDF, an image or an office file. You get back structured JSON: text, layout, key-value pairs, or named fields like `invoice_id` and `total_amount`.
 
@@ -38,7 +38,7 @@ The RAG Engine page carries the same sentence with a different product name in i
 
 ---
 
-## 2. Which processors exist?
+## 2. The Processor Gallery
 
 This is the complete current gallery. All of these are GA.
 
@@ -68,7 +68,7 @@ A note on naming. **Document Quality is not a processor.** It is an add-on to En
 
 ---
 
-## 3. What was removed on 30 June 2026?
+## 3. The 30 June 2026 Discontinuation
 
 The release notes dated **2026-02-17** put it plainly:
 
@@ -120,7 +120,7 @@ The release notes give the end date as **5 February 2026**. The deprecation tabl
 
 ---
 
-## 4. Where did Document AI Workbench go?
+## 4. Document AI Workbench, Retired as a Brand
 
 It went away as a brand.
 
@@ -140,7 +140,7 @@ This matters when reading older tutorials. Anything that tells you to "open Work
 
 ---
 
-## 5. How do you train a Custom Extractor?
+## 5. Training a Custom Extractor
 
 There are three routes, and the console makes you choose between them.
 
@@ -208,7 +208,7 @@ If your documents carry a residency requirement, the newest and best processor v
 
 ---
 
-## 6. Why does Layout Parser exist?
+## 6. Layout Parser and RAG
 
 For search and RAG. Its documentation page is now titled **"Process documents with Gemini layout parser"**, and states the problem directly:
 
@@ -281,7 +281,7 @@ Keep the two products separate in your head. Document AI produces chunks. RAG En
 
 ---
 
-## 7. What does it cost?
+## 7. Pricing
 
 Per **1,000 pages** unless the row says otherwise.
 
@@ -321,7 +321,7 @@ There is **no product-wide free tier** for Document AI. The only free usage is t
 
 ---
 
-## 8. What changed recently?
+## 8. Recent Changes
 
 | Date | Change |
 |---|---|
@@ -336,7 +336,7 @@ The 40 MB limit is the one to remember day to day. It decides whether a file goe
 
 ---
 
-## 9. What happened to HITL and Document AI Warehouse?
+## 9. HITL and Document AI Warehouse
 
 Both were **deprecated on 16 January 2024**.
 
@@ -347,7 +347,7 @@ Both were **deprecated on 16 January 2024**.
 
 ---
 
-## 10. Should you use Document AI or a Gemini prompt?
+## 10. Document AI Versus a Gemini Prompt
 
 Google gives you almost nothing here.
 
@@ -375,7 +375,7 @@ One cross-reference does exist, running the other way. Document AI's training pa
 
 # Part 2 — Natural Language API
 
-## 11. What is the Natural Language API, and is it still alive?
+## 11. Natural Language API Status
 
 It is still called the **Natural Language API**. No rename. It analyses text and returns typed JSON.
 
@@ -392,7 +392,7 @@ The API is neither deprecated nor defended. Google publishes no comparison again
 
 ---
 
-## 12. What can it do?
+## 12. Natural Language API Capabilities
 
 Five methods matter.
 
@@ -420,7 +420,7 @@ Typical jobs this fits: sorting reviews by sentiment before a human reads them, 
 
 ---
 
-## 13. What is the difference between v1 and v2?
+## 13. V1 Versus V2
 
 **Start with the status, because it is unclear.** The only status statement anywhere is the **2023-08-28** release note announcing Public Preview:
 
@@ -456,7 +456,7 @@ There is a third option people forget. **`v1beta2` still exists and still has al
 
 ---
 
-## 14. What happened to the Healthcare Natural Language API?
+## 14. The Healthcare Natural Language API Shutdown
 
 It is dead. Deprecated **27 May 2025**, shut down **27 May 2026**.
 

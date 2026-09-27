@@ -6,7 +6,7 @@
 
 ---
 
-## Why this module exists
+## Scope of this module
 
 The rest of this series measures whether a model is **accurate**. This one is about whether it is **fair**. Those are different questions, measured with different instruments.
 
@@ -56,7 +56,7 @@ Without it there's nothing to compare. Bias is a property of outcomes *across gr
 
 This is where good instincts go wrong, so be precise here.
 
-> ### ⚠️ Vertex Explainable AI is being sunset
+> ### Vertex Explainable AI is being sunset
 >
 > **Deprecated 16 March 2026; fully sunset 16 March 2027**, after which the APIs are no longer available. No new features from the deprecation date, and there is **no grace period for critical patches** the way the Feature Store deprecations had one.
 >
@@ -74,7 +74,7 @@ This is where good instincts go wrong, so be precise here.
 >
 > Be precise about that middle band. Google has **not** deprecated the pipeline components or attribution monitoring, and neither carries a banner. But both call the sunsetting APIs, so plan as though they stop in March 2027.
 >
-> One practical trap: as of the current API surface, **none** of `ExplanationSpec`, `endpoints.explain` or `DeployedModel.explanationSpec` is flagged deprecated in the discovery document. You get **no programmatic warning** — the deprecation exists only in the docs.
+> One practical trap: as of the current API surface, **none** of `ExplanationSpec`, `endpoints.explain` or `DeployedModel.explanationSpec` is flagged deprecated in the discovery document. You get **no programmatic warning**: the deprecation exists only in the docs.
 
 ### Feature attribution — the wrong instrument
 
@@ -158,7 +158,7 @@ Two design points matter more than the component names:
 
 **It runs on every retrain.** That's the point of putting it in the pipeline rather than doing it once at launch. Data drifts, populations change, and a model that was fair in January can fail in June. This is the same reason [drift monitoring](VERTEX-MODEL-MONITORING.md) exists.
 
-> **⚠️ Launch stage:** the bias detection components sit in the **`preview`** namespace of GCPC, with the caveats from the [API versions module](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md) — no SLA, and the interface can change. Pin your GCPC version and re-test on upgrade, particularly if the output feeds a compliance report.
+> **Launch stage.** The bias detection components sit in the **`preview`** namespace of GCPC, with the caveats from the [API versions module](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md): no SLA, and the interface can change. Pin your GCPC version and re-test on upgrade, particularly if the output feeds a compliance report.
 
 ---
 
@@ -172,7 +172,7 @@ It is not new. Google's PAIR team released it in 2018, and it long predates the 
 
 ### The move that matters: per-slice thresholds
 
-A binary classifier does not output "hire". It outputs a **score**, and something compares that score to a **threshold**. Change the threshold and the same trained model produces different decisions — no retraining, no new data, no new weights.
+A binary classifier does not output "hire". It outputs a **score**, and something compares that score to a **threshold**. Change the threshold and the same trained model produces different decisions: no retraining, no new data, no new weights.
 
 The **Performance & Fairness** tab is built on that fact:
 
@@ -216,7 +216,7 @@ So treat WIT's slider as what it is: a way to **see the trade-off precisely**, a
 | Output | Understanding, and candidate thresholds | Metrics, and a pass/fail |
 | Good for | Investigating *why*, exploring remedies | Catching regressions on every retrain |
 
-Use WIT when the question is open-ended. Use the components when you want the answer checked on every run without anyone remembering to look — see §3.
+Use WIT when the question is open-ended. Use the components when you want the answer checked on every run without anyone remembering to look. See §3.
 
 ---
 

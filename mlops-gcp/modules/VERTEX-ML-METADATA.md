@@ -38,7 +38,7 @@ artifact.metadata = {
 }
 ```
 
-Ordinary JSON-shaped data. The API accepts arbitrary keys — there is no fixed column list.
+Ordinary JSON-shaped data. The API accepts arbitrary keys: there is no fixed column list.
 
 ### Layer 2 — how it is stored
 
@@ -157,7 +157,7 @@ model_artifact = aiplatform.Artifact.create(
 print(model_artifact.resource_name)
 ```
 
-Note `training_rows: 7043` — an int on the way in, a `7043.0` double on the way out.
+Note `training_rows: 7043`: an int on the way in, a `7043.0` double on the way out.
 
 ### Grouping into a Context
 
@@ -218,9 +218,9 @@ filter='metadata.roc_auc.number_value >= 0.847 AND metadata.roc_auc.number_value
 ### 4.4 Booleans are unquoted; strings are quoted
 
 ```text
-metadata.tuned.bool_value = true            ✅
-metadata.tuned.bool_value = "true"          ❌ that's a string_value
-metadata.framework.string_value = "xgboost" ✅
+metadata.tuned.bool_value = true            correct
+metadata.tuned.bool_value = "true"          wrong (that's a string_value)
+metadata.framework.string_value = "xgboost" correct
 ```
 
 ### 4.5 Nested objects traverse through `struct_value`
@@ -233,7 +233,7 @@ metadata = {"hparams": {"learning_rate": 0.1, "max_depth": 6}}
 metadata.hparams.struct_value.learning_rate.number_value = 0.1
 ```
 
-**Maximum nesting depth is 5.** Deeply nested config is a good reason to flatten keys (`hparams_learning_rate`) at write time — you cannot filter what you cannot reach.
+**Maximum nesting depth is 5.** Deeply nested config is a good reason to flatten keys (`hparams_learning_rate`) at write time. You cannot filter what you cannot reach.
 
 ### 4.6 Arrays are essentially unfilterable
 
@@ -473,7 +473,7 @@ Use Experiments while iterating. Query ML Metadata when you need provenance or t
 
 ## 8. Practical recipes
 
-**Promote only if it beats production** — the quality gate from the [KFP module](KUBEFLOW-PIPELINES-ON-GCP.md), expressed as a metadata query:
+**Promote only if it beats production**: the quality gate from the [KFP module](KUBEFLOW-PIPELINES-ON-GCP.md), expressed as a metadata query:
 
 ```python
 def is_better_than_production(candidate_auc: float) -> bool:
@@ -542,7 +542,7 @@ Lineage and audit logs get conflated because both sound like "history". They ans
 | Records | artifacts, executions, events | API calls and their callers |
 | Audience | you, debugging | compliance, security |
 
-Google's own framing for the second is that phrase verbatim — audit logs exist to answer *"Who did what, where, and when?"*
+Google's own framing for the second is that phrase verbatim: audit logs exist to answer *"Who did what, where, and when?"*
 
 ### Four log types, and which is off by default
 
@@ -631,7 +631,7 @@ Because the `metadata` field is typed `google.protobuf.Struct`, which maps strin
 <details markdown="1">
 <summary><b>2.</b> You stored <code>{"epochs": 10}</code>. Which filter matches — <code>metadata.epochs.int_value = 10</code>?</summary>
 
-Neither `int_value` nor bare `metadata.epochs` works. There **is no `int_value`** in `protobuf.Value` — every number is a `double` in `number_value`. The correct filter is `metadata.epochs.number_value = 10`, and reading it back in Python gives `10.0`, a float.
+Neither `int_value` nor bare `metadata.epochs` works. There **is no `int_value`** in `protobuf.Value`: every number is a `double` in `number_value`. The correct filter is `metadata.epochs.number_value = 10`, and reading it back in Python gives `10.0`, a float.
 </details>
 
 <details markdown="1">

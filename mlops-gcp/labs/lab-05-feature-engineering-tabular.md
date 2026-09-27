@@ -107,7 +107,7 @@ SELECT
 FROM expanded;
 ```
 
-### ✅ Check your work
+### Check your work
 
 ```sql
 SELECT
@@ -184,7 +184,7 @@ LEFT JOIN `telco_churn.customer_event_features` f
 >
 > Note the two different defaults: `0` for counts (they genuinely had zero) but `999` for `days_since_last_event` (they never had one — "0 days since last event" would mean the opposite of the truth).
 
-### ✅ Check your work
+### Check your work
 
 ```sql
 SELECT
@@ -704,7 +704,7 @@ That importance is association, not causation. Customers who choose annual contr
 
 ---
 
-## Congratulations! 🎉
+## Congratulations!
 
 You built a feature pipeline with correct time boundaries, deliberately created leakage and then detected it four different ways, selected features on structural grounds, distinguished three kinds of importance, and proved with an ablation that the work paid.
 

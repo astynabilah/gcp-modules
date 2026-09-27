@@ -23,7 +23,7 @@ For the wider map of pretrained APIs, start at [What AI APIs are in Google Cloud
 
 ---
 
-## 1. What is in this family?
+## 1. Products in This Family
 
 Three products, and every one of them has at least two names.
 
@@ -133,7 +133,7 @@ That last point matters for two reasons. Chirp 3 is one more reason to be on V2.
 
 ---
 
-## 6. What Chirp 3 cannot do
+## 6. Chirp 3's Limitations
 
 The flagship model has real gaps, and they are easy to miss because the feature list looks long.
 
@@ -182,7 +182,7 @@ A boost of 20 is the ceiling, not a suggestion. Pushing every phrase to 20 remov
 
 ---
 
-## 7. Text-to-Speech: what you are billed for
+## 7. Text-to-Speech Billing
 
 The billing unit is **characters, including spaces and newlines**. Whitespace costs money.
 
@@ -390,7 +390,7 @@ Speech-to-Text and Text-to-Speech have no 2026 release notes at all.
 
 ---
 
-## 14. When should you use Gemini instead?
+## 14. These APIs Versus Gemini
 
 For most of this area Google publishes nothing. There is one exception, and it is not in the Cloud documentation.
 
@@ -421,7 +421,7 @@ The wrapper is heavily capped: **60 seconds or 10 MB** of audio, **Chirp only**,
 
 ---
 
-## 15. Which way is the convergence running?
+## 15. The Direction of Convergence
 
 This is the most useful point on the page, and it runs against the common assumption.
 

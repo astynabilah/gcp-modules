@@ -6,7 +6,7 @@
 
 ---
 
-## ⏱ What changed recently
+## What changed recently
 
 | When | What |
 |---|---|
@@ -53,7 +53,7 @@ This is the real production question: *"we have specific Python libraries and we
 
 ![Four ways to get dependencies onto a cluster](assets/dataproc/dp-02-dependencies.svg)
 
-### ❌ Cluster properties — installs at boot
+### Cluster properties — installs at boot
 
 ```bash
 gcloud dataproc clusters create my-cluster \
@@ -69,7 +69,7 @@ It works, but it downloads from PyPI or conda-forge **on every cluster creation*
 
 Fine for development. Not a production dependency strategy.
 
-### ❌ Public initialization actions — someone else's script
+### Public initialization actions — someone else's script
 
 Initialization actions are *"executables or scripts that [Dataproc] will run on all nodes in your cluster immediately after the cluster is set up"*, passed with `--initialization-actions`.
 
@@ -79,7 +79,7 @@ Google's warning about the public bucket is direct:
 
 Your cluster creation depends on a script someone else can change. **If you use one, copy it into your own versioned bucket** and reference your copy. That is the documented fix. It is the same reasoning as pinning a container tag rather than tracking `:latest`.
 
-### ✅ A custom image — bake it in
+### A custom image — bake it in
 
 Build a Compute Engine image with your dependencies **already installed**, then create clusters from it. Nothing downloads at boot, so startup is fast and identical every time.
 
@@ -107,7 +107,7 @@ gcloud dataproc clusters create prod-preprocessing \
 
 > **Custom images expire after 365 days — for *cluster creation*.** Existing clusters *"can run indefinitely"*; what stops working is making new ones. There's no renewal API, so the documented answer is automation: rebuild the image on a schedule. (An expired image returns an error carrying a token you can pass back via `dataproc:dataproc.custom.image.expiration.token`. Treat that as break-glass, not a plan.)
 
-### ✅ A custom container — for serverless and GKE
+### A custom container — for serverless and GKE
 
 On **serverless**, dependencies live in a container image:
 
@@ -136,9 +136,9 @@ gcloud dataproc clusters create prod-preprocessing --image-version=2.2
 
 | You specify | You get | Verdict |
 |---|---|---|
-| nothing | latest, whatever that becomes | ❌ not for production |
-| `2.2` | latest `2.2.x` — patches, fixed components | ✅ **the recommendation** |
-| `2.2.65-debian12` | exactly that, forever | ⚠️ reproducible and unpatched |
+| nothing | latest, whatever that becomes | Not for production |
+| `2.2` | latest `2.2.x` — patches, fixed components | **Recommended** |
+| `2.2.65-debian12` | exactly that, forever | Reproducible, but unpatched |
 
 When building a custom image, build it **from the latest sub-minor in your target minor track**, and rebuild on the latest sub-minor when you refresh. Minor versions are supported for **24 months** after GA.
 
