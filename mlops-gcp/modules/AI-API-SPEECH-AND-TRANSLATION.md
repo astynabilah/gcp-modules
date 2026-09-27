@@ -6,7 +6,7 @@ Three products sit here: audio in, audio out, and language in between. All three
 
 ---
 
-## TL;DR
+## What This Page Covers, Fast
 
 - Speech-to-Text **V1 and V2 are both GA**. V1 is **not deprecated**, and no sunset notice exists anywhere.
 - V1 has the **60 minutes per month free tier**. **V2 has none.** Migrating to V2 costs you the free minutes.
@@ -447,7 +447,7 @@ So the pattern across the three is consistent, with one exception:
 
 ---
 
-## 16. Where to go next
+## 16. Further Reading and Related Modules
 
 - [What AI APIs are in Google Cloud?](AI-APIS-OVERVIEW.md) — the map of all the pretrained APIs, with the rename and shutdown tables
 - [Vision and video APIs](AI-API-VISION-AND-VIDEO.md) — the same pattern applied to images and video
@@ -461,6 +461,6 @@ Google documentation:
 
 ---
 
-## Summary
+## Recap: Speech, Voice and Translation Today
 
 All three products here are alive, and each one carries a version split you have to choose from. **Speech-to-Text** keeps V1 and V2 both GA, with no deprecation notice on V1, and V1 holds the only free tier at 60 minutes a month, so migrating to V2 costs you free minutes in exchange for tiered pricing and $0.003 dynamic batch. **Chirp 3**, GA on 13 October 2025 and V2 only in the `us` and `eu` multi-regions, is the flagship but cannot return word-level timestamps or word-level confidence, and it splits diarization into `BatchRecognize` and utterance timestamps into `StreamingRecognize`, so one call cannot give you both. **Text-to-Speech** bills characters including spaces and all SSML tags except `<mark>`, and it now groups Studio, Neural2, Polyglot, WaveNet and Standard under a "Legacy" heading even though none is deprecated and all still show GA, which leaves the odd result that legacy Studio at $160 per million characters is the most expensive tier on the page. **Cloud Translation** keeps Basic and Advanced both GA, with API keys allowed only in Basic, and its Gemini-derived Translation LLM bills both input and output at $10 per million characters against NMT's input-only $20. **AutoML Translation** shut down on 30 September 2025 but its custom-model job moved inside Advanced, and the separate **Translation Hub** portal shuts down on 20 September 2026. The structural finding is that Gemini is not replacing these APIs; it is being shipped inside them, with Gemini-TTS in Cloud Text-to-Speech and the Translation LLM in Cloud Translation, while **Speech-to-Text alone has received no Gemini model and no release note since 13 November 2025**.

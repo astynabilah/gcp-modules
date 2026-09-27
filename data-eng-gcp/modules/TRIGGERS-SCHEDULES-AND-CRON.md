@@ -289,13 +289,13 @@ That combination needs idempotency to work — otherwise the schedule and the ev
 
 ---
 
-## Summary
+## Trigger and Cron Essentials
 
 Triggers are either **time-based** or **event-based**, and the deciding question is whether the work depends on a **deadline** or on an **arrival**. A **cron expression** is five fields (minute, hour, day-of-month, month, day-of-week), where `*` means every, day-of-week runs 0–6 with **Sunday = 0**, and the two "day" fields combine as an **OR**, not an AND. The expression carries **no timezone**; every service takes it separately and defaults to **UTC**. For events, **Eventarc** routes filtered event types to a target, and the one that means "a new file arrived" is **`google.cloud.storage.object.v1.finalized`**. `archived` is about Object Versioning, not about tidying. Delivery is **at-least-once**, which makes **idempotency a requirement**: derive deterministic job names from the event, or write to input-keyed partitions. A bulk upload produces one event per file, so use a **sentinel file** rather than triggering fifty runs. Prefer a service's **native scheduler** over Cloud Scheduler in front of it. The native one usually brings concurrency control and run caps you would otherwise build.
 
 ---
 
-## References
+## Sources and Related Modules
 
 - [Cloud Scheduler cron syntax](https://cloud.google.com/scheduler/docs/configuring/cron-job-schedules)
 - [Cloud Storage triggers](https://cloud.google.com/functions/docs/calling/storage) · [Eventarc](https://cloud.google.com/eventarc/docs/overview)

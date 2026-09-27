@@ -6,7 +6,7 @@
 
 ---
 
-## Launch history
+## When the Five Functions Shipped
 
 | When | What |
 |---|---|
@@ -17,7 +17,7 @@
 
 ---
 
-## 1. Why this exists
+## 1. The Gap These Functions Fill
 
 [Vertex AI Model Monitoring](VERTEX-MODEL-MONITORING.md) watches a **deployed endpoint**. That is the right tool when you have one. But it assumes a model is serving, prediction logging is on, and a monitoring job is configured.
 
@@ -398,7 +398,7 @@ They are **transformation-time gates**, not monitoring. [Lab 5](../labs/lab-05-f
 
 ---
 
-## 11. Test your understanding
+## 11. Scenarios to Work Through
 
 <details markdown="1">
 <summary><b>1.</b> You want to check whether this month's scoring data has drifted from last month's. No endpoint, BQML model. What do you run?</summary>
@@ -434,13 +434,13 @@ Same story for AutoML, ARIMA_PLUS, matrix factorization, remote models, and impo
 
 ---
 
-## Summary
+## Recap: Choosing a Validation Function
 
 BigQuery ML has **five GA data-validation functions**, split into describe and validate. **`ML.DESCRIBE_DATA`** gives readable per-column statistics (raise `num_quantiles` and `top_k` from their useless defaults of 2 and 1). **`ML.VALIDATE_DATA_SKEW`** compares serving data against the training statistics **stored inside the model**. You don't need the training table, but models predating 28 March 2024 or using `WARM_START` have none and must be retrained. **`ML.VALIDATE_DATA_DRIFT`** compares **two tables** and needs no model. Both return **one row per column** with `is_anomaly`, which is just `value > threshold`. The metrics are **Jensen-Shannon for numerical (the only option) and L-infinity for categorical (the default, overridable to JSD)**, threshold 0.3. This is the same split as Vertex AI Model Monitoring, reaching the same console. The lower-level **`ML.TFDV_DESCRIBE`/`ML.TFDV_VALIDATE`** pair produces TFDV protobufs instead of rows, and `ML.TFDV_VALIDATE` is the family's odd one out: **positional arguments, not a `STRUCT`**, with `detection_type` limited to `'SKEW'` or `'DRIFT'`. Use all of it as a **gate before scoring**, not a report after. Alongside it sit two other tools that answer different questions: **Knowledge Catalog** (renamed four times, still `dataplex` in every API and URL) offers **data profile scans** for statistics over unfamiliar tables (published to the source table's **Data profile** tab via `catalogPublishingEnabled`, and able to *generate* quality rules from what they find), and **data quality scans** for scheduled, scored rule validation. **Dataform assertions** are the in-pipeline gate, and now publish into the same scorecard.
 
 ---
 
-## References
+## Documentation Links
 
 - [BigQuery ML model monitoring overview](https://cloud.google.com/bigquery/docs/model-monitoring-overview)
 - [`ML.DESCRIBE_DATA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-describe-data)

@@ -6,7 +6,7 @@ Everything is plain Markdown and renders on GitHub. The figures are hand-drawn S
 
 ---
 
-## Contents
+## Repository Layout
 
 Each folder below is a **path** — a self-contained set of labs and modules on one topic, with its own README and roadmap.
 

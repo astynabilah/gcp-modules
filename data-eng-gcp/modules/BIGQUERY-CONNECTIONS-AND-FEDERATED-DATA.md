@@ -6,7 +6,7 @@
 
 ---
 
-## What changed recently
+## AI Function Support and the Rebrand
 
 | When | What |
 |---|---|
@@ -216,7 +216,7 @@ So the access-control story is identical: an analyst who should be able to *run*
 
 ---
 
-## 6. Anti-patterns
+## 6. Common Access Missteps
 
 **Granting `connectionAdmin` because `connectionUser` "sounds too weak".** It reads as a smaller role than it is. `connectionUser` is exactly the run-queries permission; `connectionAdmin` adds the ability to delete the connection everyone depends on.
 
@@ -232,7 +232,7 @@ So the access-control story is identical: an analyst who should be able to *run*
 
 ---
 
-## 7. Test your understanding
+## 7. Scenario Questions
 
 <details markdown="1">
 <summary><b>1.</b> An analyst must run federated queries against Cloud SQL but must not create or modify connections. Minimum roles?</summary>
@@ -264,13 +264,13 @@ Land it in BigQuery on a schedule (Datastream, or a scheduled export), partition
 
 ---
 
-## Summary
+## The Two-Grant Model, in Short
 
 A BigQuery **connection** is a resource with its own **auto-created service account**, and that service account, not the caller, is what reaches the external system. So access is always **two grants**: `roles/bigquery.connectionUser` to the person, **on the connection**, and the target-service role (`roles/cloudsql.client`, `roles/aiplatform.user`, `roles/storage.objectViewer`) to the **connection's service account**, on the target. `bigquery.dataViewer` and `bigquery.user` grant no connection access at all, and `bigquery.connectionAdmin` grants create/update/delete you probably didn't intend. Inside `EXTERNAL_QUERY`, the inner string is the **source database's dialect** and everything it returns crosses the network, so push filters in. Federated queries also read **live** production data. That suits a small current lookup, but not building training sets, which need to be stable and reproducible.
 
 ---
 
-## References
+## Where to Read More
 
 - [Cloud SQL federated queries](https://cloud.google.com/bigquery/docs/cloud-sql-federated-queries)
 - [Working with connections](https://cloud.google.com/bigquery/docs/working-with-connections)

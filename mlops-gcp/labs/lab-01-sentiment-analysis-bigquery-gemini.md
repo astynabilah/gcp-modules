@@ -14,7 +14,7 @@
 
 ---
 
-## Overview
+## Sentiment Scoring in Plain SQL
 
 Sentiment analysis used to mean exporting text to a notebook, loading a model, batching predictions, and writing the results back. In BigQuery you can now do the whole thing in SQL: a generative AI function sends each row to a Gemini model running on the Gemini Enterprise Agent Platform and returns a typed column you can `GROUP BY`.
 
@@ -22,7 +22,7 @@ In this lab you take 23,486 real e-commerce clothing reviews from Kaggle, load t
 
 ![Lab 1 architecture](figures/l1-00-architecture.svg)
 
-### Objectives
+### Skills You'll Practice
 
 In this lab, you learn how to:
 
@@ -43,7 +43,7 @@ In this lab, you learn how to:
 
 ---
 
-## What changed recently (read this first)
+## Vertex AI Rename and AI.* Changes
 
 This lab is written against the console as it stands in **August 2026**. Two changes will trip you up if you follow older tutorials:
 
@@ -555,7 +555,7 @@ WHERE sentiment IS NOT NULL;
 
 ![Validation of model sentiment against star rating](figures/l1-05-validation.svg)
 
-### How to read this
+### Reading the Agreement Numbers
 
 Expect agreement in the **low-to-mid 80s**, not the high 90s — and that is the correct result, not a failure. Three things are going on, and only one of them is model error:
 
@@ -712,20 +712,20 @@ Almost entirely to Agent Platform token charges for the 22,641 model calls — B
 
 ---
 
-## Congratulations!
+## Sentiment Scoring, End to End
 
 You scored 22,641 real customer reviews for sentiment, confidence, and product themes entirely in SQL, then validated the output against an independent signal and turned it into a ranked action list.
 
 The transferable idea is the shape of the pipeline: **clean → score once into a table → validate against something the model didn't see → aggregate**. The model call is one line in the middle. The engineering around it is what makes the result trustworthy.
 
-### Next steps
+### Extending This Pipeline
 
 - Add `AI.GENERATE_BOOL` to flag reviews needing a human response: `AI.GENERATE_BOOL(('Does this review report a safety or defect issue? ', review_text), connection_id => 'us.gemini-conn').result`
 - Use `AI.EMBED` and `VECTOR_SEARCH` to find near-duplicate complaints across products
 - Schedule the scoring `MERGE` so only new reviews are ever sent to the model
 - Continue to **[Lab 2 — Predict customer churn with BigQuery ML](lab-02-customer-churn-lowcode-bqml.md)**
 
-### References
+### Docs and Dataset Links
 
 - [Generative AI overview — BigQuery](https://docs.cloud.google.com/bigquery/docs/generative-ai-overview)
 - [The `AI.GENERATE` function](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-ai-generate)

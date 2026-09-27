@@ -6,7 +6,7 @@ Google Cloud has five products for images and video. Three are stable and cheap,
 
 ---
 
-## TL;DR
+## Fast Facts on These APIs
 
 - **Cloud Vision API** and **Video Intelligence API** are both GA, both cheap, and both safe to build on. Neither has been renamed.
 - Both are frozen. Vision has had no release note since **2024-12-19**. Video Intelligence has had none since **2021-11-01**, making it the most static product in the family.
@@ -194,7 +194,7 @@ The signals from Google are structural rather than written. Both APIs sit frozen
 
 ---
 
-## 9. Where to go next
+## 9. Related Modules and Google Documentation
 
 - [What AI APIs are in Google Cloud?](AI-APIS-OVERVIEW.md) — the map of all the pretrained APIs, plus the full rename and shutdown tables
 - [Low-code AI on Google Cloud](LOW-CODE-AI-ON-GCP.md) — where these sit next to AutoML and BigQuery ML, with a §5 on Vertex AI Vision
@@ -207,6 +207,6 @@ Google documentation:
 
 ---
 
-## Summary
+## Recap: What's Live and What's Not
 
 Two products here are safe to use and two are not. **Cloud Vision API** gives you a menu of image features, billed per unit, with 1,000 units free each month, and it detects faces without ever identifying a person. **Video Intelligence API** does the same job for a video file, with 1,000 free minutes a month counted per feature. Both are GA, neither has been renamed, and both are frozen: Vision since 2024-12-19 and Video Intelligence since 2021-11-01. **Vision API Product Search** uses your own data, letting a shopper find a catalogue item from a photo once you have built and indexed a product set. **Vertex AI Vision**, renamed **Agent Platform Vision** in April 2026, was a streaming platform built from Streams, Applications, Processors and Vision Warehouse, and it reaches End of Life on 30 September 2026, so learn it only to recognise it in old material. **Visual Inspection AI** appears to be gone as well, though the only evidence is a redirect to Model Garden rather than any announcement. Google has published no guidance comparing these APIs with Gemini, so treat any such comparison, including mine in §8, as reasoning rather than a recommendation.

@@ -404,7 +404,7 @@ Run these before committing a spec. Each one catches a real and common mistake.
 
 ---
 
-## Summary
+## Recap: The Decision Process
 
 Most spec questions are settled by three prior questions: **where the data lives**, **whether anything is waiting**, and **whether it's deep learning**. A large share of real work answers "BigQuery, nothing, no", which needs no spec at all. When you do need one: check **memory first** (≈16 bytes per parameter to train), pick the **smallest GPU that fits**, prefer **one machine with many GPUs** over many machines, and reach for **TPUs only for large regular dense work**, with **SparseCores** (v5p, v6e) if embeddings dominate. On the serving side the fork is **batch versus online**, and building an endpoint for work nobody is waiting for is the most expensive habit in this material. For scarce accelerators, the question is what you can tolerate: **interruption** (Spot), **waiting to start** (flex-start), or **neither** (a reservation, at full price).
 

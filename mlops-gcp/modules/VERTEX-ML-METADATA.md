@@ -6,7 +6,7 @@
 
 ---
 
-## The short answer
+## The number_value rule, stated
 
 > *In Vertex ML Metadata, metadata is stored as `google.protobuf.Struct`, and numeric values must be accessed using the `number_value` traversal path.*
 
@@ -602,7 +602,7 @@ Two traps in that JSON. **Omitting a `logType` disables it.** And deleting the `
 
 ---
 
-## 9. Anti-patterns
+## 9. Metadata query mistakes to avoid
 
 **Filtering without the type suffix.** §4.2. Returns empty, never errors. If a query surprises you with zero rows, check this first.
 

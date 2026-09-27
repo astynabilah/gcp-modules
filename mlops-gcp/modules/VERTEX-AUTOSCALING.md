@@ -154,7 +154,7 @@ The trade-off is stark:
 
 ---
 
-## 6. Cost
+## 6. What replicas actually cost
 
 Replicas bill **per node-hour while they exist**, whether or not they serve a request. That single sentence explains most surprise Vertex bills. It is the same warning as [Lab 3](../labs/lab-03-serving-ml-models-lowcode.md)'s endpoint caution, now with a second dimension.
 
@@ -188,7 +188,7 @@ See [API versions and launch stages](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md) for 
 
 ---
 
-## 7. Anti-patterns
+## 7. Common autoscaling mistakes
 
 **`minReplicaCount = maxReplicaCount`.** This disables autoscaling rather than tuning it, and you pay peak rates permanently. Legitimate for a hard-latency-SLA service; an expensive accident otherwise.
 
@@ -206,7 +206,7 @@ See [API versions and launch stages](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md) for 
 
 ---
 
-## 8. Test your understanding
+## 8. Diagnostic scenarios
 
 <details markdown="1">
 <summary><b>1.</b> GPU-heavy inference, CPU-light preprocessing. GPU hits 85%, CPU stays at 30%, and it "won't scale". What's your first check?</summary>
@@ -246,13 +246,13 @@ Dev, demo, and truly intermittent internal endpoints where nobody is waiting. Yo
 
 ---
 
-## Summary
+## Autoscaling behavior at a glance
 
 Vertex AI Prediction autoscaling adds replicas when a utilization metric exceeds its target (default **60**) and removes them when utilization falls. With **`accelerator_count > 0`** it watches **CPU utilization** and **GPU duty cycle** together: **up when either exceeds, down only when both are below.** Override with **`autoscalingMetricSpecs`**: one entry per metric, `DedicatedResources` only. Scaling takes **minutes**, not seconds, because of metric averaging, cooldown, provisioning and model load. This is why **`minReplicaCount` is the most consequential setting**. It is the only one that buys headroom before the spike, and it sets your floor cost. Cap **`maxReplicaCount`** so a retry storm can't run away with a GPU fleet.
 
 ---
 
-## References
+## Related Vertex AI documentation
 
 - [Scale inference nodes by using autoscaling](https://cloud.google.com/vertex-ai/docs/predictions/autoscaling)
 - [`DedicatedResources` reference](https://docs.cloud.google.com/vertex-ai/docs/reference/rest/v1/DedicatedResources)

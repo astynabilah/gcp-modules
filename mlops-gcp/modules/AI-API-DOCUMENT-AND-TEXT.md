@@ -6,7 +6,7 @@ Two products sit at opposite ends of Google's attention span. **Document AI** sh
 
 ---
 
-## TL;DR
+## Key Facts on Both APIs
 
 - **Document AI kept its name.** No rename, no fold into Gemini. Latest release note: **2026-07-17**. Docs updated **2026-08-13**.
 - The processor gallery is now **13 processors**, all GA. Everything else was removed on **30 June 2026**.
@@ -496,7 +496,7 @@ That swaps a typed medical-ontology output for a prompt you have to write and va
 
 ---
 
-## 16. Check your understanding
+## 16. Scenarios to Test Your Knowledge
 
 <details markdown="1">
 <summary><b>1.</b> Your invoice pipeline broke in July 2026 with no code change. What is the first thing to check?</summary>
@@ -548,13 +548,13 @@ The pricing page was never cleaned up. It still lists Utility, Procurement split
 
 ---
 
-## Summary
+## Where Document AI and Natural Language Stand
 
 Document AI is the one classic AI API Google still develops, with its most recent release note dated 2026-07-17 and its name unchanged. Its gallery is now 13 GA processors in three groups: general (OCR, Form Parser, Layout Parser), specialized (Invoice, Expense, Bank Statement, Pay Slip, W2, US Driver License, ID Proofing), and custom (Extractor, Classifier, Splitter). Everything else was discontinued on 30 June 2026, including the whole tax family except W-2, and migration was by processor **version** rather than by product, so a working pipeline could break without any code change. Document AI Workbench disappeared as a brand and its three processors became first-class GA entries. Custom Extractor training now defaults to a Gemini foundation model, starting at zero-shot and scaling to fine-tuning, at the same price as the older conventional model but with a documented data-residency limit on the global Gemini endpoint. Layout Parser is the recommended default in both Gemini Enterprise and RAG Engine, and it attaches ancestral headings to chunks, but its `ChunkingConfig` holds only `chunkSize` and `includeAncestorHeadings`; overlap is a RAG Engine setting. Pricing has no product-wide free tier beyond the first 1,000 OCR units, deployed custom versions cost $0.05 an hour whether used or not, and the pricing page itself is stale, still listing five processors that were discontinued. No Google page compares Document AI with Gemini in either direction, so treat any such comparison as inference. On the text side, the Natural Language API is alive and frozen: no deprecation notice, no release note since August 2023, still PaLM-based in the docs, and a v2 whose only status statement is a Public Preview note from 2023 that was never followed by a GA announcement or contradicted by a Preview badge. That v2 dropped both `analyzeEntitySentiment` and `analyzeSyntax`, removed `salience` and `wikipedia_url`, renamed `language` to `languageCode`, and added `severity`; `v1beta2` still carries all seven methods. Its healthcare sibling shut down on 27 May 2026, with Gemini on Vertex AI as the only suggested replacement. Throughout this area Google's pages disagree with each other, on Custom Extractor v1.4 dates, on deprecated versus discontinued labelling, on the Vertex AI versus Gemini Enterprise Agent Platform wording, and on a shutdown banner still written in future tense. Check two sources before you trust one.
 
 ---
 
-## References
+## Further Reading and Related Modules
 
 - [Document AI documentation](https://docs.cloud.google.com/document-ai/docs)
 - [Natural Language API documentation](https://docs.cloud.google.com/natural-language/docs)

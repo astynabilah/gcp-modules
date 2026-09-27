@@ -6,7 +6,7 @@
 
 ---
 
-## Why this module exists
+## What the other modules leave out
 
 Three other places in this series tell you a pipeline must be **idempotent**: [Scaling](SCALING-PROTOTYPES-TO-ML.md) makes it a Stage-2 requirement, its readiness checklist has a tick-box for it, and [Lab 3](../labs/lab-03-serving-ml-models-lowcode.md)'s nightly `MERGE` is built that way on purpose.
 

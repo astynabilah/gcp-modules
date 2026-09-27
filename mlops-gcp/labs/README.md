@@ -2,7 +2,7 @@
 
 Six self-paced, Google-Cloud-Skills-Boost-style labs plus thirteen theoretical modules, covering the path from raw data to a validated, explainable, served model. Mostly in SQL and the console. Labs 1–5 need no Python at all; Lab 6 and the Kubeflow/ML Metadata modules are where you deliberately step outside low-code, and each says why.
 
-> **Written against the Google Cloud console as of 23 August 2026.** See [What changed recently](#what-changed-recently) — the Vertex AI rebrand moved several menu paths that older tutorials still reference.
+> **Written against the Google Cloud console as of 23 August 2026.** See [Recent platform changes](#recent-platform-changes) — the Vertex AI rebrand moved several menu paths that older tutorials still reference.
 
 ---
 
@@ -179,7 +179,7 @@ The five places training can happen (BigQuery ML, the notebook kernel, the **not
 
 ---
 
-## What changed recently
+## Recent platform changes
 
 Everything here is written against the August 2026 console. These will trip you up if you follow older material:
 

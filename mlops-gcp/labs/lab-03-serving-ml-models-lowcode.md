@@ -6,7 +6,7 @@
 
 ---
 
-## Overview
+## Three Ways to Serve One Model
 
 Lab 2 ended with a trained model and a table of scores. That is where most ML tutorials stop, and it is roughly halfway to a working system. A model that nobody can call is a model that nobody uses.
 
@@ -20,7 +20,7 @@ The most valuable thing you will take away is knowing which of these you actuall
 
 ![Lab 3 architecture](figures/l3-00-architecture.svg)
 
-### Objectives
+### Serving Skills Covered
 
 In this lab, you learn how to:
 
@@ -42,7 +42,7 @@ In this lab, you learn how to:
 
 ---
 
-## What changed recently (read this first)
+## Console Changes That Affect Serving
 
 Serving is the area the 2026 reorganization touched most. Four things to know:
 
@@ -704,7 +704,7 @@ So there is one artifact rather than two. After a few retrains, the in-BigQuery 
 
 ---
 
-## Congratulations!
+## Three Serving Paths, Compared
 
 You served one trained model three ways and — more importantly — can now say which one a given requirement actually needs.
 
@@ -714,14 +714,14 @@ Three things worth carrying forward:
 2. **The model type is a serving decision.** Choosing a boosted tree over a logistic regression for 0.01 AUC also chooses a container, a cold-start profile, and a deployment path. Decide that consciously.
 3. **Deployment is the start of the maintenance, not the end of the project.** Drift monitoring, traffic splitting, and a cleanup runbook are the parts that keep it working in month six.
 
-### Next steps
+### Beyond This Lab
 
 - Trigger retraining automatically when drift crosses threshold, with Cloud Scheduler and a `CREATE OR REPLACE MODEL` statement
 - Put the endpoint behind API Gateway or Apigee for API keys, quotas, and rate limits
 - Join Lab 1's sentiment scores to Lab 2's churn scores — customers who are both high-risk and writing negative reviews are your highest-priority contacts
 - Read the root-level **[Scaling prototypes into ML models](../modules/SCALING-PROTOTYPES-TO-ML.md)** module for how this fits the wider path from notebook to production
 
-### References
+### Related Docs and Sources
 
 - [Export a BigQuery ML model for online prediction](https://docs.cloud.google.com/bigquery/docs/export-model-tutorial)
 - [Make predictions with remote models on Vertex AI](https://docs.cloud.google.com/bigquery/docs/bigquery-ml-remote-model-tutorial)

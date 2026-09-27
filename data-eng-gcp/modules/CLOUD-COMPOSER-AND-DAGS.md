@@ -6,7 +6,7 @@
 
 ---
 
-## What changed recently
+## Deprecations and Version Notes
 
 | When | What |
 |---|---|
@@ -250,7 +250,7 @@ Both run DAGs. They serve different scopes rather than competing.
 
 ---
 
-## 7. Anti-patterns
+## 7. Common Orchestration Mistakes
 
 **Merging two teams' DAGs to avoid a cross-DAG dependency.** You've traded a clean boundary for a shared file and a shared deploy. `TaskGroup` doesn't restore the boundary; it only draws a box.
 
@@ -268,7 +268,7 @@ Both run DAGs. They serve different scopes rather than competing.
 
 ---
 
-## 8. Test your understanding
+## 8. DAG Design Scenarios
 
 <details markdown="1">
 <summary><b>1.</b> Preprocessing DAG and training DAG, different teams, training must follow preprocessing. Most maintainable pattern?</summary>
@@ -298,13 +298,13 @@ When B has **several** upstream DAGs and it's cleaner for B to declare its own n
 
 ---
 
-## Summary
+## DAGs and Cross-Team Coordination, Recapped
 
 A **DAG** is tasks with directed arrows and no cycles. The arrows say what must finish before what starts, unconnected tasks run in parallel, and forbidding cycles is what makes the graph executable. Every orchestrator is a DAG engine. In **Airflow**, tasks are instantiated **operators**, `>>` is the arrow, and **`execution_date` names the data interval rather than the wall clock**. For a dependency between two teams' DAGs, **`TriggerDagRunOperator`** is the recommended pattern: explicit, no polling, passes config via `conf`, and couples only on the downstream `dag_id`. **`ExternalTaskSensor`** pulls instead. It needs aligned logical dates and hard-codes another DAG's task id, so it fits multi-upstream cases. **Airflow Datasets** do the same job coupled on a shared artifact instead. **`SubDagOperator` is deprecated** and **`TaskGroup` is visual grouping only**, so neither solves cross-DAG ownership. **Composer runs continuously**. This is why one ML pipeline belongs on Vertex AI Pipelines, while Composer earns its cost at data-platform scale.
 
 ---
 
-## References
+## Further Reading on Airflow
 
 - [Cloud Composer documentation](https://cloud.google.com/composer/docs)
 - [Writing DAGs in Cloud Composer](https://cloud.google.com/composer/docs/how-to/using/writing-dags)

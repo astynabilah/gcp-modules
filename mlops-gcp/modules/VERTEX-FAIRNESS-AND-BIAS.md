@@ -6,7 +6,7 @@
 
 ---
 
-## Scope of this module
+## Accuracy versus fairness
 
 The rest of this series measures whether a model is **accurate**. This one is about whether it is **fair**. Those are different questions, measured with different instruments.
 
@@ -201,7 +201,7 @@ For "predicts hire at significantly different rates across regions", the target 
 
 All three are diagnostic. Only threshold optimisation changes outcomes.
 
-### One caveat
+### The legal risk of per-group thresholds
 
 Per-group thresholds mean **two candidates with the same score can get different answers because of their group.** That is not a technicality you can gloss over. Depending on the jurisdiction and the decision, it ranges from best practice to unlawful. In the US, deliberately different cut-offs by a protected class in hiring is legally fraught regardless of the fairness metric it optimises.
 
@@ -236,7 +236,7 @@ None of this argues against the tooling. It argues for treating the output as **
 
 ---
 
-## 5. Anti-patterns
+## 5. Common fairness tooling mistakes
 
 **Using feature attribution as a bias check.** Wrong instrument, and wrong in both directions. §2.
 
@@ -254,7 +254,7 @@ None of this argues against the tooling. It argues for treating the output as **
 
 ---
 
-## 6. Test your understanding
+## 6. Review questions
 
 <details markdown="1">
 <summary><b>1.</b> Automated fairness evaluation in a retraining pipeline, detecting both data-level and model-level bias. What do you add?</summary>
@@ -304,13 +304,13 @@ Almost certainly not. Correlated features (postcode, branch, income band) act as
 
 ---
 
-## Summary
+## The two-component pattern, recapped
 
 Accuracy and fairness are different questions with different instruments. Vertex AI provides two purpose-built pipeline components: **`DetectDataBiasOp`** runs before training on the raw data and true labels, and **`DetectModelBiasOp`** runs after batch prediction on the model's output. Both are configured with a **`BiasConfig`** naming the slice feature. Run both, because balanced data doesn't guarantee a fair model and an unfair model isn't always the data's fault. **Feature attribution is not a bias check** (a model can discriminate through proxies with the protected attribute's attribution near zero), and **sliced performance metrics are not fairness metrics**. Make it a **gate** with `dsl.If` rather than a report, run it on every retrain, and remember that passing a threshold reflects three choices you made: the metric, the slice, and the bound.
 
 ---
 
-## References
+## Documentation and further reading
 
 - [Introduction to model evaluation for fairness](https://docs.cloud.google.com/vertex-ai/docs/evaluation/intro-evaluation-fairness)
 - [Data bias metrics for Vertex AI](https://docs.cloud.google.com/vertex-ai/docs/evaluation/data-bias-metrics)

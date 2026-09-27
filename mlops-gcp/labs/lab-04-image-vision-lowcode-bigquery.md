@@ -6,7 +6,7 @@
 
 ---
 
-## Overview
+## Three Tiers of Vision, No Training
 
 This is the deliberately minimal lab. A few dozen public-domain movie posters, already sitting in a Google-owned Cloud Storage bucket. Nothing to download, nothing to upload, no dataset to clean, no model to train. What you get in exchange is the complete end-to-end shape of image work on Google Cloud, in about an hour, for roughly the price of nothing.
 
@@ -35,7 +35,7 @@ This lab is written for you. You will not be told what precision is. What you wi
 
 The genuinely new idea is the object table. Everything else is a rename.
 
-### Objectives
+### Vision Techniques Covered
 
 - Create an object table over images in Cloud Storage and understand what it does and does not store
 - Run Cloud Vision label detection from SQL and parse the JSON result
@@ -52,7 +52,7 @@ The genuinely new idea is the object table. Everything else is a rename.
 
 ---
 
-## What changed recently
+## Naming and API Changes to Know
 
 | Change | Effect |
 |---|---|

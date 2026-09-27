@@ -6,7 +6,7 @@
 
 ---
 
-## What changed recently
+## Recent naming and scope changes
 
 | When | What |
 |---|---|
@@ -115,7 +115,7 @@ job = model.batch_predict(
 
 ---
 
-## 4. Cost
+## 4. What a batch job costs
 
 You pay for **machine time while the job runs**, at the same node-hour rates as training and online prediction, times the replica count. Nothing between runs.
 
@@ -186,7 +186,7 @@ Two more configurations look reasonable but are not. **Deploying to an endpoint 
 
 ---
 
-## 5. Anti-patterns
+## 5. Common batch prediction mistakes
 
 **Deploying to an endpoint to score a table.** You pay for a permanent machine and hand-roll the batching. Batch prediction exists for this.
 
@@ -202,7 +202,7 @@ Two more configurations look reasonable but are not. **Deploying to an endpoint 
 
 ---
 
-## 6. Test your understanding
+## 6. Scenario questions
 
 <details markdown="1">
 <summary><b>1.</b> Your input JSONL is in <code>us-central1</code>, your custom-trained model is registered in <code>us-west1</code>, and you want output in Cloud Storage. What do you configure?</summary>
@@ -238,13 +238,13 @@ The exception is if you *exported* the BQML model to Vertex to serve it elsewher
 
 ---
 
-## Summary
+## The colocation rule, recapped
 
 Batch prediction is for work **nobody is waiting for**. It needs no endpoint, costs nothing between runs, and bills only for the machine-minutes a job uses. The rule to remember is **colocation**. The input data, the model, and the output destination must all be in the same region or the same multi-region. A region counts as inside its multi-region, but not the reverse, and `us-central1` and `us-west1` are two different places despite both being in the US. When they don't match, you move the data to the model or re-register the model by the data. There is no cross-region setting, and custom-trained models cannot use the `global` endpoint for batch. Inputs may be JSONL, CSV, TFRecord, a file list, or a BigQuery table; output goes to Cloud Storage or BigQuery. And for custom-trained jobs, **`starting_replica_count` is the replica count**, because `max_replica_count` is ignored.
 
 ---
 
-## References
+## Further reading
 
 - [Get batch predictions from a custom trained model](https://cloud.google.com/vertex-ai/docs/predictions/get-batch-predictions)
 - [Vertex AI locations](https://cloud.google.com/vertex-ai/docs/general/locations)

@@ -8,7 +8,7 @@ This page is the map. It answers the five questions once, then sends you to a de
 
 ---
 
-## TL;DR
+## The Short Version
 
 - There are about **eight** of these APIs still worth learning, grouped into vision, speech and language, documents, and search.
 - They are **not deprecated in favour of Gemini**. Google has never published a page telling anyone to migrate off them.
@@ -190,7 +190,7 @@ Both dates are close. If you meet either product in older material, treat it as 
 
 ---
 
-## 8. Where to go next
+## 8. The Detailed Modules and Related Reading
 
 | Module | Covers |
 |---|---|
@@ -206,6 +206,6 @@ Related reading:
 
 ---
 
-## Summary
+## The Map in One Paragraph
 
 Google Cloud's pretrained AI APIs are models you rent by the call. Their appeal is that you supply no data and operate no infrastructure; their limit is that you cannot change what they detect. Roughly eight remain relevant, split across vision, speech and language, documents, and search. None has been formally deprecated in favour of Gemini, and no Google page recommends migrating away from them. Most are frozen, though, with Natural Language untouched since 2023 and Video Intelligence since 2021. Document AI is the exception and is developed actively, with its newest parsers running on Gemini. The bigger hazard is naming: the search product was renamed five times between 2023 and 2026 while its API endpoints stayed identical, so always check the endpoint rather than the brand. Four products have already been switched off, two more go dark in September 2026, and three disappeared without any notice at all.

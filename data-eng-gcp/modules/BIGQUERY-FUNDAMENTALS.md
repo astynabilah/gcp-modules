@@ -304,7 +304,7 @@ Fluid scaling is the most useful of these if your workload is bursty. The one-mi
 
 ---
 
-## 9. Common mistakes
+## 9. Costly Habits to Avoid
 
 **`SELECT *` on a wide table.** You pay for every column.
 
@@ -322,7 +322,7 @@ Fluid scaling is the most useful of these if your workload is bursty. The one-mi
 
 ---
 
-## 10. Check your understanding
+## 10. Partitioning and Cost Scenarios
 
 <details markdown="1">
 <summary><b>1.</b> A table has 3 years of daily data, about 200 MB per day. Partition by day?</summary>
@@ -360,13 +360,13 @@ Also set `require_partition_filter = TRUE` on large tables, which blocks the mos
 
 ---
 
-## Summary
+## Storage, Compute, and Cost at a Glance
 
 BigQuery separates **storage from compute**, so they scale and bill independently. Data is stored column by column in a format called **Capacitor**. **Partitioning** splits a table by date or integer range, with a limit of **10,000 partitions**, and `require_partition_filter = TRUE` turns a full-table scan into an error. **Clustering** sorts up to **four** columns inside each partition, the column order matters, and it only helps queries that filter. Reclustering is free. Compute is either **on-demand at $6.25 per TiB** with 1 TiB free per month per account, or **editions** measured in slots, where Enterprise runs about $0.06 per slot-hour. Storage drops about 50% after **90 days without modification**, and physical billing is cheaper per byte but adds time travel and fail-safe charges. Control cost with **`maximum_bytes_billed`**, dry runs and custom quotas, and remember that `SELECT *` charges you for every column.
 
 ---
 
-## References
+## Pricing and Storage Documentation
 
 - [Storage overview](https://cloud.google.com/bigquery/docs/storage_overview) · [Partitioned tables](https://cloud.google.com/bigquery/docs/partitioned-tables) · [Clustered tables](https://cloud.google.com/bigquery/docs/clustered-tables)
 - [Pricing](https://cloud.google.com/bigquery/pricing) · [Editions](https://cloud.google.com/bigquery/docs/editions-intro) · [Slots](https://cloud.google.com/bigquery/docs/slots)

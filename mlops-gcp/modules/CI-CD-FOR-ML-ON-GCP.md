@@ -6,7 +6,7 @@
 
 ---
 
-## Why this module exists
+## Closing the gap between code and pipelines
 
 [Git](GIT-FOR-ML-ON-GCP.md) gets your code into version control. [Kubeflow Pipelines](KUBEFLOW-PIPELINES-ON-GCP.md) orchestrates the ML steps. Between them sits the part neither covers: **how a commit becomes a container becomes a running pipeline**, and who is allowed to do what along the way.
 
@@ -35,7 +35,7 @@ Rebuild features → train → evaluate → **quality gate** → register.
 
 Slow, expensive, and gated. This is a Vertex AI Pipeline. **Cloud Build submits it; Cloud Build does not contain it.**
 
-### Why the boundary matters
+### The cost of merging the two pipelines
 
 > A code push should not retrain a model, and a retrain should not wait on a linter.
 
@@ -92,7 +92,7 @@ gcloud builds triggers create github \
 
 That is the answer: **per-trigger identity, per-repository grant.** No new projects.
 
-### Why the plausible alternatives don't isolate
+### Alternatives that fail to isolate teams
 
 **VPC Service Controls.** A *network perimeter*, not an IAM boundary. It stops data leaving the perimeter; it does nothing to stop Team A's build pushing into Team B's repository *inside* that perimeter. Right tool, wrong axis. The [networking module](GCP-NETWORKING-FOR-ML-SERVING.md) draws the same distinction between reachability and permission.
 
@@ -158,7 +158,7 @@ Three things to do deliberately:
 
 ---
 
-## 5. Anti-patterns
+## 5. Common isolation mistakes
 
 **Using the default Cloud Build service account with multiple teams.** Project-level Artifact Registry permissions mean no isolation at all.
 
@@ -176,7 +176,7 @@ Three things to do deliberately:
 
 ---
 
-## 6. Test your understanding
+## 6. Check your grasp of the isolation rules
 
 <details markdown="1">
 <summary><b>1.</b> Multiple ML teams, one project. Each team's Cloud Build should reach only its own Artifact Registry repository. How?</summary>
@@ -222,13 +222,13 @@ Because `latest` is mutable. A model trained from it has no reproducible provena
 
 ---
 
-## Summary
+## Recap: two pipelines, least privilege
 
 ML CI/CD is **two pipelines**: a fast code pipeline that lints, tests, builds a container, pushes it and compiles the pipeline spec; and a slow, gated model pipeline that rebuilds features, trains, evaluates and registers. Cloud Build submits the second, it doesn't contain it. For isolation between teams, the answer is **a custom service account per trigger plus a repository-scoped `roles/artifactregistry.writer` binding**. VPC Service Controls is a network perimeter rather than an IAM boundary, folders inside one repository share that repository's bindings, and a project per team is real isolation at disproportionate cost. Tag images by commit SHA so the provenance chain survives.
 
 ---
 
-## References
+## Further reading on Cloud Build IAM
 
 - [Practicing the principle of least privilege with Cloud Build and Artifact Registry](https://cloud.google.com/blog/topics/developers-practitioners/practicing-principle-least-privilege-cloud-build-and-artifact-registry)
 - [Artifact Registry access control with IAM](https://docs.cloud.google.com/artifact-registry/docs/access-control)

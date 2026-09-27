@@ -8,7 +8,7 @@ So this page has two jobs. First, let you recognise any old name you meet in a b
 
 ---
 
-## TL;DR
+## The Rename Chain in Brief
 
 - The enterprise search product has had **six names since 2023**. The current one is **Agent Search**, from **22 April 2026**.
 - Under all six sits one API that never moved: `discoveryengine.googleapis.com`. Check the endpoint, not the brand.
@@ -334,7 +334,7 @@ Four things in this module are unconfirmed. They are marked in place, and collec
 
 ---
 
-## 10. Where to go next
+## 10. Related Modules and Further Reading
 
 - [What AI APIs are in Google Cloud?](AI-APIS-OVERVIEW.md) — the hub, with the short version of these rename tables
 - [Document AI and text APIs](AI-API-DOCUMENT-AND-TEXT.md) — Layout Parser and the chunking that feeds RAG
@@ -342,13 +342,13 @@ Four things in this module are unconfirmed. They are marked in place, and collec
 
 ---
 
-## Summary
+## Six Renames, One Endpoint
 
 The enterprise search product has been renamed six times since 2023, from Generative AI App Builder to Vertex AI Search and Conversation, Vertex AI Agent Builder, AI Applications, Vertex AI Search, and now **Agent Search**. Through all of it, `discoveryengine.googleapis.com` never changed, the console still shows older labels, and the docs still sit at a 2023 URL, so identify the product by its endpoint rather than its brand. The same pattern runs through the commerce product, which reached **AI Commerce Search** on 29 June 2026 while keeping `retail.googleapis.com` since 2021, and which merged Recommendations AI and Retail Search into one service years ago. The 2026 search rename was a single row in a platform-wide table when Vertex AI became the **Gemini Enterprise Agent Platform**, so read it as branding rather than product change. On the conversational side, **Dialogflow CX and ES are both still supported but frozen**, and their successor **CX Agent Studio is a new ADK-based product** rather than a rename. Keep the layer map above: **ADK writes an agent, Agent Runtime runs it, Agent Search retrieves for it**, with Agent Retrieval as the lower-level option and Gemini Enterprise as the finished app you buy. Deprecations are scattered, since this family has no deprecations page, and the largest open one is **Agent Search for healthcare**, deprecated on 15 May 2026 with no shutdown date.
 
 ---
 
-## References
+## Source Pages for This Module
 
 - [Agent Search introduction](https://docs.cloud.google.com/generative-ai-app-builder/docs/introduction)
 - [AI Commerce Search documentation](https://docs.cloud.google.com/retail/docs)

@@ -284,7 +284,7 @@ This matters more than it sounds. A Davies-Bouldin index tells you the clusters 
 
 ---
 
-## 9. Check your understanding
+## 9. Practice questions
 
 <details markdown="1">
 <summary><b>1.</b> You cluster customers and every cluster looks the same on most features. What went wrong?</summary>
@@ -320,13 +320,13 @@ Judge it three ways instead. Can you name each cluster in business terms? Does i
 
 ---
 
-## Summary
+## Choosing among the four model types
 
 Unsupervised learning is **descriptive**, not predictive, and needs no labels. **`KMEANS`** groups rows: set `KMEANS_INIT_METHOD = 'KMEANS++'` because the default is `RANDOM`, and remember `NUM_CLUSTERS` defaults to `log10(n)`. Google's documented way to choose the cluster count is hyperparameter tuning on **`DAVIES_BOULDIN_INDEX`**, not the elbow method. Use **`ML.CENTROIDS` with `STANDARDIZE` set to TRUE** to interpret clusters, since that argument defaults to FALSE. **`PCA`** takes either `NUM_PRINCIPAL_COMPONENTS` or `PCA_EXPLAINED_VARIANCE_RATIO`, never both. **`MATRIX_FACTORIZATION`** builds recommenders but **requires an Enterprise or Enterprise Plus reservation** to create. **`ML.DETECT_ANOMALIES`** takes a `contamination` value that *sets* the anomaly rate rather than measuring it. And evaluation is the honest weak point: metrics are computed on the whole training set, so they show geometry rather than correctness. Validate by naming the clusters, testing a decision, and checking stability.
 
 ---
 
-## References
+## BigQuery ML documentation links
 
 - [CREATE MODEL for K-means](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-kmeans) · [for PCA](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-pca) · [for matrix factorization](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-matrix-factorization) · [for autoencoder](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-autoencoder)
 - [ML.CENTROIDS](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-centroids) · [ML.PRINCIPAL_COMPONENT_INFO](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-principal-component-info) · [ML.RECOMMEND](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-recommend) · [ML.DETECT_ANOMALIES](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-detect-anomalies)

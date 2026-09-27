@@ -6,7 +6,7 @@
 
 ---
 
-## Overview
+## Six Ways to Bridge Python and BigQuery
 
 The data is in BigQuery. You want to explore it in Python. There are six different ways to bridge that gap, they are **not** interchangeable, and picking the wrong one is how people crash a kernel or run up a query bill on their first afternoon.
 
@@ -16,7 +16,7 @@ This lab is deliberately small. One public dataset, one free notebook, and one i
 
 **Where does the computation happen?** Coming from pandas, the instinct is to load the table and then explore it. In a warehouse that instinct is backwards — and unlearning it is most of what this lab is for.
 
-### Objectives
+### Skills You'll Practice
 
 - Connect a free Colab notebook to BigQuery and authenticate
 - Use all six import paths and know which one belongs at which scale
@@ -490,7 +490,7 @@ Nothing else to clean up. Free Colab has no persistent resource, and the public 
 
 ---
 
-## Test your understanding
+## Check Your Grasp of Cost and Sampling
 
 <details markdown="1">
 <summary><b>1.</b> Does <code>SELECT * FROM big_table LIMIT 10</code> cost less than <code>SELECT *</code>?</summary>
@@ -530,7 +530,7 @@ Nothing. The notebook environment and the query bill are separate: free Colab sa
 
 ---
 
-## Congratulations!
+## What You Practiced in This Lab
 
 You connected a free notebook to BigQuery, used all six import paths, and explored 1.7 million rows while moving only kilobytes.
 
@@ -540,14 +540,14 @@ The three habits worth keeping:
 2. **Push computation down; pull results up.** Aggregate in BigQuery, plot in Python. If the answer fits on a screen, don't move a table.
 3. **`LIMIT` is not a sample and not a discount.** Use `TABLESAMPLE` for a look, `FARM_FINGERPRINT` for anything that matters.
 
-### Next steps
+### Where to Take This Next
 
 - Explore your own Lab 2 table: `SELECT * FROM telco_churn.customers_ml` — then do it properly with `bigframes`
 - Try `bigframes.ml`, which wraps BigQuery ML in a scikit-learn-shaped API — Lab 2's model in Python syntax, still trained in BigQuery
 - Continue to **[Lab 5 — Feature engineering](lab-05-feature-engineering-tabular.md)**, which is where exploration turns into features
 - Read **[Scaling prototypes into ML models](../modules/SCALING-PROTOTYPES-TO-ML.md)** — this lab is Stage 0→1
 
-### References
+### Sources Cited in This Lab
 
 - [BigQuery DataFrames (`bigframes`)](https://docs.cloud.google.com/bigquery/docs/dataframes-quickstart)
 - [Use the BigQuery Storage Read API](https://docs.cloud.google.com/bigquery/docs/reference/storage)

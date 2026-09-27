@@ -6,7 +6,7 @@
 
 ---
 
-## What changed recently
+## Naming and Image-Expiry Updates
 
 | When | What |
 |---|---|
@@ -174,7 +174,7 @@ $0.010 × number of vCPUs × hours
 
 ---
 
-## 7. Anti-patterns
+## 7. Costly Cluster Habits
 
 **Using Dataproc for deep learning.** Spark is distributed *data processing*. "Distributed" means something different in each context — see [Where training runs](../../mlops-gcp/modules/VERTEX-TRAINING-COMPUTE.md).
 
@@ -192,7 +192,7 @@ $0.010 × number of vCPUs × hours
 
 ---
 
-## 8. Test your understanding
+## 8. Dependency and Deployment Scenarios
 
 <details markdown="1">
 <summary><b>1.</b> Production Dataproc clusters, specific Python libraries, consistent config, minimal creation time. What do you do?</summary>
@@ -228,13 +228,13 @@ Clusters earn their complexity for Hadoop-ecosystem tooling, persistent environm
 
 ---
 
-## Summary
+## Dependency Management, Distilled
 
 Dataproc is **managed Spark for the ETL that feeds training**, not for training. It is now documented as *Managed Service for Apache Spark*. For production dependency management the answer is **a custom image built with `generate_custom_image.py`**, because baking libraries in gives you consistency and fast startup in one move; `dataproc:pip.packages`/`conda.packages` install at boot (latency, external-repo dependency, a 10-minute creation timeout), and Google explicitly warns against referencing **public initialization actions** in production because those scripts change underneath you. Copy them to your own versioned bucket. Pin **`major.minor`** so you get patches without component drift, build custom images from the latest sub-minor in that track, and remember images expire at **365 days for cluster creation** while existing clusters run indefinitely. Add **workflow templates with managed ephemeral clusters** and an external **Metastore** for full reproducibility. On the serverless deployment, dependencies live in a **container image** instead. Spark is mounted at runtime, `procps` and `tini` are required, and it starts in about 50 seconds against a cluster's 120, with no idle bill at all.
 
 ---
 
-## References
+## Cited Sources
 
 - [Create a custom image](https://cloud.google.com/dataproc/docs/guides/dataproc-images) · [GoogleCloudDataproc/custom-images](https://github.com/GoogleCloudDataproc/custom-images)
 - [Cluster image versions](https://cloud.google.com/dataproc/docs/concepts/versioning/overview)

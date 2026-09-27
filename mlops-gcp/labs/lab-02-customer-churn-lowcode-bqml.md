@@ -6,7 +6,7 @@
 
 ---
 
-## Overview
+## Building the Churn Pipeline
 
 "Low-code ML" usually means a wizard that trains a model and leaves you holding a number you can't explain. This lab does the opposite: you build a complete churn pipeline — ingest, feature prep, training, evaluation, explanation, tuning, scoring, and a business decision — and every step is a SQL statement you can read, review, and put in version control. No notebooks, no Python, no model export.
 
@@ -16,7 +16,7 @@ The lab ends where a real project ends: not with an accuracy score, but with a t
 
 ![Lab 2 architecture](figures/l2-00-architecture.svg)
 
-### Objectives
+### Capabilities You'll Build
 
 In this lab, you learn how to:
 
@@ -38,7 +38,7 @@ In this lab, you learn how to:
 
 ---
 
-## What changed recently (read this first)
+## Registry Rename and Region Limits
 
 Written against the console as of **August 2026**:
 
@@ -770,7 +770,7 @@ Because it might win. That rule catches ~88% of churners with zero infrastructur
 
 ---
 
-## Congratulations!
+## From Raw CSV to Retention List
 
 You built a complete churn pipeline in SQL: loading, type repair, feature engineering, training, evaluation, explanation, tuning, scoring, threshold selection, registry, and dashboard. No Python, no notebooks, no model export.
 
@@ -780,14 +780,14 @@ Three ideas worth carrying forward:
 2. **The threshold is a business decision, not a default.** `0.5` encodes the assumption that false positives and false negatives cost the same, which is almost never true.
 3. **Features beat hyperparameters.** The tuning search bought 0.01 AUC; fixing `TotalCharges` and adding three engineered columns bought considerably more.
 
-### Next steps
+### Extending the Churn Model
 
 - Add `ML.DETECT_ANOMALIES` or `ML.ARIMA_PLUS` for usage-trend features
 - Schedule scoring with a BigQuery scheduled query so the watchlist refreshes nightly
 - Set up model monitoring in the Agent Platform registry to catch feature drift
 - Revisit **[Lab 1](lab-01-sentiment-analysis-bigquery-gemini.md)** and join review sentiment to churn scores — unhappy customers who are also high-risk are your highest-priority contacts
 
-### References
+### Docs and Dataset Source
 
 - [The `CREATE MODEL` statement for boosted tree models](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-boosted-tree)
 - [Perform classification with a boosted trees model — tutorial](https://docs.cloud.google.com/bigquery/docs/boosted-tree-classifier-tutorial)
