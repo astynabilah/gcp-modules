@@ -7,7 +7,7 @@
 
 ---
 
-## Read this first
+## Who this module is for
 
 You can build, train, evaluate and deploy a model without knowing any networking. That changes when someone says *"put it behind a load balancer"* or *"make it low-latency for European users"*. Suddenly you are reading error messages about forwarding rules, NEGs, and health check probes from `130.211.0.0/22`.
 
@@ -41,7 +41,7 @@ That's it. Everything below is built from those six words.
 
 ---
 
-## 2. What happens when someone calls your model
+## 2. The path of a prediction request
 
 ![The path of a prediction request](assets/networking/net-01-journey.svg)
 
@@ -63,7 +63,7 @@ This is why *"route users to the closest region"* requires no code, no DNS trick
 
 ---
 
-## 3. What a load balancer does
+## 3. Load balancer responsibilities
 
 Two jobs. The second one is less obvious:
 
@@ -248,7 +248,7 @@ For serving a model on Cloud Run, you want a **serverless NEG** — one per regi
 
 ![Health checks: VM backends versus serverless NEG backends](assets/networking/net-03-health-checks.svg)
 
-### What a health check is
+### The health check mechanism
 
 Google periodically sends a small request to each backend, say `GET /healthz` on port 8080, and marks it healthy or unhealthy based on the reply. Unhealthy backends stop receiving traffic. It exists because **Google has no idea whether your VM is working.** You installed the software; you have to prove it's alive.
 

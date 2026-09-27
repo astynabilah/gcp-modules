@@ -6,7 +6,7 @@
 
 ---
 
-## The short answer
+## Matching the metric to the feature type
 
 > **Numerical features → Jensen-Shannon divergence.**
 > **Categorical features → L-infinity distance.**
@@ -285,7 +285,7 @@ See [API versions and launch stages](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md) for 
 
 ---
 
-## 7. Anti-patterns
+## 7. Monitoring configuration mistakes
 
 **Monitoring nothing because you have no ground truth.** The most common failure. Skew and drift are observable today; accuracy isn't. Monitor what you can see.
 
@@ -301,7 +301,7 @@ See [API versions and launch stages](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md) for 
 
 ---
 
-## 8. Test your understanding
+## 8. Applied questions
 
 <details markdown="1">
 <summary><b>1.</b> Which metric applies to <code>region</code>, and which to <code>income</code>?</summary>
@@ -341,7 +341,7 @@ Unknown. Check that prediction logging is enabled and populating, that the featu
 
 ---
 
-## 9. 2026 notes
+## 9. What moved in the 2026 rebrand
 
 | Change | Effect |
 |---|---|
@@ -351,13 +351,13 @@ Unknown. Check that prediction logging is enabled and populating, that the featu
 
 ---
 
-## Summary
+## Skew and drift, in one paragraph
 
 Vertex AI Model Monitoring compares a production distribution against a baseline, using **Jensen-Shannon divergence for numerical features** and **L-infinity distance for categorical features**, and raises an anomaly when the distance exceeds your per-feature threshold. Whether it is called **skew** or **drift** depends only on the baseline: training data for skew, earlier production for drift. You can watch input features, predictions, or feature attributions. None of these measure accuracy, because accuracy needs ground truth you usually don't have yet. These are the signals you *do* have today.
 
 ---
 
-## References
+## Related documentation
 
 - [Introduction to Model Monitoring](https://docs.cloud.google.com/vertex-ai/docs/model-monitoring/overview)
 - [Monitor feature skew and drift](https://cloud.google.com/vertex-ai/docs/model-monitoring/using-model-monitoring)

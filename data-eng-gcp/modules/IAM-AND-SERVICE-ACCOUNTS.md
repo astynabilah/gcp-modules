@@ -255,7 +255,7 @@ Remember §2 though. A resource grant **adds** access. It never cancels somethin
 
 ---
 
-## 10. Common mistakes
+## 10. Frequent Permission Errors
 
 **Granting Editor because a smaller role failed.** Find the missing permission instead. The error message usually names it.
 
@@ -273,7 +273,7 @@ Remember §2 though. A resource grant **adds** access. It never cancels somethin
 
 ---
 
-## 11. Check your understanding
+## 11. Access Control Scenarios
 
 <details markdown="1">
 <summary><b>1.</b> A user has Editor on the project. You grant them Viewer on one table to limit them. What happens?</summary>
@@ -309,13 +309,13 @@ Enforce `iam.automaticIamGrantsForDefaultServiceAccounts`, then give the cluster
 
 ---
 
-## Summary
+## Principals, Roles, and Policies Summarized
 
 Access on Google Cloud is a **principal**, a **role**, and an **allow policy** that binds them. Policies flow down the hierarchy and combine as a **union**, so a grant on a child can never take away access inherited from a parent. Avoid legacy basic roles: they carry thousands of permissions and cannot take IAM Conditions. A **service account is both a principal and a resource** — grant it roles to give it access, and grant others roles on it to control who may use it. `serviceAccountUser` attaches an account to a resource; `serviceAccountTokenCreator` lets you impersonate it. Avoid **service account keys**, mainly because audit logs cannot tell you who used one. Check whether the **Compute Engine default service account** still has Editor, because Dataproc, Dataflow and GKE all fall back to it. Then narrow what is left with **IAM Conditions**, **deny policies** (which always win and fail closed), and **resource-level grants**.
 
 ---
 
-## References
+## Source Documentation
 
 - [IAM overview](https://cloud.google.com/iam/docs/overview) · [Roles and permissions](https://cloud.google.com/iam/docs/roles-overview)
 - [Resource hierarchy access control](https://cloud.google.com/iam/docs/resource-hierarchy-access-control)

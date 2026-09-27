@@ -330,7 +330,7 @@ SELECT
 FROM compared;
 ```
 
-### How to read this
+### Reading the Match Rate
 
 Do not expect a high exact-match rate, and do not treat that as failure. Three separate things are being measured at once, and only one of them is model error:
 
@@ -556,7 +556,7 @@ This is one of the cases where training genuinely wins: the taxonomy is fixed, s
 
 ---
 
-## Congratulations!
+## Three Vision Tiers, Tried and Measured
 
 You ran three fundamentally different kinds of computer vision over the same images, validated one of them against real ground truth, and built semantic image search — for under ten cents and without training anything.
 
@@ -566,14 +566,14 @@ The three ideas worth keeping:
 2. **Prompt before you train.** It is minutes versus hours, cents versus dollars, and it hands you the baseline that tells you whether training is even needed.
 3. **Find a signal the model didn't see.** Star ratings in Lab 1, filenames here. Without one you cannot distinguish a working system from a confident one.
 
-### Next steps
+### Taking Vision Further
 
 - Swap `LABEL_DETECTION` for `TEXT_DETECTION` and build OCR search over scanned documents — the strongest use of Tier 1
 - Join `poster_attributes` to `poster_embeddings` and cluster the images with `KMEANS` on the embedding column — unsupervised grouping, still no labels
 - Use `AI.GENERATE_BOOL` over `ref` for content moderation flags
 - Read **[Scaling prototypes into ML models](../modules/SCALING-PROTOTYPES-TO-ML.md)** for where this sits on the wider path
 
-### References
+### Vision API Docs and Sources
 
 - [Analyze multimodal data in BigQuery](https://docs.cloud.google.com/bigquery/docs/analyze-multimodal-data)
 - [Create object tables](https://cloud.google.com/bigquery/docs/object-tables)

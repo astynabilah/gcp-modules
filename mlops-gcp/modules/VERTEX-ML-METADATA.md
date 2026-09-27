@@ -620,7 +620,7 @@ Two traps in that JSON. **Omitting a `logType` disables it.** And deleting the `
 
 ---
 
-## 10. Test your understanding
+## 10. Self-test
 
 <details markdown="1">
 <summary><b>1.</b> Why must numeric metadata be accessed via <code>number_value</code>?</summary>
@@ -666,7 +666,7 @@ It's gone. `update` **replaces** the metadata map rather than merging into it. A
 
 ---
 
-## 11. 2026 notes
+## 11. The 2026 rebrand and SDK changes
 
 | Change | Effect |
 |---|---|
@@ -675,13 +675,13 @@ It's gone. `update` **replaces** the metadata map rather than merging into it. A
 
 ---
 
-## Summary — the one paragraph to remember
+## The number_value rule in one paragraph
 
 Vertex ML Metadata stores arbitrary user metadata in a `google.protobuf.Struct`, protobuf's representation of schemaless JSON. A `Struct` maps string keys to `Value` messages, and `Value` is a `oneof`. So every filter must name the type it means, giving the grammar `metadata.<fieldName>.<typeValue>`. Numbers live in `number_value` and are always **doubles** (there is no `int_value`), strings in `string_value`, booleans in `bool_value`, nested objects in `struct_value`. Omitting the suffix returns an empty result rather than an error. That is the most common way to lose an afternoon here.
 
 ---
 
-## References
+## Source documentation
 
 - [Analyze Vertex ML Metadata](https://docs.cloud.google.com/vertex-ai/docs/ml-metadata/analyzing) — the filter grammar
 - [Data model and resources](https://cloud.google.com/vertex-ai/docs/ml-metadata/data-model)

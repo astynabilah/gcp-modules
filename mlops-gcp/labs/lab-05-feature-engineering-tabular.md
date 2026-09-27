@@ -6,7 +6,7 @@
 
 ---
 
-## Overview
+## Four Jobs Called "Feature Engineering"
 
 Lab 2 fixed some types and derived four columns, then moved on to training. That is the honest minimum, and it is not feature engineering. This lab is the part that was skipped — and if you have trained models in Python, it is the part where the low-code surface is least different from what you already do, and where the differences that *do* exist matter most.
 
@@ -32,7 +32,7 @@ The centrepiece is **leakage**, which none of the previous labs covered and whic
 
 The one genuinely new discipline is that your feature store *is* your warehouse, so features are views and tables that other people can see, reuse, and accidentally depend on.
 
-### Objectives
+### Feature Engineering Skills
 
 - Build an event table and aggregate it into windowed features with correct boundaries
 - Assemble a feature table from multiple sources at one row per prediction unit
@@ -704,7 +704,7 @@ That importance is association, not causation. Customers who choose annual contr
 
 ---
 
-## Congratulations!
+## From Raw Events to Validated Features
 
 You built a feature pipeline with correct time boundaries, deliberately created leakage and then detected it four different ways, selected features on structural grounds, distinguished three kinds of importance, and proved with an ablation that the work paid.
 
@@ -714,14 +714,14 @@ Three things worth keeping:
 2. **Features beat hyperparameters.** Lab 2's 10-trial tuning search bought +0.007 AUC. Engineering the feature set moves the number considerably more. Spend the hour accordingly.
 3. **Importance describes a model, not the world.** Use it to explain and to debug. Use ablation to select. Use an experiment to claim causation.
 
-### Next steps
+### Further Feature Work
 
 - Rebuild the pipeline with several `as_of` dates and train on the stacked result — that's how you get multiple observations per customer and a genuinely time-aware model
 - Add `ML.GENERATE_EMBEDDING` over a text column and use the vector as a feature — feature extraction from unstructured data, joining Lab 1 to this one
 - Move the feature SQL into Dataform with `uniqueKey` assertions on every table
 - Continue to **[Lab 3 — Serving](lab-03-serving-ml-models-lowcode.md)**, where the `PERCENT_RANK` warning above becomes a real constraint
 
-### References
+### Docs Referenced in This Lab
 
 - [The `TRANSFORM` clause](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create#transform)
 - [Feature preprocessing overview](https://docs.cloud.google.com/bigquery/docs/preprocess-overview)

@@ -144,7 +144,7 @@ Because it computes both sides' statistics fresh, it also accepts the histogram-
 
 Default threshold is **0.3** for both, and the valid range is **[0, 1)**.
 
-**This is the same split as [Vertex AI Model Monitoring](VERTEX-MODEL-MONITORING.md#the-short-answer)**: Jensen-Shannon for numerical, L-infinity for categorical. The reason is the same. Categorical features have no order and no distance, so all you have is the proportion of each category, and L-infinity takes the largest single gap. BigQuery's one addition is *letting* you opt categoricals into JSD.
+**This is the same split as [Vertex AI Model Monitoring](VERTEX-MODEL-MONITORING.md#matching-the-metric-to-the-feature-type)**: Jensen-Shannon for numerical, L-infinity for categorical. The reason is the same. Categorical features have no order and no distance, so all you have is the proportion of each category, and L-infinity takes the largest single gap. BigQuery's one addition is *letting* you opt categoricals into JSD.
 
 This is not a matter of taste. The `visualization_link` column points into the model-monitoring console's feature-drift view. It is the same monitoring substrate, reached from SQL.
 

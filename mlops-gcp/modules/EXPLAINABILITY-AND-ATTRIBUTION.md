@@ -6,7 +6,7 @@
 
 ---
 
-## Read this first
+## Deprecation timeline for Vertex Explainable AI
 
 | When | What |
 |---|---|
@@ -22,7 +22,7 @@ What *is* time-limited: the `ExplanationSpec` field names, the specific limits, 
 
 ---
 
-## 1. What a Shapley value is
+## 1. Definition of a Shapley value
 
 Shapley values come from **cooperative game theory** (Lloyd Shapley, 1953), and the original question had nothing to do with machine learning: *a group of players cooperate and produce some payout — how much of it does each player deserve?*
 
@@ -47,7 +47,7 @@ Concretely, for a churn model with features `tenure`, `charges`, `contract`:
 
 Average those marginal contributions, weighted so each *size* of group counts equally, and that average is `tenure`'s Shapley value.
 
-### Why it's the principled answer
+### The uniqueness properties
 
 Shapley values are the **unique** attribution satisfying four properties you'd want:
 
@@ -60,7 +60,7 @@ Shapley values are the **unique** attribution satisfying four properties you'd w
 
 That uniqueness is why Shapley values dominate the field. It is not one heuristic among many. Given those four requirements, it is the only answer.
 
-### And why you can't compute it exactly
+### The combinatorial cost of an exact answer
 
 Every possible subset means **2ⁿ subsets**. Ten features is 1,024 evaluations per prediction. Thirty features is over a billion. **Per prediction.**
 
@@ -68,7 +68,7 @@ So every practical implementation approximates. *How* it approximates is what di
 
 ---
 
-## 2. The baseline, and why it matters
+## 2. The role of the baseline
 
 Attribution is never absolute. It answers *"why this prediction **rather than** that one?"*, and "that one" is the **baseline**.
 
@@ -169,7 +169,7 @@ Three of these need more detail:
 
 ---
 
-## 6. What explanations are not
+## 6. The limits of attribution
 
 **Not causation.** Attribution describes **the model**, not the world. "Tenure drove this prediction down" means the model used tenure that way, not that changing a customer's tenure would change their behaviour.
 
@@ -195,7 +195,7 @@ Same ideas, own implementation, inside the warehouse. [Lab 5](../labs/lab-05-fea
 
 ---
 
-## 8. Anti-patterns
+## 8. Common attribution mistakes
 
 **Picking a method by preference rather than by model type.** Integrated gradients on a tree ensemble does not underperform. It does not apply at all.
 
@@ -213,7 +213,7 @@ Same ideas, own implementation, inside the warehouse. [Lab 5](../labs/lab-05-fea
 
 ---
 
-## 9. Test your understanding
+## 9. Check what you've learned about attribution
 
 <details markdown="1">
 <summary><b>1.</b> A tabular classifier that's an ensemble of decision trees <em>and</em> neural networks shows approximation errors above 0.05. What do you configure?</summary>
@@ -253,13 +253,13 @@ No. Example-based explanations need a model that produces an **embedding**, and 
 
 ---
 
-## Summary
+## Recap: Shapley values and their relatives
 
 A **Shapley value** is a feature's **average marginal contribution across every subset of the other features**, from cooperative game theory, where it is the *unique* fair division satisfying efficiency, symmetry, dummy and additivity. That uniqueness is why it dominates; the 2ⁿ subsets are why everything approximates it. Attribution is always **relative to a baseline**, and the wrong baseline yields confident, meaningless numbers with no error. The method is chosen by the **model, not by preference**: **sampled Shapley** is black-box and the only option for **non-differentiable** models like tree ensembles; **integrated gradients** needs differentiability and covers tabular and image; **XRAI** redistributes IG onto image segments and is **image-only**. **`approximationError` above 0.05** means fix it. Try the baseline first because it is free, then raise `pathCount` (max **50**) or `stepCount` (max **100**), and note that extra baselines are free for sampled Shapley but a multiplier for IG. Around all this sit the relatives, split by scope: **LIME, counterfactuals and example-based** are local; **permutation importance and partial dependence** are global, and a global answer never answers "why *this* decision". Explanations are **not causation, not fairness, and not correctness**. Vertex Explainable AI **sunsets 16 March 2027 with no replacement**. Feature attribution ports to SHAP and captum, but **example-based explanations don't port at all**. **BigQuery ML's explain functions are a separate surface and unaffected**.
 
 ---
 
-## References
+## Sources for the claims above
 
 - [Vertex Explainable AI overview](https://cloud.google.com/vertex-ai/docs/explainable-ai/overview) · [Improving explanations](https://cloud.google.com/vertex-ai/docs/explainable-ai/improving-explanations)
 - [Vertex AI deprecations](https://cloud.google.com/vertex-ai/docs/deprecations)

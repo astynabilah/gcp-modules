@@ -6,7 +6,7 @@
 
 ---
 
-## What the other modules leave out
+## The idempotency gap this module fills
 
 Three other places in this series tell you a pipeline must be **idempotent**: [Scaling](SCALING-PROTOTYPES-TO-ML.md) makes it a Stage-2 requirement, its readiness checklist has a tick-box for it, and [Lab 3](../labs/lab-03-serving-ml-models-lowcode.md)'s nightly `MERGE` is built that way on purpose.
 
@@ -170,7 +170,7 @@ Two connections to make explicit:
 
 ---
 
-## 7. Anti-patterns
+## 7. Mistakes that reintroduce duplicates
 
 **Assuming a timeout means it didn't happen.** The core error. Unknown ≠ failed.
 
@@ -188,7 +188,7 @@ Two connections to make explicit:
 
 ---
 
-## 8. Test your understanding
+## 8. Idempotency questions worth working through
 
 <details markdown="1">
 <summary><b>1.</b> The Vertex API times out and the retry creates a duplicate training job. What's the fix?</summary>
@@ -234,13 +234,13 @@ No. It is a different mechanism keyed on different things. Caching skips a step 
 
 ---
 
-## Summary
+## The idempotent-handler recap
 
 Cloud Functions gives **at-least-once** execution and Cloud Storage delivers events at-least-once, so duplicate invocations are the contract rather than a misconfiguration. A timeout is the sharpest case, because the outcome is *unknown* rather than failed. The training job may have started. The fix is an **idempotent handler**: use the **CloudEvent id** (stable across retries, unique per event) as the deduplication key, do the check-and-write **inside a transaction** so overlapping retries can't both win, and record the claim *before* starting the job. Keep retries enabled, because they make the system reliable, and add an **age-based end condition** so a persistently failing function doesn't retry for seven days.
 
 ---
 
-## References
+## Where these idempotency claims come from
 
 - [Retry event-driven functions](https://docs.cloud.google.com/functions/docs/bestpractices/retries)
 - [Cloud Functions pro tips: building idempotent functions](https://cloud.google.com/blog/products/serverless/cloud-functions-pro-tips-building-idempotent-functions)

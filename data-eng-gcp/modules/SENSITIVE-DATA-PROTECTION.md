@@ -175,7 +175,7 @@ So Model Armor gives you **detect-and-block**, not **detect-and-sanitise**. If y
 
 ---
 
-## 7. Anti-patterns
+## 7. Design Mistakes to Avoid
 
 **Staging external data in Cloud Storage purely to make it scannable.** Adds a copy, a latency hop, and a second place your PII now lives — to reach a capability hybrid jobs give you directly.
 
@@ -191,7 +191,7 @@ So Model Armor gives you **detect-and-block**, not **detect-and-sanitise**. If y
 
 ---
 
-## 8. Test your understanding
+## 8. Inspection Method Scenarios
 
 <details markdown="1">
 <summary><b>1.</b> Streaming feedback from sources outside Google Cloud needs PII inspection, with centralised config and findings. What do you build?</summary>
@@ -227,13 +227,13 @@ Redaction or bucketing would remove exactly the signal the model depends on.
 
 ---
 
-## Summary
+## Inspection and De-identification, Boiled Down
 
 Sensitive Data Protection (the former Cloud DLP; still `dlp.googleapis.com`) inspects data four ways, and the one that decides your architecture is **hybrid jobs**: content methods cap at **0.5 MB** and store nothing, storage jobs reach only **Cloud Storage, BigQuery and Datastore**, and hybrid jobs inspect *"payloads of data sent from virtually any source"*, including on-premises, another cloud, or inside a VM. Prefer a **hybrid job trigger** over a bare job so the client holds a stable identifier, and note that hybrid findings appear **while the job runs** rather than at the end. Configuration lives in an **inspection template** so the client ships no detection logic. On de-identification, the property that keeps data usable is **referential integrity**. Use **`CryptoDeterministicConfig`** for join keys (Google explicitly discourages FPE as slow and constrained), and **`DateShiftConfig`** for dates, because it destroys the values while preserving **sequence and duration**. Model Armor is detect-and-block, not detect-and-sanitise.
 
 ---
 
-## References
+## Related Documentation
 
 - [Hybrid jobs and job triggers](https://cloud.google.com/sensitive-data-protection/docs/concepts-hybrid-jobs) · [Method types](https://cloud.google.com/sensitive-data-protection/docs/concepts-method-types)
 - [Transformation reference](https://cloud.google.com/sensitive-data-protection/docs/transformations-reference) · [Pseudonymization](https://cloud.google.com/sensitive-data-protection/docs/pseudonymization)

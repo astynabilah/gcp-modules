@@ -6,7 +6,7 @@
 
 ---
 
-## Why this module exists
+## Closing the gap Stage 1 leaves
 
 [Scaling prototypes into ML models](SCALING-PROTOTYPES-TO-ML.md) calls Stage 1 **"Reproducible"** and defines it as *"the logic lives in version control"*. It then calls it "the single highest-leverage step in the entire ladder."
 
@@ -180,7 +180,7 @@ This is the standard flow, with a few ML-specific notes:
 
 ---
 
-## 6. Anti-patterns
+## 6. Where git and notebooks go wrong
 
 **Looking for a console GitHub integration.** It does not exist. Configure Git in the instance.
 
@@ -198,7 +198,7 @@ This is the standard flow, with a few ML-specific notes:
 
 ---
 
-## 7. Test your understanding
+## 7. Questions on the git workflow
 
 <details markdown="1">
 <summary><b>1.</b> You've cloned a repo onto a Workbench instance. What's needed before you can push over SSH?</summary>
@@ -238,13 +238,13 @@ No. Git history is permanent. The key is still retrievable from the earlier comm
 
 ---
 
-## Summary
+## Git and notebooks, in short
 
 Connecting a Vertex AI Workbench instance to GitHub happens **entirely inside the instance**. There is no console OAuth integration and no extension to install, because `jupyterlab-git` is already there. Set your identity with `git config --global`, **generate an SSH key in the instance** (never copy one in), add the public half to GitHub, then clone and push. The harder half is notebooks. `.ipynb` is JSON that stores outputs and execution counts, so diffs are unreadable and printed secrets get committed. Fix that with **`nbstripout`**, **`jupytext`**, or **`nbdime`**. Better still, keep the real logic in `.sql` and `.py` files where it can be reviewed. Commit code and config; never data, weights, or credentials.
 
 ---
 
-## References
+## Docs for git and notebook setup
 
 - [Save notebooks to GitHub from Workbench instances](https://cloud.google.com/vertex-ai/docs/workbench/instances/save-to-github)
 - [GitHub — generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)

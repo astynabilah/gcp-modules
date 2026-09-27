@@ -6,7 +6,7 @@
 
 ---
 
-## Why this module exists
+## Untangling four meanings of "version"
 
 You will meet `v1beta1` while looking for a feature that isn't in `v1`, and the question *"is it safe to use this?"* has a real answer with real consequences.
 
@@ -200,7 +200,7 @@ Check the model-versions page rather than trusting any list written into a docum
 
 ---
 
-## 6. Anti-patterns
+## 6. Common version-selection mistakes
 
 **Reading all version numbers as one scale.** §1. The root cause of most of this confusion.
 
@@ -214,7 +214,7 @@ Check the model-versions page rather than trusting any list written into a docum
 
 ---
 
-## 7. Test your understanding
+## 7. Version-selection questions to work through
 
 <details markdown="1">
 <summary><b>1.</b> "Use Model Monitoring v2" and "use the v1beta1 API" — do these conflict?</summary>
@@ -254,13 +254,13 @@ No. Those are different properties. **AutoML Edge object detection is GA and in 
 
 ---
 
-## Summary
+## Recap: four version axes, one stability question
 
 Four different things in this stack are called "version", and only one of them, **`v1` vs `v1beta1`**, is about API stability. `v1` means **GA**: an SLA, support, and at least 12 months' notice before anything is decommissioned. `v1beta1` means **Preview**: no SLA, no support commitment, intended for test environments, and free to change shape without notice. New features usually land in `v1beta1` first. This is why you will meet it while hunting for something `v1` lacks, with **scale-to-zero** and **Model Monitoring v2** being the two that matter most in this series. Search in the order SDK → `v1` → `v1beta1`, and when you do take a preview dependency, make it a decision you wrote down rather than one you inherited from a tutorial.
 
 ---
 
-## References
+## Documentation cited in this module
 
 - [Google Cloud product launch stages](https://cloud.google.com/products#product-launch-stages)
 - [Terms for pre-GA offerings](https://cloud.google.com/healthcare-api/docs/pre-ga-terms)

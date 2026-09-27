@@ -7,7 +7,7 @@
 
 ---
 
-## Read this first
+## The one non-low-code module
 
 Every other module in this series is low-code. **This one is not**, and that is deliberate.
 
@@ -34,7 +34,7 @@ Vertex AI Pipelines also supports TFX pipelines, but KFP is the general-purpose 
 
 ---
 
-## 2. What happens when you run a pipeline
+## 2. Pipeline execution mechanics
 
 ![Anatomy of a pipeline run](assets/kfp/k-01-anatomy.svg)
 
@@ -374,7 +374,7 @@ Turn it off for a specific step when the code is deterministic but the *world* i
 
 ---
 
-## 8a. What happens when a task fails
+## 8a. Handling task failures
 
 Parallel branches raise a question that the DAG shape does not answer. **One branch fails. Do the others keep going?**
 
@@ -683,7 +683,7 @@ Three things that make this hold up in practice:
 
 ---
 
-## 13. Anti-patterns
+## 13. Pipeline design pitfalls
 
 **The mega-component.** One component that does everything defeats caching, per-step sizing, and lineage. If your pipeline has one box, you wrote a script with extra steps.
 

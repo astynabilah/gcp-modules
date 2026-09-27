@@ -6,7 +6,7 @@
 
 ---
 
-## The problem this module solves
+## Scaling past your notebook's GPU
 
 You prototyped a deep learning model in a notebook on a small GPU. It works. Now you need to train on the full dataset with multiple GPUs, and every option feels wrong:
 

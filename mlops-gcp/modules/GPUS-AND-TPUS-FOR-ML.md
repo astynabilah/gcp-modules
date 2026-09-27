@@ -6,7 +6,7 @@
 
 ---
 
-## What changed recently
+## The 2026 hardware updates
 
 | When | What |
 |---|---|
@@ -42,7 +42,7 @@ The three architectures differ in *where the data goes*, and that single fact pr
 
 The core point: **the systolic array's efficiency scales with how dense and regular your matrix multiply is.**
 
-### Which means, in practice
+### Practical implications by workload
 
 | Workload | Wins on | Because |
 |---|---|---|
@@ -107,7 +107,7 @@ This matters because Vertex AI's `WorkerPoolSpec` has fields for both patterns, 
 
 ---
 
-## 3. Which GPU
+## 3. Picking a GPU model
 
 | GPU | Memory | Roughly for |
 |---|---|---|
@@ -166,7 +166,7 @@ So Google put a second kind of processor on the chip:
 
 They sit **alongside** the TensorCores. Dense layers run on the array; embedding lookups run on the SparseCores; both happen at once.
 
-### Which generations have them
+### SparseCore support by generation
 
 | Generation | SparseCores per chip |
 |---|---|
@@ -322,7 +322,7 @@ XLA already converts some operations automatically. **Explicitly casting activat
 
 ---
 
-## 8. Test your understanding
+## 8. Hardware-picking exercises
 
 <details markdown="1">
 <summary><b>1.</b> PyTorch on TPU v5e, 4x4 topology. What's the WorkerPoolSpec?</summary>
@@ -374,13 +374,13 @@ Accelerator-optimised **A2** family, so **A100** GPUs; `highgpu-8g` means **8 of
 
 ---
 
-## Summary
+## The hardware decisions that matter
 
 Deep learning is matrix multiplication, which is why the hardware ladder exists: CPUs do them one at a time, GPUs do thousands in parallel, and a **TPU is a chip built around a matrix multiplier**. The spec that constrains you is **memory**, not speed: roughly 16 bytes per parameter to train in float32. Machine type names are systematic: family, memory profile, size, with `a2`/`a3`/`g2`/`ct*` meaning the accelerator is **built in** rather than attached. For **TPU v5e**, configuration is `machineType: ct5lp-hightpu-4t` plus **`tpuTopology`**. The `acceleratorType`/`acceleratorCount` pattern belongs to v2/v3. **`replicaCount` must be 1** even for a multi-host topology like `4x4` (16 chips across 4 VMs), because you are requesting one slice. PyTorch on v5e needs **2.1+ with PJRT** (JAX 0.4.6+, TensorFlow 2.15+), and there are **no prebuilt v5e containers** for any framework. The machine-type/topology pairing is an explicit table, and its trap is that **`ct5lp-hightpu-8t` supports only `2x4`**. Every multi-VM topology, including 64-chip `8x8`, uses `ct5lp-hightpu-4t`. One more utilisation rule costs the most when you do not know it: the MXU is a **128×128 systolic array**, so **tensor dimensions should be multiples of 128** or you pay for padding, and **bfloat16** halves memory traffic on the bandwidth-bound operations. XLA is already enabled on TPUs, and `Precision.HIGHEST` is slower, not better.
 
 ---
 
-## References
+## Reference docs: machine types and TPUs
 
 - [Configure compute resources for custom training](https://cloud.google.com/vertex-ai/docs/training/configure-compute)
 - [Training with TPU accelerators](https://cloud.google.com/vertex-ai/docs/training/training-with-tpu-vm)
