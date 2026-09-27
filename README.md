@@ -1,6 +1,6 @@
 # gcp-modules
 
-Learning material for Google Cloud, written as I work through it — self-paced labs you can run in your own project, and reference modules explaining the platform mechanics behind them.
+Learning material for Google Cloud, written as I work through it. Self-paced labs you can run in your own project, plus reference modules explaining the platform mechanics behind them.
 
 Everything is plain Markdown and renders on GitHub. The figures are hand-drawn SVG console mockups, generated from code in [`tools/`](tools/).
 
@@ -18,7 +18,7 @@ Supporting folders:
 
 | Folder | What it is |
 |---|---|
-| [`tools/`](tools/) | The entire build system — figure generators, SVG validator, Markdown→HTML renderer. One command, no config. |
+| [`tools/`](tools/) | The entire build system: figure generators, SVG validator, Markdown→HTML renderer. One command, no config. |
 | `site/` | Generated HTML. Gitignored; rebuild it rather than reading it from here. |
 
 ---
@@ -54,14 +54,14 @@ A new path on another topic (`genai-gcp/`, `data-eng-gcp/`) is a sibling folder 
 
 ## Building the HTML
 
-Optional — the Markdown is the source of truth and reads fine on GitHub. But the HTML inlines every figure into a self-contained page that follows your system light/dark theme:
+Optional. The Markdown is the source of truth and reads fine on GitHub, but the HTML inlines every figure into a self-contained page that follows your system light/dark theme:
 
 ```bash
 python -m pip install markdown pygments
 python tools/build.py
 ```
 
-Then open `site/index.html`. The build regenerates and validates every figure, extracts the SQL, and renders every page — see [`tools/README.md`](tools/README.md) for what each stage does.
+Then open `site/index.html`. The build regenerates and validates every figure, extracts the SQL, and renders every page. See [`tools/README.md`](tools/README.md) for what each stage does.
 
 ---
 
@@ -69,4 +69,4 @@ Then open `site/index.html`. The build regenerates and validates every figure, e
 
 Everything here is written against the Google Cloud console **as of 23 August 2026**, including the Vertex AI → Gemini Enterprise Agent Platform rebrand. Each document carries a *What changed recently* section for the deprecations and renames that were live at the time of writing.
 
-The screenshots are **mockups, not captures** — drawn in SVG so they stay legible and consistent. They show the fields and controls you'll meet, but expect the real console to differ in styling and to have moved things since.
+The screenshots are **mockups, not captures**, drawn in SVG so they stay legible and consistent. They show the fields and controls you'll meet, but expect the real console to differ in styling and to have moved things since.

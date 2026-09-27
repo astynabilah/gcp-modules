@@ -125,7 +125,7 @@ This is the practical part. The `v1` / `v1beta1` split lands **differently in ea
 | Minimum replicas | **1** — a node always runs | **0** — scale-to-zero |
 | `ScaleToZeroSpec` | not available | available, with `min_scaleup_period` |
 
-**Concretely:** on `v1`, `minReplicaCount` cannot be 0, so your endpoint has a permanent floor cost: one node billing 24/7 whether or not anyone calls it. **Scale-to-zero is the single most consequential v1beta1-only feature in this series**, because it is the difference between a dev endpoint costing a few dollars a month and costing nothing. Everything else in that module (the OR/AND rule, the metrics, `autoscalingMetricSpecs`) is GA on `v1`.
+On `v1`, `minReplicaCount` cannot be 0, so your endpoint has a permanent floor cost: one node billing 24/7 whether or not anyone calls it. **Scale-to-zero is the single most consequential v1beta1-only feature in this series**, because it is the difference between a dev endpoint costing a few dollars a month and costing nothing. Everything else in that module (the OR/AND rule, the metrics, `autoscalingMetricSpecs`) is GA on `v1`.
 
 ### [Model Monitoring](VERTEX-MODEL-MONITORING.md) — the difference is which generation you get
 
@@ -135,7 +135,7 @@ This is the practical part. The `v1` / `v1beta1` split lands **differently in ea
 | Generation | the original design | **Model Monitoring v2** |
 | Config reuse | per-endpoint | a reusable `ModelMonitor` holding baseline + objectives |
 
-**Concretely:** Model Monitoring v2, the reusable `ModelMonitor` resource, is reached through **`v1beta1`** (`projects.locations.modelMonitors`), and in Python through the preview namespace (`vertexai.resources.preview.ml_monitoring`). If you pin to `v1`, you get the older endpoint-attached monitoring job instead. **This is the cleanest example of kinds 1 and 2 stacking:** a v2 *feature generation* living on a v1beta1 *API surface*. The distance metrics themselves (Jensen-Shannon and L-infinity) are unchanged either way.
+Model Monitoring v2, the reusable `ModelMonitor` resource, is reached through **`v1beta1`** (`projects.locations.modelMonitors`), and in Python through the preview namespace (`vertexai.resources.preview.ml_monitoring`). If you pin to `v1`, you get the older endpoint-attached monitoring job instead. **This is the cleanest example of kinds 1 and 2 stacking:** a v2 *feature generation* living on a v1beta1 *API surface*. The distance metrics themselves (Jensen-Shannon and L-infinity) are unchanged either way.
 
 ### [Kubeflow Pipelines](KUBEFLOW-PIPELINES-ON-GCP.md) — three version axes at once
 
@@ -145,11 +145,11 @@ This is the practical part. The `v1` / `v1beta1` split lands **differently in ea
 | `aiplatform.PipelineJob` | API version | **GA, `v1`** |
 | Google Cloud Pipeline Components | feature namespace | `v1` = stable; `preview` = early access |
 
-**Concretely:** nothing about running a KFP pipeline requires `v1beta1`. Submission is GA. What *does* vary is **GCPC namespaces**. Components imported from `google_cloud_pipeline_components.v1.*` are stable and production-ready, while `…preview.*` are early access with the same caveats as `v1beta1`. So `from …v1.custom_job import create_custom_training_job_from_component` is the stable path, and a `preview` import is the thing to flag in review. And remember: **KFP SDK v2 is kind 3, not kind 1**. Upgrading your SDK does not move you onto a beta API.
+Nothing about running a KFP pipeline requires `v1beta1`. Submission is GA. What *does* vary is **GCPC namespaces**. Components imported from `google_cloud_pipeline_components.v1.*` are stable and production-ready, while `…preview.*` are early access with the same caveats as `v1beta1`. So `from …v1.custom_job import create_custom_training_job_from_component` is the stable path, and a `preview` import is the thing to flag in review. And remember: **KFP SDK v2 is kind 3, not kind 1**. Upgrading your SDK does not move you onto a beta API.
 
 ### [ML Metadata](VERTEX-ML-METADATA.md) — nothing here needs beta
 
-**Concretely:** artifacts, executions, contexts, events, the lineage subgraph, and the whole `metadata.<field>.number_value` filter grammar are **GA on `v1`**. This is the calmest module in the series from a versioning standpoint. If you find yourself in `aiplatform_v1beta1` for metadata work, you have probably taken a wrong turn.
+Artifacts, executions, contexts, events, the lineage subgraph, and the whole `metadata.<field>.number_value` filter grammar are **GA on `v1`**. This is the calmest module in the series from a versioning standpoint. If you find yourself in `aiplatform_v1beta1` for metadata work, you have probably taken a wrong turn.
 
 ### [Where training runs](VERTEX-TRAINING-COMPUTE.md) — GA core, preview edges
 
@@ -157,15 +157,15 @@ This is the practical part. The `v1` / `v1beta1` split lands **differently in ea
 
 ### [Low-code AI](LOW-CODE-AI-ON-GCP.md) — a different axis entirely
 
-**Concretely:** AutoML training, the `CLOUD*` / `MOBILE_TF_*` model types, and edge export are GA. But a **model** can carry its own launch stage, separate from the API version. BigQuery ML's SQL surface is GA, while individual Gemini models inside it sit at GA or preview independently. Gemini 3.5, 3.6 and 3.7 Flash are GA; `gemini-3-flash-preview` and Gemini 3.1 Pro are preview. Same underlying idea (a preview surface with no stability promise) reached through a completely different mechanism. Preview status here changes the stability promise, not the syntax: BigQuery accepts short names for GA and preview models alike. And note the third state, which is not a launch stage at all: **AutoML Edge object detection is in *maintenance mode***, so it is GA, stable, and quietly winding down. GA does not mean "actively invested in".
+AutoML training, the `CLOUD*` / `MOBILE_TF_*` model types, and edge export are GA. But a **model** can carry its own launch stage, separate from the API version. BigQuery ML's SQL surface is GA, while individual Gemini models inside it sit at GA or preview independently. Gemini 3.5, 3.6 and 3.7 Flash are GA; `gemini-3-flash-preview` and Gemini 3.1 Pro are preview. Same underlying idea (a preview surface with no stability promise) reached through a completely different mechanism. Preview status here changes the stability promise, not the syntax: BigQuery accepts short names for GA and preview models alike. And note the third state, which is not a launch stage at all: **AutoML Edge object detection is in *maintenance mode***, so it is GA, stable, and quietly winding down. GA does not mean "actively invested in".
 
 ### [Networking](GCP-NETWORKING-FOR-ML-SERVING.md) — per-feature stages, not per-API
 
-**Concretely:** load balancing is largely GA, and the version question shows up per *feature* rather than per API version. For example, **outlier detection** (the serverless alternative to health checks) is available on the global external ALB and cross-region internal ALB but **not** the classic ALB. That is a capability matrix rather than a stability one. When a networking feature seems missing, check the load-balancer type before you check the API version.
+Load balancing here is largely GA, and the version question shows up per *feature* rather than per API version. For example, **outlier detection** (the serverless alternative to health checks) is available on the global external ALB and cross-region internal ALB but **not** the classic ALB. That is a capability matrix rather than a stability one. When a networking feature seems missing, check the load-balancer type before you check the API version.
 
 ### [Scaling prototypes](SCALING-PROTOTYPES-TO-ML.md) — a Stage-4 concern
 
-**Concretely:** this is a governance question, and it belongs at Stage 4 of that module's ladder. Preview dependencies are fine at Stage 0–1 and become a liability once something has an availability commitment. Add *"do we depend on any preview APIs, and have we written that down?"* to the readiness checklist.
+This is a governance question, and it belongs at Stage 4 of that module's ladder. Preview dependencies are fine at Stage 0–1 and become a liability once something has an availability commitment. Add *"do we depend on any preview APIs, and have we written that down?"* to the readiness checklist.
 
 ---
 

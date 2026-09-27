@@ -43,7 +43,7 @@ In this lab, you learn how to:
 
 ---
 
-## ⏱ What changed recently (read this first)
+## What changed recently (read this first)
 
 This lab is written against the console as it stands in **August 2026**. Two changes will trip you up if you follow older tutorials:
 
@@ -189,7 +189,7 @@ bq --location=US load \
   index_id:INT64,clothing_id:INT64,age:INT64,title:STRING,review_text:STRING,rating:INT64,recommended_ind:INT64,positive_feedback_count:INT64,division_name:STRING,department_name:STRING,class_name:STRING
 ```
 
-### ✅ Check your work
+### Check your work
 
 ```sql
 SELECT COUNT(*) AS rows_loaded,
@@ -224,7 +224,7 @@ WHERE review_text IS NOT NULL
   AND TRIM(review_text) != '';
 ```
 
-### ✅ Check your work
+### Check your work
 
 ```sql
 SELECT COUNT(*) AS reviews_with_text,
@@ -292,7 +292,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 
 > **Naming note.** Older tutorials call this role **Vertex AI User**. It is the same role — the ID `roles/aiplatform.user` never changed, only the display name did.
 
-⚠️ **IAM propagation takes up to 60 seconds.** If your first `AI.GENERATE` call fails with a permission error, wait a minute and re-run it before you start debugging anything else. This is the single most common false alarm in this lab.
+**IAM propagation takes up to 60 seconds.** If your first `AI.GENERATE` call fails with a permission error, wait a minute and re-run it before you start debugging anything else. This is the single most common false alarm in this lab.
 
 ---
 
@@ -418,7 +418,7 @@ FROM sampled
 
 Note this version keeps `status` (it only drops `full_response`). You want it, because the very next thing you do is check it.
 
-### ✅ Check your work — did anything silently fail?
+### Check your work — did anything silently fail?
 
 ```sql
 SELECT
@@ -712,7 +712,7 @@ Almost entirely to Agent Platform token charges for the 22,641 model calls — B
 
 ---
 
-## Congratulations! 🎉
+## Congratulations!
 
 You scored 22,641 real customer reviews for sentiment, confidence, and product themes entirely in SQL, then validated the output against an independent signal and turned it into a ranked action list.
 

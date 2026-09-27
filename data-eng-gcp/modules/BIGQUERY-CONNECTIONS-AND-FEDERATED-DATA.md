@@ -6,7 +6,7 @@
 
 ---
 
-## ⏱ What changed recently
+## What changed recently
 
 | When | What |
 |---|---|
@@ -77,7 +77,7 @@ Scope also differs: `connectionUser` is granted **on a single connection**. `clo
 ## 3. Setting one up
 
 ```bash
-# 1. Create the connection. It lives in a location, like a dataset.
+# The connection lives in a location, like a dataset.
 bq mk --connection \
   --location=us-central1 \
   --project_id=analytics-prod \
@@ -86,16 +86,16 @@ bq mk --connection \
   --connection_credential='{"username":"bq_reader","password":"..."}' \
   billing-db
 
-# 2. Find the service account BigQuery created for it.
+# Find the service account BigQuery created for it.
 bq show --connection --format=prettyjson analytics-prod.us-central1.billing-db
 #   -> "serviceAccountId": "bqcx-123456789-ab1c@gcp-sa-bigquery-condel.iam.gserviceaccount.com"
 
-# 3. Grant THAT identity access to Cloud SQL - in the Cloud SQL project.
+# Grant that identity access to Cloud SQL - in the Cloud SQL project.
 gcloud projects add-iam-policy-binding billing-prod \
   --member="serviceAccount:bqcx-123456789-ab1c@gcp-sa-bigquery-condel.iam.gserviceaccount.com" \
   --role="roles/cloudsql.client"
 
-# 4. Grant the ANALYST use of the connection - and nothing else.
+# Grant the analyst use of the connection - and nothing else.
 gcloud beta bigquery connections add-iam-policy-binding billing-db \
   --location=us-central1 --project=analytics-prod \
   --member="user:analyst@example.com" \

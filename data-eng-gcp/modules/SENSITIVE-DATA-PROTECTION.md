@@ -6,7 +6,7 @@
 
 ---
 
-## ⏱ Naming and status
+## Naming and status
 
 | | |
 |---|---|
@@ -127,12 +127,12 @@ Redaction, replacement, masking, crypto-based tokenization, bucketing, date shif
 
 | Transformation | Reversible | Referential integrity |
 |---|---|---|
-| `RedactConfig`, `ReplaceValueConfig`, `CharacterMaskConfig` | ✗ | ✗ |
-| `CryptoHashConfig` | ✗ (one-way) | ✔ |
-| **`CryptoDeterministicConfig`** | **✔** | **✔** |
-| `CryptoReplaceFfxFpeConfig` (FPE) | ✔ | ✔ |
-| `FixedSizeBucketingConfig`, `BucketingConfig` | ✗ | ✗ |
-| **`DateShiftConfig`** | ✔ | preserves sequence and duration |
+| `RedactConfig`, `ReplaceValueConfig`, `CharacterMaskConfig` | No | No |
+| `CryptoHashConfig` | No (one-way) | Yes |
+| **`CryptoDeterministicConfig`** | **Yes** | **Yes** |
+| `CryptoReplaceFfxFpeConfig` (FPE) | Yes | Yes |
+| `FixedSizeBucketingConfig`, `BucketingConfig` | No | No |
+| **`DateShiftConfig`** | Yes | preserves sequence and duration |
 
 **Referential integrity is what keeps de-identified data usable:**
 

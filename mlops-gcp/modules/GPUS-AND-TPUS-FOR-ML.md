@@ -6,7 +6,7 @@
 
 ---
 
-## ⏱ What changed recently
+## What changed recently
 
 | When | What |
 |---|---|

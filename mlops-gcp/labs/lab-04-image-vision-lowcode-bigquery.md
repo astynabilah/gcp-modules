@@ -52,7 +52,7 @@ The genuinely new idea is the object table. Everything else is a rename.
 
 ---
 
-## ⏱ What changed recently
+## What changed recently
 
 | Change | Effect |
 |---|---|
@@ -92,7 +92,7 @@ This lab uses `WITH CONNECTION DEFAULT`, which auto-provisions `__default_cloudr
 
 > The Storage role is the one people forget. Without it the object table is created successfully and every query against it returns a permission error on the *objects*, which reads like a BigQuery problem and isn't. If you did Lab 1, you already have the Agent Platform grant but probably not this one.
 
-⚠️ Wait ~60 seconds after granting before your first query.
+Wait ~60 seconds after granting before your first query.
 
 ---
 
@@ -130,7 +130,7 @@ Consequences worth internalizing:
 - **Permissions are two-layer.** BigQuery permissions get you to the table; the *connection's* Storage permission gets you to the bytes.
 - **It is read-only.** You cannot `INSERT` into an object table. You derive new tables from it.
 
-### ✅ Check your work
+### Check your work
 
 ```sql
 SELECT
@@ -263,7 +263,7 @@ SELECT
 FROM `vision_lab.posters`;
 ```
 
-### ✅ Check your work
+### Check your work
 
 ```sql
 SELECT
@@ -556,7 +556,7 @@ This is one of the cases where training genuinely wins: the taxonomy is fixed, s
 
 ---
 
-## Congratulations! 🎉
+## Congratulations!
 
 You ran three fundamentally different kinds of computer vision over the same images, validated one of them against real ground truth, and built semantic image search — for under ten cents and without training anything.
 

@@ -240,7 +240,7 @@ def churn_pipeline(
     cleanup_task.after(evaluated)
 ```
 
-> **⚠️ `dsl.Condition` vs `dsl.If` — you will meet both.** `dsl.Condition` was the original name and is what most tutorials and older docs still use:
+> **`dsl.Condition` vs `dsl.If` — you will meet both.** `dsl.Condition` was the original name and is what most tutorials and older docs still use:
 > ```python
 > with dsl.Condition(evaluated.outputs["roc_auc"] >= auc_threshold, name="good-enough"):
 >     deploy(model=trained.outputs["model"])
@@ -299,7 +299,7 @@ def gpu_pipeline():
 
 Every setter returns the task, so they chain. Each one applies to **that task only**.
 
-### Why the other two places don't work
+### The other two places, ruled out
 
 **`@dsl.component` cannot take GPU arguments.** The decorator describes *what the component is* — its base image, its packages, its interface. It has no `gpu_limit`, `gpu_type`, or `accelerator` parameter. That is deliberate: one component may be called several times in a pipeline, with different resources each time. Resources belong to the call site, not the definition.
 
@@ -318,7 +318,7 @@ Every setter returns the task, so they chain. Each one applies to **that task on
 | `.set_env_variable(name="K", value="V")` | Environment |
 | `.set_display_name("Train churn model")` | Label in the run graph |
 
-> **⚠️ `add_node_selector_constraint()` — know it, but prefer not to use it.** In KFP v1 you specified a GPU with
+> **`add_node_selector_constraint()` — know it, but prefer not to use it.** In KFP v1 you specified a GPU with
 > `task.add_node_selector_constraint(label_name="cloud.google.com/gke-accelerator", value="NVIDIA_TESLA_A100")`.
 > **KFP v2 deprecated it in favour of `.set_accelerator_type()`**, dropped the `label_name` parameter, and renamed `value` to `accelerator`. Both now do the same job, so calling them together is redundant. Google's Vertex machine-types page still lists all three methods. This is why `add_node_selector_constraint()` is still widely copied from older tutorials. It works, but `set_accelerator_type()` is the current form.
 >
@@ -673,7 +673,7 @@ Three things that make this hold up in practice:
 - **Parameterise the environment** rather than branching on hostnames. An `on_gcp` or `environment` pipeline parameter keeps the difference visible and testable.
 - **Pin your images.** "Runs in a container" is only portable if the container is actually available to both clusters — mirror images into a registry both can reach.
 
-### Why the alternatives are worse
+### The alternatives, and where they fall short
 
 - **Use GCPC for everything and "deploy a GCPC runtime on-prem."** Not possible. GCPC components are thin wrappers around Vertex AI APIs; there is nothing to install on-prem that would make `ModelDeployOp` create a Vertex endpoint from your datacentre.
 - **Rewrite everything in TFX.** TFX does run on both backends, so the idea is not absurd. But it is recommended for **TensorFlow workflows over large structured datasets**, and it constrains you to that shape. For general ML work, KFP v2 is more flexible. You would also adopt a whole framework to solve a problem the compile step already solves.

@@ -218,7 +218,7 @@ df2 = pandas_gbq.read_gbq(sql, project_id=PROJECT_ID)
 
 Same behaviour as #2, a shape pandas users already know. No advantage beyond familiarity.
 
-### 5. `bigframes` — push down instead of pulling ⭐
+### 5. `bigframes` — push down instead of pulling
 
 This is the one to default to.
 
@@ -435,7 +435,7 @@ Everything so far was hand-written, which is the right way to *learn* what profi
    - **Sampling size:** 100% for a small table; 10% or lower for a big one — profiling scans data and therefore costs
    - **Filters:** restrict rows or exclude columns you don't care about
    - **Schedule:** on-demand, or repeating
-4. ✅ Tick **Publish results to the BigQuery and Dataplex Catalog UI** — this is the option the whole exercise turns on.
+4. Tick **Publish results to the BigQuery and Dataplex Catalog UI** — this is the option the whole exercise turns on.
 5. **Run scan.**
 
 Or from the CLI:
@@ -530,7 +530,7 @@ Nothing. The notebook environment and the query bill are separate: free Colab sa
 
 ---
 
-## Congratulations! 🎉
+## Congratulations!
 
 You connected a free notebook to BigQuery, used all six import paths, and explored 1.7 million rows while moving only kilobytes.
 

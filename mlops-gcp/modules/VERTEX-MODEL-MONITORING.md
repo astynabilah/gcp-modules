@@ -68,7 +68,7 @@ This is also why [Lab 5](../labs/lab-05-feature-engineering-tabular.md)'s advice
 
 **Feature attribution skew/drift** — how much each feature *contributed* to predictions, compared over time. Requires explainability configured on the model. This is the subtle one. It catches a change in which feature is driving the answer, even when every input distribution looks stable. That is the signature of a relationship change rather than an input change.
 
-> **None of these measure accuracy, and that is deliberate.** Ground truth for churn arrives months later. Monitoring watches what is observable *today* — what goes in, what comes out, and why. Accuracy evaluation is a separate exercise you run when labels finally land, using `ML.EVALUATE` as in [Lab 2](../labs/lab-02-customer-churn-lowcode-bqml.md).
+> **None of these measure accuracy, and that is deliberate.** Ground truth for churn arrives months later. Monitoring watches what is observable *today*: what goes in, what comes out, and why. Accuracy evaluation is a separate exercise you run when labels finally land, using `ML.EVALUATE` as in [Lab 2](../labs/lab-02-customer-churn-lowcode-bqml.md).
 
 ---
 
@@ -113,7 +113,7 @@ So for *"consistent coverage across versions, different thresholds per version"*
 
 ### Alerting beyond email
 
-Email is the default and not the limit. Model Monitoring writes to **Cloud Monitoring notification channels**, which means **Slack**, **PagerDuty** and **Pub/Sub** are configured the same way as any other alert in your project and then named in the monitoring job — `notificationChannels` alongside `emailAlertConfig`.
+Email is the default and not the limit. Model Monitoring writes to **Cloud Monitoring notification channels**, which means **Slack**, **PagerDuty** and **Pub/Sub** are configured the same way as any other alert in your project and then named in the monitoring job: `notificationChannels` alongside `emailAlertConfig`.
 
 This matters because the alternatives look reasonable and are more work. You do **not** need to build direct webhook integrations against the Slack or PagerDuty APIs, and you do not need Pub/Sub as a sole channel with your own fan-out downstream. Create the channel once in Cloud Monitoring, then reference it.
 
@@ -160,7 +160,7 @@ You set a threshold per feature. **Vertex chooses the metric from the feature's 
 The approach that works:
 
 1. **Run monitoring in observation mode** over a period you believe was healthy.
-2. **Record the natural range** of each feature's distance score. Real features are never at 0 — sampling noise alone moves them.
+2. **Record the natural range** of each feature's distance score. Real features are never at 0. Sampling noise alone moves them.
 3. **Set each threshold above that band**, per feature. A high-cardinality categorical will naturally sit higher than a stable numerical one, so a single global threshold is a compromise, not a default.
 4. **Revisit after any known business change**, because the baseline is now stale by definition.
 
@@ -242,7 +242,7 @@ job.create_schedule(display_name="weekly-clv-eval",
 | Instead | Why not |
 |---|---|
 | Model Monitoring with a "precision threshold" | There isn't one. Monitoring compares input and output *distributions* against a baseline; it never sees labels. |
-| A Cloud Function that calls the endpoint and computes precision with sklearn | You now own the metric maths, the storage, the alerting logic, and the dependency updates — to reproduce a component that already exists. |
+| A Cloud Function that calls the endpoint and computes precision with sklearn | You now own the metric maths, the storage, the alerting logic, and the dependency updates, to reproduce a component that already exists. |
 | A custom **training** job that runs the evaluation | A training job is the wrong resource for scoring, and you still write all the evaluation code yourself. |
 
 > **The distinction:** monitoring watches the *inputs* continuously and needs no labels. Continuous evaluation scores the *outputs* periodically and needs labels. You want both: one is your early warning, the other is your verdict.
@@ -330,7 +330,7 @@ No. **Skew** means production differs from the *training data*, most likely a pr
 <details markdown="1">
 <summary><b>5.</b> Your model has no ground truth for six months. Is monitoring pointless?</summary>
 
-The opposite — it's the only signal you have. Accuracy is unavailable, but input distributions, prediction distributions, and feature attributions are all observable today. Prediction drift is especially valuable here: a mean predicted probability moving from 0.26 to 0.51 is actionable immediately, without a single label.
+The opposite is true. It's the only signal you have. Accuracy is unavailable, but input distributions, prediction distributions, and feature attributions are all observable today. Prediction drift is especially valuable here: a mean predicted probability moving from 0.26 to 0.51 is actionable immediately, without a single label.
 </details>
 
 <details markdown="1">

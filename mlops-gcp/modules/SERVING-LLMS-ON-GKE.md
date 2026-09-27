@@ -2,11 +2,11 @@
 
 **When you run the cluster yourself.** One decision matters most: autoscale GPU inference on a metric that reflects real load. CPU utilisation does not.
 
-> **Module, not a lab.** This is the "I need cluster control" branch of the [serving fan-out](../ROADMAP.md). If you don't already run Kubernetes, read [Serving models on Cloud Run](SERVING-MODELS-ON-CLOUD-RUN.md) and [Vertex AI Prediction autoscaling](VERTEX-AUTOSCALING.md) first — they cover the same job with far less to operate.
+> **Module, not a lab.** This is the "I need cluster control" branch of the [serving fan-out](../ROADMAP.md). If you don't already run Kubernetes, read [Serving models on Cloud Run](SERVING-MODELS-ON-CLOUD-RUN.md) and [Vertex AI Prediction autoscaling](VERTEX-AUTOSCALING.md) first. They cover the same job with far less to operate.
 
 ---
 
-## ⏱ What changed recently
+## What changed recently
 
 | When | What |
 |---|---|
@@ -25,7 +25,7 @@
 | GPU support | managed | yes | yours to configure |
 | Reach for it when | standard artifact, want it managed | custom serving logic, spiky traffic | **you already run Kubernetes**, or need control nothing else gives |
 
-**GKE is the most operational surface of the three. That is the trade-off.** For a Model Garden LLM that needs GPUs and protocol flexibility, a Vertex **dedicated public endpoint** gives you managed GPUs, gRPC, and isolation with no cluster at all — see [Private networking §5](GCP-PRIVATE-NETWORKING-FOR-ML.md#5-the-four-kinds-of-vertex-ai-endpoint). Choosing GKE to avoid a managed service is choosing to own GPU drivers, node pools, and an autoscaler.
+**GKE is the most operational surface of the three. That is the trade-off.** For a Model Garden LLM that needs GPUs and protocol flexibility, a Vertex **dedicated public endpoint** gives you managed GPUs, gRPC, and isolation with no cluster at all (see [Private networking §5](GCP-PRIVATE-NETWORKING-FOR-ML.md#5-the-four-kinds-of-vertex-ai-endpoint)). Choosing GKE to avoid a managed service is choosing to own GPU drivers, node pools, and an autoscaler.
 
 Choose it when you already have a Kubernetes platform, need to co-locate inference with other workloads, want a specific serving stack the managed options don't offer, or need multi-cluster/multi-cloud portability.
 
@@ -102,7 +102,7 @@ Queue size first. Move to batch size only if queue-based scaling can't hit your 
 
 ## 4a. Keeping non-GPU pods off your GPU nodes
 
-Autoscaling on the right metric is wasted if the nodes can't drain. A GPU node has a lot of CPU and memory alongside the accelerator, so ordinary workloads land on it happily — and then **pin an expensive node that no longer has any GPU work to do.**
+Autoscaling on the right metric is wasted if the nodes can't drain. A GPU node has a lot of CPU and memory alongside the accelerator, so ordinary workloads land on it happily, and then **pin an expensive node that no longer has any GPU work to do.**
 
 A **taint** prevents this, and on GKE it is mostly automatic.
 
@@ -440,7 +440,7 @@ gcloud container clusters update CLUSTER_NAME \
   --autoscaling-profile optimize-utilization
 ```
 
-**For a latency-sensitive serving workload, `balanced` is the right profile — and it's already the default.** The instinct to switch to `optimize-utilization` for cost is the trap: removing underutilised nodes aggressively means the next traffic spike waits for a node to be provisioned *and* GPU drivers to install *and* the image to pull *and* the model to load (§8). You save money between spikes and pay for it during them. For a service whose requirement is low latency, that is backwards.
+**For a latency-sensitive serving workload, `balanced` is the right profile, and it's already the default.** The instinct to switch to `optimize-utilization` for cost is the trap: removing underutilised nodes aggressively means the next traffic spike waits for a node to be provisioned *and* GPU drivers to install *and* the image to pull *and* the model to load (§8). You save money between spikes and pay for it during them. For a service whose requirement is low latency, that is backwards.
 
 `optimize-utilization` earns its place on batch and dev clusters, where a few minutes of scheduling delay costs nothing.
 

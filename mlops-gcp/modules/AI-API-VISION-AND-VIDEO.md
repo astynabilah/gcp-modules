@@ -21,7 +21,7 @@ For the wider map of pretrained APIs, start at [What AI APIs are in Google Cloud
 
 ---
 
-## 1. What is in this family?
+## 1. Products in This Family
 
 Five products. Three still work, and two do not.
 
@@ -39,7 +39,7 @@ Agent Platform Vision was a different kind of product, and §6 explains why that
 
 ---
 
-## 2. What does the Cloud Vision API detect?
+## 2. Cloud Vision API Features
 
 The API is a menu. You list the features you want in the request, and each one you ask for is billed separately.
 
@@ -67,7 +67,7 @@ Google's own comparison table on the Vision product page positions the API as *"
 
 ---
 
-## 3. How do you send an image?
+## 3. Sending an Image
 
 Two choices, and they combine.
 
@@ -86,7 +86,7 @@ Use the synchronous call while you are learning, and for anything user-facing. U
 
 ---
 
-## 4. What is Vision API Product Search for?
+## 4. Vision API Product Search
 
 Product Search answers a retail question. A customer photographs a shoe, and you need to know which of your shoes it is. Docs live at `/vision/product-search/docs`.
 
@@ -104,7 +104,7 @@ At query time you send a photo and a product set. You get back matching products
 
 ---
 
-## 5. What does the Video Intelligence API do?
+## 5. Video Intelligence API
 
 The same idea as Vision, applied to a video file. You submit a file, Google analyses it, and you collect annotations with timestamps.
 
@@ -128,7 +128,7 @@ Calls are asynchronous. You start an operation, poll it, and read the result whe
 
 ---
 
-## 6. Why is Agent Platform Vision being switched off?
+## 6. The Agent Platform Vision Shutdown
 
 This is the most important item on the page, and the easiest to confuse with §5.
 
@@ -162,7 +162,7 @@ Video Intelligence is a **per-file annotation API**. You hand it a video and it 
 
 ---
 
-## 7. What happened to Visual Inspection AI?
+## 7. Visual Inspection AI's Disappearance
 
 It was a product for manufacturing defect detection. Two use cases dominated: **cosmetic inspection**, for scratches, dents and stains, and **assembly inspection**, for missing or misplaced parts. It trained on a small number of your own defect images.
 
@@ -174,7 +174,7 @@ Search engines still return its old pages and old marketing copy. Treat any resu
 
 ---
 
-## 8. When should you use Gemini instead?
+## 8. Vision APIs Versus Gemini
 
 Google has published nothing on this. There is no comparison page, no decision tree, and no migration banner on any Vision or Video Intelligence document. **Everything below is my reasoning, not Google's recommendation.**
 

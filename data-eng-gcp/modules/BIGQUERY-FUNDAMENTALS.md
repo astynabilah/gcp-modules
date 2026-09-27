@@ -6,7 +6,7 @@ How BigQuery stores data, how it charges you, and the two table settings that de
 
 ---
 
-## ⏱ Names that changed
+## Names that changed
 
 BigQuery renames things often. You will meet the old names in older docs, blog posts and Stack Overflow answers, so both are listed here.
 
