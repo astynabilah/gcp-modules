@@ -11,7 +11,7 @@ One command, three stages, no arguments.
 
 ---
 
-## What's in here
+## Files in this folder
 
 | File | What it does |
 |---|---|
@@ -42,7 +42,7 @@ it is entirely reproducible.
 
 ---
 
-## Why the Code Lives Here
+## Consolidating scattered generators
 
 It used to be next to the documents: generators sat in `labs/figures/` and in
 each `modules/assets/<name>/` folder, and the SVG validator existed as

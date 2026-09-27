@@ -6,7 +6,7 @@
 
 ---
 
-## What this module is for
+## Four tiers, one irreversible choice
 
 "Low-code AI" on Google Cloud covers four tiers of *how much you supply*, spread across a dozen services with overlapping names. It is not one product. The practical skill is picking the leftmost tier that clears your accuracy bar, rather than the most impressive one.
 
@@ -623,7 +623,7 @@ See [API versions and launch stages](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md).
 
 ---
 
-## 8. Anti-patterns
+## 8. Traps in the low-code path
 
 **Choosing Cloud or Edge without checking the deployment requirement.** The most expensive mistake here, because the fix is retraining.
 
@@ -641,7 +641,7 @@ See [API versions and launch stages](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md).
 
 ---
 
-## 9. Test your understanding
+## 9. Tier-choice practice questions
 
 <details markdown="1">
 <summary><b>1.</b> AutoML object detection for vehicles, deployed to edge devices at traffic intersections. What do you configure?</summary>
@@ -695,13 +695,13 @@ Probably not yet — hundreds per class is the realistic bar. Try a Gemini promp
 
 ---
 
-## Summary
+## The tier ladder, revisited
 
 Low-code AI on Google Cloud is four tiers ordered by **who supplies what**: pretrained APIs, generative models, AutoML, and BigQuery ML. The discipline is trying them left to right rather than reaching for the most capable. The one irreversible decision is **AutoML's Cloud/Edge fork**, made before training. Cloud models use `CLOUD*` model types, deploy to Vertex endpoints, and **cannot be exported**. Edge models use `MOBILE_TF_*` types, **cannot be deployed to endpoints**, and are exported as TF Lite, Edge TPU TF Lite, TensorFlow.js, a SavedModel container, or Core ML. Vertex AI Vision (renamed Agent Platform Vision) builds streaming video *applications* and is not the training path for edge models. It is deprecated as of 15 June 2026 and reaches end of life on 30 September 2026. And as of 2026, AutoML Edge object detection sits in maintenance mode. Learn how it works, but check its status again before you build on it.
 
 ---
 
-## References
+## Where these numbers and defaults come from
 
 - [Export AutoML Edge models](https://docs.cloud.google.com/vertex-ai/docs/export/export-edge-model)
 - [Train an image object detection model](https://cloud.google.com/vertex-ai/docs/image-data/object-detection/train-model)

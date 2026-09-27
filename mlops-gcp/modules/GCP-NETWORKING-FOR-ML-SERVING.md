@@ -189,7 +189,7 @@ DNS is a cache, and you cannot make clients forget faster than their TTL. Set th
 
 > **Two things regional external ALBs don't support:** Cloud CDN, and Cloud Storage buckets as backends. If your primary uses either, the backup cannot be a like-for-like copy.
 
-### Where the plausible alternatives fail
+### Approaches that don't achieve failover
 
 | Approach | Why not |
 |---|---|
@@ -265,7 +265,7 @@ Those probes come from Google-owned IP ranges, and your VM firewall must allow t
 
 Google Cloud has an **implied deny** rule on inbound traffic: anything not explicitly allowed is dropped. Forget this firewall rule and every backend reads UNHEALTHY, your load balancer serves 502s, and nothing in the error mentions firewalls. This is the most common load balancer failure, so memorise the two ranges.
 
-### Why serverless backends are different
+### Serverless backends and health checks
 
 **Backend services with serverless NEG backends cannot be configured with health checks. Health checks are not supported for serverless backends.**
 
@@ -273,7 +273,7 @@ The reason follows from what "serverless" means. With Cloud Run, **Google runs t
 
 Because there are no probes, **you don't need a firewall rule either.** There is no VM whose firewall could block anything.
 
-### So: back to the question this module opened with
+### Resolving the opening scenario
 
 > You deploy Cloud Run in two regions behind a global external ALB, and see health check errors in Cloud Logging.
 
@@ -287,13 +287,13 @@ Work through the near-misses too:
 
 Notice that three of the four are true statements about networking, applied to the wrong backend type. **The discriminating question is always: who runs the machine?** If you do, you prove it's healthy. If Google does, Google already knows.
 
-### What replaces health checks
+### Outlier detection for serverless backends
 
 The serverless equivalent is **outlier detection**. Instead of probing, it watches real request outcomes and steers new requests away from a backend that is returning errors. It is available on the **global external ALB** and the **cross-region internal ALB**, but *not* on the classic Application Load Balancer.
 
 ---
 
-## 8. Where ML serving lives
+## 8. Networking by serving surface
 
 | You're serving on | Networking you need |
 |---|---|
@@ -348,7 +348,7 @@ See [API versions and launch stages](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md) for 
 
 ---
 
-## 10. Anti-patterns
+## 10. Mistakes that break load-balanced serving
 
 **Attaching a health check to a serverless NEG backend service.** The subject of this module. It is a configuration error, not a safety net.
 
@@ -364,7 +364,7 @@ See [API versions and launch stages](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md) for 
 
 ---
 
-## 11. Test your understanding
+## 11. Work through these networking scenarios
 
 <details markdown="1">
 <summary><b>1.</b> Cloud Run in two regions behind a global external ALB, health check errors in the logs. Cause?</summary>
@@ -404,7 +404,7 @@ Yes, several, and none of them are about load. A custom domain with a managed ce
 
 ---
 
-## Summary
+## Recap: the load balancer anatomy
 
 A global external Application Load Balancer is **five chained objects**: forwarding rule, target proxy, URL map, backend service, backend. In front of them sits an **anycast IP** that gives you nearest-region routing for free. Backends are grouped into **NEGs**, and the NEG type determines the rules. A **serverless NEG** must sit in the same region as its Cloud Run service, and it works only with Application Load Balancers. Google runs the infrastructure behind it, so it **supports no health checks and needs no firewall rules for probes**. Health checks and the `35.191.0.0/16` / `130.211.0.0/22` ranges belong to backends *you* run. The discriminating question, every time: **who runs the machine?**
 
@@ -433,7 +433,7 @@ A global external Application Load Balancer is **five chained objects**: forward
 
 ---
 
-## References
+## Load balancing documentation used here
 
 - [Set up a global external ALB with Cloud Run](https://docs.cloud.google.com/load-balancing/docs/https/setup-global-ext-https-serverless)
 - [Serverless NEGs overview](https://docs.cloud.google.com/load-balancing/docs/negs/serverless-neg-concepts)

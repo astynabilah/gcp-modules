@@ -271,7 +271,7 @@ One of the strongest reasons to use pipelines at all: **each step gets its own m
 
 ![Where machine resources are configured](assets/kfp/k-04-resources.svg)
 
-### The rule
+### Resources belong to the task
 
 Resources are a property of the **task** (the node in the DAG), not of the component and not of the job. Configure them by chaining setters on the object a component call returns, inside the pipeline function:
 
@@ -726,7 +726,7 @@ The pipeline's service account needs `roles/aiplatform.user`, `roles/storage.obj
 
 ---
 
-## Further reading
+## Pipelines documentation and samples
 
 - [Vertex AI Pipelines introduction](https://docs.cloud.google.com/vertex-ai/docs/pipelines/introduction)
 - [Interfaces for Vertex AI Pipelines](https://docs.cloud.google.com/vertex-ai/docs/pipelines/interfaces)

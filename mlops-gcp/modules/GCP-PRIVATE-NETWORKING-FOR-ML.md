@@ -6,7 +6,7 @@
 
 ---
 
-## What changed recently
+## Recent shifts in the private-networking picture
 
 | When | What |
 |---|---|
@@ -39,11 +39,11 @@ None of them replaces IAM. IAM decides *who may*; these decide *what is reachabl
 
 ## 2. Private Google Access
 
-### The problem it solves
+### Reaching Google APIs without a public IP
 
 A VM with no external IP address cannot reach anything outside its VPC. That includes `bigquery.googleapis.com`, which is Google's own service but still lives at a **public IP address**. So removing the external IP for security also breaks every API call.
 
-### What it does
+### A per-subnet setting
 
 **Private Google Access is a per-subnet setting.** Turn it on, and VMs in that subnet with **no external IP** can still reach Google APIs and services. Traffic goes to Google's public API addresses but never traverses the public internet. It stays on Google's network.
 
@@ -61,11 +61,11 @@ That is all the configuration you need. One flag on the subnet.
 
 ## 3. Cloud NAT and Cloud Router
 
-### The problem it solves
+### Reaching the public internet outbound
 
 Your notebook needs `pip install torch`. PyPI is not a Google service, so Private Google Access does not help. But giving the VM an external IP makes it **reachable from the internet**, and that is what you were avoiding.
 
-### What it does
+### Managed NAT and its router prerequisite
 
 **NAT (Network Address Translation) is one-way outbound.** Many private machines share a pool of public IPs for *outgoing* connections. Nothing on the internet can initiate a connection inward, because there is no address to aim at.
 
@@ -97,7 +97,7 @@ gcloud compute routers nats create ml-nat \
 
 ## 4. VPC Service Controls
 
-### The problem it solves
+### Exfiltration through valid credentials
 
 Everything above is about **reachability**. None of it stops an authorised user with valid credentials from running:
 
@@ -107,7 +107,7 @@ EXPORT DATA OPTIONS(uri='gs://some-other-org-bucket/*') AS SELECT * FROM custome
 
 That request goes to `bigquery.googleapis.com`: an allowed destination, with valid credentials, over an allowed path. Routing controls cannot see the difference. Neither can a firewall rule. To the network it is the same TLS connection to the same host as every legitimate query.
 
-### What it does
+### A perimeter around Google Cloud services
 
 **VPC Service Controls draws a perimeter around Google Cloud *services*, and data cannot cross it.** Put your project's BigQuery, Cloud Storage and Vertex AI inside a perimeter, and a request that would move data out is refused **by the service**, regardless of IAM.
 
@@ -262,7 +262,7 @@ The full configuration for "notebooks handling sensitive data, no direct interne
 
 ---
 
-## 7. Anti-patterns
+## 7. Common private-networking mistakes
 
 **Treating VPC Service Controls as an IAM replacement.** It is a perimeter. Inside it, IAM still decides everything.
 
@@ -278,7 +278,7 @@ The full configuration for "notebooks handling sensitive data, no direct interne
 
 ---
 
-## 8. Test your understanding
+## 8. Private-networking questions to work through
 
 <details markdown="1">
 <summary><b>1.</b> Workbench notebooks, sensitive financial data, no direct internet, must still reach Google Cloud services. What do you build?</summary>
@@ -334,13 +334,13 @@ It is Cloud NAT's prerequisite: NAT configurations are attached to a Cloud Route
 
 ---
 
-## Summary
+## Recap: three mechanisms, four endpoint types
 
 Private networking for ML is **three mechanisms with three different jobs**. **Private Google Access** is a per-subnet flag letting VMs with no external IP reach Google APIs without touching the public internet. **Cloud NAT**, configured on a **Cloud Router**, gives controlled *outbound* access to everything else (`pip`, `apt`) while nothing on the internet can reach in. **VPC Service Controls** is the only one that stops data leaving with **valid credentials**, because it checks the destination rather than the identity or the address. **Access levels** are its exception list, typically corporate IP ranges. IAM, firewall rules and VPC-SC are three different axes, and a regulated environment needs all three. For endpoints, there are **four types and no single best one**. **Dedicated public** is the documented best practice and Model Garden's default: isolated from other tenants' traffic, **gRPC**, SSE streaming, 10 MB payloads, hour-long timeouts. You reach it at its `dedicatedEndpointDns`, with the **`x-vertex-ai-endpoint-id`** header required for gRPC. But it is the one type **VPC Service Controls does not support**. If you need the perimeter too, the answer is **Private Service Connect**, which has the same characteristics privately. **Private services access** is the legacy path and best avoided: HTTP only, **no TLS at all**, one model per endpoint, no traffic splitting. And **tuned Gemini models can only be deployed to shared public endpoints**. That works out, because shared public is a type VPC-SC *does* cover. Vertex endpoints never integrate with IAP.
 
 ---
 
-## References
+## Documentation on private connectivity and endpoints
 
 - [VPC Service Controls with Vertex AI](https://cloud.google.com/vertex-ai/docs/general/vpc-service-controls)
 - [Set up a VPC network for Vertex AI](https://cloud.google.com/vertex-ai/docs/general/vpc-standalone)

@@ -178,7 +178,7 @@ model.fit(train_ds, epochs=30, callbacks=[tensorboard_cb])
 
 > **`AIP_MODEL_DIR` is a Cloud Storage path, not a local directory.** This is easy to miss. Vertex sets the variable so you don't have to construct the bucket path yourself, but *you* still do the writing. Nothing syncs a local folder for you after the job ends, because by then there is no folder.
 
-**Why checkpointing matters beyond crash recovery:** it is what makes [Spot VMs](#6-cost) usable. A preempted job resumes from the last checkpoint instead of starting over. That is what makes a 60–91% discount safe to take. No checkpoints, no Spot.
+**Why checkpointing matters beyond crash recovery:** it is what makes [Spot VMs](#6-what-training-actually-costs) usable. A preempted job resumes from the last checkpoint instead of starting over. That is what makes a 60–91% discount safe to take. No checkpoints, no Spot.
 
 ### Reduction Server
 
@@ -447,7 +447,7 @@ On accelerator families: **T4** is the cheap inference-and-light-training option
 
 ---
 
-## 6. Cost
+## 6. What training actually costs
 
 Training bills **per node-hour while the job runs**, across every worker pool. Unlike an endpoint, it stops when the job stops. That makes training a *bounded* cost and serving an *unbounded* one.
 
@@ -480,7 +480,7 @@ See [API versions and launch stages](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md).
 
 ---
 
-## 7. Anti-patterns
+## 7. Common training compute mistakes
 
 **Training on the notebook kernel because it's already open.** Fine for a prototype. Past that you're holding an interactive VM hostage to a long-running job, and losing the connection loses the run.
 
@@ -498,7 +498,7 @@ See [API versions and launch stages](GCP-API-VERSIONS-AND-LAUNCH-STAGES.md).
 
 ---
 
-## 8. Test your understanding
+## 8. Comprehension check
 
 <details markdown="1">
 <summary><b>1.</b> Prototyped on a small-GPU Workbench instance, now need multiple GPUs on the full dataset, without leaving the notebook. What do you do?</summary>
@@ -544,7 +544,7 @@ The Workbench instance. A training job is **bounded**: it bills per node-hour ac
 
 ---
 
-## 9. 2026 notes
+## 9. Naming changes since the 2026 rebrand
 
 | Change | Effect |
 |---|---|
@@ -554,13 +554,13 @@ The Workbench instance. A training job is **bounded**: it bills per node-hour ac
 
 ---
 
-## Summary
+## Choosing where training runs, recapped
 
 Training can run in five places, and the interesting question is never "which is most powerful" but "where should the compute live". For tabular data already in BigQuery, `CREATE MODEL` wins on total cost and effort. For deep learning, you prototype on a **Workbench instance**. Then you use the **notebook executor** to run the same notebook as a **custom training job** on hardware chosen per run. Resizing the instance instead forces expensive hardware into your editing session and hits the **G2 ↔ non-G2** restriction. That job is up to **four worker pools**: primary, workers, reducers, evaluators. Fill one machine before you use more than one, checkpoint so you can use Spot, and set idle shutdown on anything with a GPU attached.
 
 ---
 
-## References
+## Workbench and training documentation
 
 - [Introduction to Vertex AI Workbench](https://docs.cloud.google.com/gemini-enterprise-agent-platform/notebooks/workbench/introduction)
 - [Change machine type and configure GPUs of a Workbench instance](https://docs.cloud.google.com/vertex-ai/docs/workbench/instances/change-machine-type)

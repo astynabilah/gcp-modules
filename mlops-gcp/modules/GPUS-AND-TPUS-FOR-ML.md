@@ -184,7 +184,7 @@ Google's own comparison of v5p against v4: *"more than 2X greater FLOPS"*, *"3X 
 
 > **And a common mix-up:** the *"optimized for transformer, text-to-image, and convolutional neural network training"* positioning belongs to **v6e**, not v5e. v5e is described as *"a combined training and inference (serving) product"* with a TCO ratio of 0.65×.
 
-### The rule
+### Picking by workload type
 
 > **Dense workload (transformers, LLMs, vision): pick on FLOPS, memory and cost.**
 > **Embedding-heavy workload (recommenders, ranking): pick a generation with SparseCores first, then on everything else.**

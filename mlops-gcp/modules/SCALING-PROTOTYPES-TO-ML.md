@@ -6,7 +6,7 @@
 
 ---
 
-## Who this is for
+## Before you start building
 
 You have something that works. A notebook that predicts churn. A query that classifies support tickets. A spreadsheet model somebody on the commercial team has been quietly running for a year. It produces a useful answer, and someone has now asked the dangerous question: *can we make this real?*
 
@@ -165,7 +165,7 @@ The discontinuity between Stage 3 and Stage 4 is the point of this table. Stages
 
 ---
 
-## 7. Anti-patterns
+## 7. Missteps in scaling a prototype
 
 **The notebook in production.** A scheduled notebook is a script with hidden state and no tests. If the logic is SQL, run it as SQL. If it isn't, make it a proper pipeline step.
 
@@ -259,7 +259,7 @@ Two changes to carry into any architecture discussion this year:
 
 ---
 
-## Further reading
+## MLOps and BigQuery ML documentation
 
 - [BigQuery ML overview](https://docs.cloud.google.com/bigquery/docs/bqml-introduction)
 - [Generative AI in BigQuery](https://docs.cloud.google.com/bigquery/docs/generative-ai-overview)

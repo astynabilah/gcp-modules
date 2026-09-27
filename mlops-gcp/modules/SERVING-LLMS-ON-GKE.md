@@ -6,7 +6,7 @@
 
 ---
 
-## What changed recently
+## Autoscaling changes in 2026
 
 | When | What |
 |---|---|
@@ -468,7 +468,7 @@ That last one is the connection back to §4a. PDBs govern *voluntary disruption*
 
 ---
 
-## 9. Anti-patterns
+## 9. Where GPU autoscaling breaks down
 
 **Autoscaling GPU inference on CPU utilisation.** The single most common mistake, and the reason this module exists.
 
@@ -490,7 +490,7 @@ That last one is the connection back to §4a. PDBs govern *voluntary disruption*
 
 ---
 
-## 10. Test your understanding
+## 10. Diagnosing autoscaling signals
 
 <details markdown="1">
 <summary><b>1.</b> TGI-based LLM service on GKE with NVIDIA GPUs, traffic spikes, minimise latency. What metric do you autoscale on?</summary>
@@ -524,13 +524,13 @@ Three things. **The metrics pipeline**: PodMonitoring scraping the right port, t
 
 ---
 
-## Summary
+## Why queue size wins
 
 Keeping non-GPU pods off GPU nodes is a job for a **taint**, not for per-workload affinity. GKE applies `nvidia.com/gpu=present:NoSchedule`, and its **`ExtendedResourceToleration`** admission controller injects the matching toleration into any pod requesting `nvidia.com/gpu`, so you never write one. But the taint is only added when the cluster already has a non-GPU node pool, and never retroactively. GKE is the serving option where **you own the cluster**. It is the right call when you already run Kubernetes, not as a way to avoid a managed service: a Vertex **dedicated public endpoint** gives you managed GPUs and gRPC with none of this. Serving is done by a **continuous-batching model server** (vLLM, TGI, Triton), and that batching behaviour explains how autoscaling works here. **CPU and memory are explicitly not recommended as sole indicators for GPU inference.** System memory barely moves, because GPU memory is pre-allocated. RPS ignores that requests vary hugely in cost. The recommended signal is **queue size** (`tgi_queue_size`, `vllm:num_requests_waiting`), because the queue stays near zero while batch space lasts and grows sharply when it runs out. Move to **batch size** only when queue-based scaling cannot meet a latency target. Metrics reach HPA via **Managed Service for Prometheus plus the custom metrics adapter** (server metrics `type: Pods`, GPU metrics `type: External` with a lowercase name), or via **native custom metrics**, in preview since March 2026. Pick the target by load testing from 3–5 upward, mind HPA's 0.1 tolerance, and remember that the slow part is not the scaling decision. It is node provisioning and loading tens of gigabytes of weights.
 
 ---
 
-## References
+## GKE autoscaling documentation
 
 - [Best practices for autoscaling LLM inference workloads with GPUs](https://cloud.google.com/kubernetes-engine/docs/best-practices/machine-learning/inference/autoscaling)
 - [Configure autoscaling for LLM workloads on GPUs](https://cloud.google.com/kubernetes-engine/docs/how-to/machine-learning/inference/autoscaling)

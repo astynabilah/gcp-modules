@@ -6,7 +6,7 @@ Predicting what comes next, when the data has an order. This is the one part of 
 
 ---
 
-## Names and status
+## Deprecations and renames to know
 
 | Item | Status |
 |---|---|
@@ -360,7 +360,7 @@ Calling `ML.EVALUATE` without input data is deprecated. Use `ML.ARIMA_EVALUATE` 
 
 ---
 
-## 12. Check your understanding
+## 12. Forecasting problems, worked through
 
 <details markdown="1">
 <summary><b>1.</b> Your sales model scores well in testing and badly in production. You split the data 80/20 at random. What happened?</summary>
@@ -396,13 +396,13 @@ TimesFM through `AI.FORECAST` is easier to run but rated Low for explainability,
 
 ---
 
-## Summary
+## The forecasting essentials
 
 Time series breaks the usual ML rules because rows are ordered and not independent. **A random split leaks the future**, so use `DATA_SPLIT_METHOD = 'SEQ'` in BigQuery ML or a chronological split in Vertex AI. **`ARIMA_PLUS`** runs a nine-step pipeline in one statement, including gap handling, duplicate timestamps, outlier cleaning, seasonality and auto.ARIMA tuning by lowest AIC — but **holiday modelling is off until you set `HOLIDAY_REGION`**. The forecast is produced at **`CREATE MODEL` time**, so `HORIZON` there is the setting that matters. Use `TIME_SERIES_ID_COL` for many series at once, up to 100,000,000, and check your row count because failed series are dropped silently. **`ARIMA_PLUS_XREG`** adds external variables but requires their future values. **TimesFM through `AI.FORECAST`** needs no training at all, matches ARIMA_PLUS on accuracy, and loses on explainability — so pick it when nobody will ask why. Evaluate with **MASE** first, because it tells you whether you beat a naive forecast.
 
 ---
 
-## References
+## BigQuery ML forecasting reference
 
 - [CREATE MODEL for time series](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-time-series) · [ML.FORECAST](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-forecast) · [ML.EXPLAIN_FORECAST](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-explain-forecast)
 - [TimesFM model](https://cloud.google.com/bigquery/docs/timesfm-model) · [AI.FORECAST](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-ai-forecast)

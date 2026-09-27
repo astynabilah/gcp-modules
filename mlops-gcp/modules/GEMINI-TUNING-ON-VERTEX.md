@@ -6,7 +6,7 @@
 
 ---
 
-## What changed recently
+## Recent changes to the tuning workflow
 
 | When | What |
 |---|---|

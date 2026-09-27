@@ -6,7 +6,7 @@
 
 ---
 
-## Scope of this module
+## Cloud Run as the serving layer
 
 Cloud Run appears elsewhere in this series only as a *backend behind a load balancer*. The [networking module](GCP-NETWORKING-FOR-ML-SERVING.md) explains serverless NEGs and why they have no health checks. This module is about the other side: **Cloud Run as the service that runs your model.**
 
@@ -185,7 +185,7 @@ This one is a **package of two changes pointing in opposite directions**. That i
 
 **But it inverts with size.** Past roughly 10 GB, and certainly for an LLM, the image becomes unwieldy to build, push and cache. Cloud Storage or a [FUSE mount](#cloud-storage-fuse-volume-mount) is the documented approach (§4). At that point "download at startup" stops being the wrong answer and becomes the only practical one. This is why §4 exists.
 
-### The summary
+### Matching symptoms to fixes
 
 | Symptom | Reach for |
 |---|---|
@@ -202,7 +202,7 @@ This one is a **package of two changes pointing in opposite directions**. That i
 
 ---
 
-## 7. Anti-patterns
+## 7. Cold-start decisions that backfire
 
 **Downloading from a public model hub at startup.** Slowest, least reliable, and an external dependency in your critical path.
 
@@ -220,7 +220,7 @@ This one is a **package of two changes pointing in opposite directions**. That i
 
 ---
 
-## 8. Test your understanding
+## 8. Cold-start troubleshooting cases
 
 <details markdown="1">
 <summary><b>1.</b> 2 GB BERT model on Cloud Run, optimising startup for traffic spikes. Where do the weights go?</summary>
@@ -260,13 +260,13 @@ When you want model loading and scaling to be someone else's problem and you're 
 
 ---
 
-## Summary
+## Cold starts, distilled
 
 Serving a model on Cloud Run makes you answer a question Vertex endpoints hide: **where do the weights live, and when do they arrive?** Cold start is a six-stage sequence, and the "get weights" stage is the one your design controls. For models under roughly **10 GB** (a 2 GB BERT included) putting them **in the container image** lets Cloud Run's **container streaming** materialise them with no separate download, no external dependency and nothing to retry. Past ~10 GB, image pull becomes the bottleneck and streaming from **Cloud Storage** is the better trade. That route is also what Google's current best-practices guidance leads with. **Never download from a public hub at startup**, and **never lazy-load on first request**. Lazy loading does not remove the cost. It hands it to a user. Beyond storage, the levers are `min-instances`, startup CPU boost, concurrency and smaller weights, each shortening a different stage.
 
 ---
 
-## References
+## Cloud Run documentation used here
 
 - [Best practices: AI inference on Cloud Run services with GPUs](https://docs.cloud.google.com/run/docs/configuring/services/gpu-best-practices)
 - [Cloud Storage volume mounts](https://cloud.google.com/run/docs/configuring/services/cloud-storage-volume-mounts)
