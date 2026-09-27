@@ -18,7 +18,7 @@ But before that answer is useful, a bigger source of confusion has to go: **at l
 
 ![Four independent meanings of version](assets/apiversions/av-01-four-axes.svg)
 
-| # | Kind | Examples | What it numbers |
+| # | Kind | Examples | Numbering target |
 |---|---|---|---|
 | 1 | **API version** | `v1`, `v1beta1` | The **stability contract** of the REST/gRPC surface |
 | 2 | **Feature generation** | Model Monitoring **v2**, GCPC `v1` / `preview` | A **redesign** of a product, numbered by its maker |
@@ -54,7 +54,7 @@ Google Cloud products move through defined stages, and the API version you're ca
 
 ---
 
-## 3. How you select a version
+## 3. Version selection mechanics
 
 ![Selecting an API version in each surface](assets/apiversions/av-03-selecting.svg)
 
@@ -114,7 +114,7 @@ It's a legitimate choice, not a forbidden one. The question is whether you can a
 
 ---
 
-## 5. What this means in each module
+## 5. The practical impact per module
 
 This is the practical part. The `v1` / `v1beta1` split lands **differently in each area**, and in several places the difference changes what you can do.
 
@@ -139,7 +139,7 @@ Model Monitoring v2, the reusable `ModelMonitor` resource, is reached through **
 
 ### [Kubeflow Pipelines](KUBEFLOW-PIPELINES-ON-GCP.md) — three version axes at once
 
-| Thing | Version axis | Where it sits |
+| Thing | Version axis | Position |
 |---|---|---|
 | `kfp` SDK 2.x | library semver | your `pip install` |
 | `aiplatform.PipelineJob` | API version | **GA, `v1`** |
@@ -151,7 +151,7 @@ Nothing about running a KFP pipeline requires `v1beta1`. Submission is GA. What 
 
 Artifacts, executions, contexts, events, the lineage subgraph, and the whole `metadata.<field>.number_value` filter grammar are **GA on `v1`**. This is the calmest module in the series from a versioning standpoint. If you find yourself in `aiplatform_v1beta1` for metadata work, you have probably taken a wrong turn.
 
-### [Where training runs](VERTEX-TRAINING-COMPUTE.md) — GA core, preview edges
+### [Training compute surface](VERTEX-TRAINING-COMPUTE.md) — GA core, preview edges
 
 **Concretely:** `CustomJob`, worker pools, prebuilt containers and the Workbench executor are the GA path. Newer scheduling and resource options tend to appear in preview first. The practical rule: if a training feature you found isn't in `gcloud ai`, check whether it is in `gcloud beta ai`. That tells you it is preview, so it needs a decision rather than a copy-paste.
 

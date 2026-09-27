@@ -13,7 +13,7 @@ One command, three stages, no arguments.
 
 ## Files in this folder
 
-| File | What it does |
+| File | Purpose |
 |---|---|
 | `build.py` | The only entry point. Runs the three stages below. |
 | `svgkit.py` | SVG primitives. The Google Cloud console mockups are drawn, not screenshotted. |

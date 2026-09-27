@@ -8,7 +8,7 @@
 
 ## Deprecation timeline for Vertex Explainable AI
 
-| When | What |
+| When | Detail |
 |---|---|
 | **16 Mar 2026** | **Vertex Explainable AI is deprecated.** No new features from this date, and unusually, **no critical-patch grace period**. |
 | **16 Mar 2027** | **Fully sunset** — *"the capability will be fully sunset and APIs will no longer be available."* |

@@ -101,7 +101,7 @@ Give the record a **TTL matching your deduplication window**, or the collection 
 
 The key defines what counts as "the same work". This is where the subtle mistakes live.
 
-| Key | Verdict | Why |
+| Key | Verdict | Reasoning |
 |---|---|---|
 | **CloudEvent `id`** | **Correct** | Unchanged across retries of the same event, different for a truly new event |
 | **File name** | **Wrong** | Identifies the *object*, not the *event*. A legitimate re-upload for a second training run is silently dropped as a duplicate |
@@ -240,7 +240,7 @@ Cloud Functions gives **at-least-once** execution and Cloud Storage delivers eve
 
 ---
 
-## Where these idempotency claims come from
+## Sources for these idempotency claims
 
 - [Retry event-driven functions](https://docs.cloud.google.com/functions/docs/bestpractices/retries)
 - [Cloud Functions pro tips: building idempotent functions](https://cloud.google.com/blog/products/serverless/cloud-functions-pro-tips-building-idempotent-functions)

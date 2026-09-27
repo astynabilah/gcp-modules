@@ -92,7 +92,7 @@ The executor also unlocks things a single VM cannot do at all: distributed train
 
 **The executor is not supported on Workbench instances that use VPC Service Controls.** In a locked-down environment you submit a custom training job directly instead. Same destination, without the notebook-shaped front door.
 
-### Why the obvious alternatives are worse
+### The alternatives' drawbacks
 
 - **Resize the instance.** Works for a bigger single GPU, but ties expensive hardware to your editing session, can't do distributed training, and hits the G2 restriction.
 - **Export to `.py`, submit a custom training job.** This is a *correct* approach and what you'd eventually automate. But as an immediate answer it adds manual steps and leaves the notebook. The executor gets you the same compute without the detour. (For a *pipeline*, you do want a real script or component. See [KFP](KUBEFLOW-PIPELINES-ON-GCP.md).)
@@ -122,7 +122,7 @@ Single-node training uses **pool 0 only**. That is the common case and there is 
 - **Prebuilt containers** for TensorFlow, PyTorch, scikit-learn and XGBoost — supply a Python training application and go.
 - **Custom containers** when you need a specific framework version, a system dependency, or your own image.
 
-### Where the model goes
+### Getting the model off the training VM
 
 **Training VMs are ephemeral. They are deleted when the job finishes, and you cannot get anything off them afterwards.** No SSH, no disk to attach, no post-mortem. Anything you want to keep has to leave the machine *while the job is still running*.
 
@@ -150,7 +150,7 @@ model.save(model_dir)                              # writes the SavedModel to GC
 
 **The environment variables Vertex AI sets for you:**
 
-| Variable | What it holds |
+| Variable | Contents |
 |---|---|
 | `AIP_MODEL_DIR` | A **Cloud Storage URI** — where Vertex expects the final model. Model Registry looks here when you register the job's output. |
 | `AIP_CHECKPOINT_DIR` | A Cloud Storage URI for intermediate checkpoints. |
@@ -178,7 +178,7 @@ model.fit(train_ds, epochs=30, callbacks=[tensorboard_cb])
 
 > **`AIP_MODEL_DIR` is a Cloud Storage path, not a local directory.** This is easy to miss. Vertex sets the variable so you don't have to construct the bucket path yourself, but *you* still do the writing. Nothing syncs a local folder for you after the job ends, because by then there is no folder.
 
-**Why checkpointing matters beyond crash recovery:** it is what makes [Spot VMs](#6-what-training-actually-costs) usable. A preempted job resumes from the last checkpoint instead of starting over. That is what makes a 60–91% discount safe to take. No checkpoints, no Spot.
+**Why checkpointing matters beyond crash recovery:** it is what makes [Spot VMs](#6-training-cost-drivers) usable. A preempted job resumes from the last checkpoint instead of starting over. That is what makes a 60–91% discount safe to take. No checkpoints, no Spot.
 
 ### Reduction Server
 
@@ -203,7 +203,7 @@ Every custom training job runs in a container. You get two ways to supply one, a
 
 **The deciding question is whether your dependencies can be installed at all.** A proprietary internal library, a wheel from a private index, a C extension needing system packages: none of those are `pip install`-able inside a prebuilt container at job start. Even where they are, you have moved a build step into every run. That means slower startup, and a job that fails when an index is unreachable.
 
-### How each is expressed in the `WorkerPoolSpec`
+### Each route's `WorkerPoolSpec` fields
 
 The two routes are **mutually exclusive fields** on the worker pool, and picking the wrong one is a configuration error rather than a performance problem.
 
@@ -368,7 +368,7 @@ Picking `a2-highgpu-8g` is the easy half. The hard half is that eight A100s are 
 
 **`scheduling.strategy`** on a `CustomJob` decides which capacity pool you draw from:
 
-| Strategy | What it means | Can it be interrupted? |
+| Strategy | Description | Can it be interrupted? |
 |---|---|---|
 | **`STANDARD`** | Ordinary on-demand provisioning. Fails immediately if there's no capacity. | No |
 | **`SPOT`** | Spot resources, 60–91% cheaper | **Yes — at any time, to reclaim capacity** |
@@ -404,7 +404,7 @@ scheduling:
 - **Maximum runtime is 7 days** — the docs require *"a maximum timeout of 7 days or less"*.
 - **Discount:** up to ~53% off on-demand. Real, and much less than Spot's 91%.
 
-### Flex-start versus Spot — how to choose
+### Flex-start versus Spot — the deciding factor
 
 This is the one that matters for a multi-day job.
 
@@ -447,7 +447,7 @@ On accelerator families: **T4** is the cheap inference-and-light-training option
 
 ---
 
-## 6. What training actually costs
+## 6. Training cost drivers
 
 Training bills **per node-hour while the job runs**, across every worker pool. Unlike an endpoint, it stops when the job stops. That makes training a *bounded* cost and serving an *unbounded* one.
 

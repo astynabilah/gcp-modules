@@ -23,7 +23,7 @@ The payoff is specific. By the end you should be able to read this sentence and 
 
 Six words. That is the whole prerequisite.
 
-| Word | What it is | A useful analogy |
+| Word | Description | A useful analogy |
 |---|---|---|
 | **IP address** | A number identifying a machine on a network, e.g. `34.120.0.5` | A street address |
 | **DNS** | The system that turns a name into an IP, e.g. `predict.acme.com` → `34.120.0.5` | The phone book |
@@ -191,7 +191,7 @@ DNS is a cache, and you cannot make clients forget faster than their TTL. Set th
 
 ### Approaches that don't achieve failover
 
-| Approach | Why not |
+| Approach | Shortcoming |
 |---|---|
 | **`capacityScaler = 0`** on the standby backend | It does not make the backend a standby. It removes it from the pool entirely, so there is nothing left to fail over *to*. |
 | **Outlier detection** | Real, and active-*active*. It steers new requests away from backends returning errors, distributing across whatever remains healthy. It never designates one region as preferred. |

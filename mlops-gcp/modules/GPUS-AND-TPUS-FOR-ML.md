@@ -315,7 +315,7 @@ XLA already converts some operations automatically. **Explicitly casting activat
 |---|---|
 | **Do you need an accelerator?** | The largest saving available. Tabular models do not. |
 | **Right-size the GPU** | T4 vs A100 is a large multiple for work that fits in 16 GB. |
-| **Spot VMs** | 60–91% off, and preemptible. Only usable if you [checkpoint](VERTEX-TRAINING-COMPUTE.md#where-the-model-goes). |
+| **Spot VMs** | 60–91% off, and preemptible. Only usable if you [checkpoint](VERTEX-TRAINING-COMPUTE.md#getting-the-model-off-the-training-vm). |
 | **Flex-start (DWS)** | ~53% off, and **not** interrupted for capacity — you queue to start instead. Up to 7 days. See [how to ask for capacity](VERTEX-TRAINING-COMPUTE.md#4c-getting-the-hardware-at-all). |
 | **Idle shutdown** | A Workbench instance with an A100 attached, left running overnight, is a real and common bill. |
 | **MXU utilisation** | A TPU at 20% utilisation costs the same per hour as one at 80%. |

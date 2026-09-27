@@ -8,7 +8,7 @@
 
 ## Recent naming and scope changes
 
-| When | What |
+| When | Change |
 |---|---|
 | **22 Apr – 21 May 2026** | Vertex AI became the **Gemini Enterprise Agent Platform** in console and docs. The batch prediction API, the `BatchPredictionJob` resource and the SDK are unchanged. Only the branding moved. |
 | **Ongoing** | Generative batch prediction (Gemini over a table of prompts) is a **separate** service with its own quotas and its own docs. This module is about batch prediction for *your* models — custom-trained, AutoML, and BQML. |

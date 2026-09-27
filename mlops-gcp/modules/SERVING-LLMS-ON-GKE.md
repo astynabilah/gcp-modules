@@ -45,7 +45,7 @@ You don't serve an LLM with a Flask app. The serving stack is a **model server**
 
 ---
 
-## 3. Why CPU utilisation is the wrong metric
+## 3. The trouble with CPU utilisation as a metric
 
 HPA works out of the box on CPU and memory. This is why people reach for it. Google's guidance is direct:
 

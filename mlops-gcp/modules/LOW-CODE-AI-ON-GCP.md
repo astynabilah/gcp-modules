@@ -109,7 +109,7 @@ Two constraints that are easy to miss:
 
 ---
 
-## 3a. What "milli node hours" means
+## 3a. The "milli node hours" unit, explained
 
 This unit confuses most people the first time, and that is understandable. It packs two unfamiliar ideas into one word.
 
@@ -156,7 +156,7 @@ The reasoning is division: `$50 / $19.32 = 2.58` node hours, so 2 is the largest
 
 So the pairing to remember is **set a budget you can afford, and leave early stopping enabled.** Disabling it cannot improve a converged model. It only guarantees you pay the maximum.
 
-### Why node hours are not wall-clock hours
+### Node hours versus wall-clock hours
 
 AutoML trains and evaluates many candidate models in parallel across several nodes. Your budget is consumed by all of them together.
 
@@ -198,7 +198,7 @@ The default split is **random**, 80/10/10. At 0.5% positives, a random 10% test 
 
 **Stratified** splits randomly *while preserving the distribution of the target column* across train, validation and test. The four options:
 
-| Split | What it does |
+| Split | Behavior |
 |---|---|
 | **Random** *(default)* | 80/10/10, rows chosen at random |
 | **Manual** | You supply a data split column |
@@ -242,7 +242,7 @@ Fix one and the other two stay quietly broken. And whichever you use, judge the 
 
 Every family comes in a matched pair. **The suffix is decided by the label, not by the algorithm:** a continuous target (a loan amount, a price, a duration) is `_REGRESSOR`; a discrete target (churn yes/no, a category) is `_CLASSIFIER`.
 
-| Family | What it is | Reach for it when |
+| Family | Description | Reach for it when |
 |---|---|---|
 | `LINEAR_REG` / `LOGISTIC_REG` | Generalised linear models | A fast, explainable baseline. Coefficients via `ML.WEIGHTS` |
 | `BOOSTED_TREE_*` | XGBoost gradient-boosted trees | The workhorse for tabular data — [Lab 2](../labs/lab-02-customer-churn-lowcode-bqml.md) |
@@ -362,7 +362,7 @@ A feature cross exists because a model treating `day_of_week` and `hour_band` se
 | `ML.LABEL_ENCODER` | Categories to integers |
 | `ML.NGRAMS` | Text to n-grams |
 
-### What decides correctness: `TRANSFORM`
+### The `TRANSFORM` correctness rule
 
 Any of these can be written in the `SELECT` of your training query, or in a view. **Do that and prediction breaks silently.**
 
@@ -399,7 +399,7 @@ OPTIONS(
 ) AS SELECT * FROM `myproject.mlops.training_data`
 ```
 
-| Option | What it controls |
+| Option | Controls |
 |---|---|
 | `MODEL_REGISTRY = 'VERTEX_AI'` | Publish to the Model Registry at all. Without it the model exists only in BigQuery. |
 | `VERTEX_AI_MODEL_ID` | **Which registry model this is.** The identity. |
@@ -540,7 +540,7 @@ The wrong answers are wrong in instructive ways:
 - **Edge deployment option, but `CLOUD` as the model type.** Two errors at once — the model type must be edge-optimised (`MOBILE_TF_*`), and there is no "deploy an Edge model to an endpoint near the edge". Endpoint proximity is not edge computing.
 - **Vertex AI Vision.** See §5 — right neighbourhood, wrong product.
 
-### Why edge at all?
+### The case for edge
 
 Four reasons that aren't about cost:
 
@@ -701,7 +701,7 @@ Low-code AI on Google Cloud is four tiers ordered by **who supplies what**: pret
 
 ---
 
-## Where these numbers and defaults come from
+## Sources for these numbers and defaults
 
 - [Export AutoML Edge models](https://docs.cloud.google.com/vertex-ai/docs/export/export-edge-model)
 - [Train an image object detection model](https://cloud.google.com/vertex-ai/docs/image-data/object-detection/train-model)

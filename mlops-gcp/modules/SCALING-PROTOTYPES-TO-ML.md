@@ -14,11 +14,11 @@ This module is about the distance between those two states, and about the Google
 
 ---
 
-## 1. What "scaling" means
+## 1. The meaning of "scaling"
 
 The word does a lot of unhelpful work. When someone says a prototype needs to scale, they usually mean one of five different things. Each one needs a different response:
 
-| They say | They mean | What it actually costs you |
+| They say | They mean | Real cost |
 |---|---|---|
 | "It needs to handle more data" | **Volume** — 10k rows became 100M | Usually the easiest. Move the compute to the data. |
 | "Other people need to run it" | **Reproducibility** — it only works on one laptop | Version control and declarative pipelines. Cheap, high payoff. |
@@ -101,7 +101,7 @@ Always build the rule first. It costs an afternoon, it is your baseline forever,
 
 ### Then: where does your data already live?
 
-| Situation | Path | Why |
+| Situation | Path | Rationale |
 |---|---|---|
 | Tabular, already in BigQuery | **BigQuery ML** | The data never moves. `CREATE MODEL` is one statement, and the model is a queryable object with the same IAM as your tables. |
 | Tabular, elsewhere | Load into BigQuery first | Almost always cheaper than building a pipeline to bring data to a training job. |
@@ -147,7 +147,7 @@ Scaling has costs that rarely appear in the plan. Push back when:
 
 ---
 
-## 6. What each stage costs
+## 6. Cost by stage
 
 Orders of magnitude for a mid-size tabular problem — a few million rows, daily scoring. Verify against [current pricing](https://cloud.google.com/pricing) before budgeting.
 
@@ -237,9 +237,9 @@ Before you call something production:
 
 ---
 
-## 9. Where the labs fit
+## 9. Lab-to-stage mapping
 
-| Module | Stage covered | What you build |
+| Module | Stage covered | Deliverable |
 |---|---|---|
 | [Lab 1 — Sentiment with Gemini](../labs/lab-01-sentiment-analysis-bigquery-gemini.md) | 1 → 2 | Architecture C: unstructured text becomes typed columns, validated against a ground-truth signal |
 | [Lab 2 — Churn with BigQuery ML](../labs/lab-02-customer-churn-lowcode-bqml.md) | 1 → 3 | Architecture A: baseline, training, evaluation, explanation, and a threshold chosen from expected value |
