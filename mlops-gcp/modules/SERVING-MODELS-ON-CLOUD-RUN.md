@@ -54,7 +54,7 @@ Only stage 4 changes based on your design decision, and for a multi-gigabyte mod
 
 ### The levers
 
-| Lever | What it shortens |
+| Lever | Time saved |
 |---|---|
 | **Weights in the image** | Removes stage 4 entirely — they arrive with the image |
 | **Startup CPU boost** | Extra CPU *during startup only*; helps stages 3 and 5 |
@@ -66,7 +66,7 @@ Only stage 4 changes based on your design decision, and for a multi-gigabyte mod
 
 ---
 
-## 3. Where the weights live
+## 3. Weight storage locations
 
 ![Four places model weights can live](assets/cloudrun/cr-01-where-weights-live.svg)
 
@@ -96,7 +96,7 @@ From a public model hub, on every cold start. **The slowest and least reliable o
 
 ---
 
-## 4. Where the common advice and the current docs diverge
+## 4. The gap between common advice and the current docs
 
 Be precise here, because this kind of guidance shifts.
 

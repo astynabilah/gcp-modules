@@ -83,7 +83,7 @@ It reaches lower latency targets than queue size can, at the cost of a harder th
 
 ### GPU metrics — useful, with real caveats
 
-| Metric | What it is | The catch |
+| Metric | Description | The catch |
 |---|---|---|
 | `DCGM_FI_DEV_GPU_UTIL` | Duty cycle — how much of the time the GPU is active | *"Does not measure how much work is being done while the GPU is active"*, so it's hard to map to latency or throughput targets |
 | `DCGM_FI_DEV_FB_USED` | GPU memory in use | For servers that **pre-allocate** memory — TGI and vLLM — *"this metric only works for scaling up, and won't scale down when traffic decreases"* |
@@ -430,7 +430,7 @@ HPA creating five pods that stay `Pending` is not an HPA problem. That's the clu
 
 The cluster autoscaler has two, and they trade latency against cost:
 
-| Profile | What it does |
+| Profile | Behavior |
 |---|---|
 | **`balanced`** | *"Prioritizes keeping more resources readily available for incoming pods and thus reducing the time needed for having them active."* **The default for Standard clusters.** Not available on Autopilot. |
 | **`optimize-utilization`** | *"Prioritize optimizing utilization over keeping spare resources in the cluster. When you enable this profile, the cluster autoscaler scales down the cluster more aggressively."* |
