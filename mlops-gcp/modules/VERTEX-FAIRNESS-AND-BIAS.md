@@ -40,7 +40,7 @@ Runs on the **model's predictions**, after training.
 
 **Catches:** bias the model introduced, or failed to correct. A model can amplify a small imbalance in the data, or introduce one that wasn't there.
 
-### `BiasConfig` — what both need
+### `BiasConfig` — the shared requirement
 
 Both components take a **`BiasConfig`**, which names the **slice feature**: the column whose groups you're comparing. For the loan scenario that's the geographic region column.
 
@@ -107,7 +107,7 @@ TensorFlow Fairness Indicators is a real, respectable library. But building a cu
 
 ---
 
-## 3. What this looks like in a pipeline
+## 3. The pattern in a pipeline
 
 The shape, in the [KFP](KUBEFLOW-PIPELINES-ON-GCP.md) terms of that module:
 
@@ -191,9 +191,9 @@ The constraints it can optimise for:
 
 For "predicts hire at significantly different rates across regions", the target is **demographic parity**, and per-slice thresholds are how you get there, without touching the model.
 
-### What the other tabs are, and why they don't solve this
+### The other tabs: diagnostic only
 
-| Tab | What it does | Why it isn't the fix |
+| Tab | Behavior | Limitation |
 |---|---|---|
 | **Datapoint Editor** | Edit a feature value on one example, re-run inference, watch the prediction move. | Answers "why *this* person". Editing rows one at a time doesn't shift a group-level rate. |
 | **Counterfactuals** | Find the most-similar datapoint with the *opposite* prediction. | Shows what would have had to differ. Useful for explaining a decision, and still one row. |
@@ -207,7 +207,7 @@ Per-group thresholds mean **two candidates with the same score can get different
 
 So treat WIT's slider as what it is: a way to **see the trade-off precisely**, and to find out what parity would cost, before anyone decides whether to take it. The tool makes the trade-off visible. It does not make the decision, and it does not make the decision legal.
 
-### Where it fits against the pipeline components
+### Its role next to the pipeline components
 
 | | **What-If Tool** | **`DetectModelBiasOp`** |
 |---|---|---|

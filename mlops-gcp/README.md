@@ -31,7 +31,7 @@ Full descriptions in [`labs/README.md`](labs/README.md).
 | 5 | [Feature engineering for tabular data](labs/lab-05-feature-engineering-tabular.md) | 90–110 min | low |
 | 6 | [Exploring BigQuery data from a notebook](labs/lab-06-data-exploration-bigquery-colab.md) | 45–60 min | **free** |
 
-**Suggested order is not 1→6.** See [the labs README](labs/README.md#what-order-to-do-them-in) — the numbering reflects when each was written.
+**Suggested order is not 1→6.** See [the labs README](labs/README.md#recommended-lab-order) — the numbering reflects when each was written.
 
 ## The modules
 
@@ -108,6 +108,6 @@ The console screenshots are **hand-built SVG mockups**, not captures of a live c
 
 Numbers in result grids are consistent with the real datasets (row counts, the 26.5% churn rate, the ~1,409-row eval split), but anything marked *sample output* will differ from your run — Gemini is non-deterministic even at `temperature: 0`, and `AUTO_SPLIT` picks a different hold-out each time.
 
-## What isn't verified
+## Verification gaps
 
 The SQL, `gcloud`, and Python in these documents is **checked against Google's documentation but not executed** against a live project. Treat it as carefully-researched reference, not as tested code. Expect to adjust region names, project IDs, and the occasional preview API.

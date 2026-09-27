@@ -17,7 +17,7 @@ Reversing the two is the classic mistake. Understand the mapping instead of memo
 
 ![Two feature types, two distance metrics](assets/monitoring/mon-01-metrics.svg)
 
-### Why each metric fits its type
+### The reasoning behind each metric choice
 
 **Numerical features have order and shape.** `age` and `income` can be binned into a histogram, and once you have two histograms the natural question is "how different are these distributions overall?" **Jensen-Shannon divergence** answers exactly that:
 
@@ -58,7 +58,7 @@ This is also why [Lab 5](../labs/lab-05-feature-engineering-tabular.md)'s advice
 
 ---
 
-## 2. What you can monitor
+## 2. Monitorable signals
 
 ![What to monitor](assets/monitoring/mon-03-what-to-monitor.svg)
 
@@ -121,7 +121,7 @@ This matters because the alternatives look reasonable and are more work. You do 
 
 **Agent Platform → Govern → Monitoring → Create monitoring job**, then:
 
-| Setting | What it does | Sensible start |
+| Setting | Effect | Sensible start |
 |---|---|---|
 | **Monitoring frequency** | How often the job runs | 24 hours; hourly only if you can act that fast |
 | **Baseline** | Training dataset (skew) or prior window (drift) | Your `customers_ml` BigQuery table |
@@ -187,7 +187,7 @@ Everything above watches **distributions**. None of it tells you the model got *
 
 The managed answer is a **scheduled Vertex AI Pipeline** built from the model evaluation components:
 
-| Step | Component | What it does |
+| Step | Component | Function |
 |---|---|---|
 | 1 | `ModelBatchPredictOp` | Run the deployed model over a labelled evaluation set |
 | 2 | `ModelEvaluationClassificationOp` | Compute precision, recall, AUC, confusion matrix from predictions + ground truth |
@@ -239,7 +239,7 @@ job.create_schedule(display_name="weekly-clv-eval",
 
 **Why not the alternatives:**
 
-| Instead | Why not |
+| Instead | Reason it falls short |
 |---|---|
 | Model Monitoring with a "precision threshold" | There isn't one. Monitoring compares input and output *distributions* against a baseline; it never sees labels. |
 | A Cloud Function that calls the endpoint and computes precision with sklearn | You now own the metric maths, the storage, the alerting logic, and the dependency updates, to reproduce a component that already exists. |
@@ -341,7 +341,7 @@ Unknown. Check that prediction logging is enabled and populating, that the featu
 
 ---
 
-## 9. What moved in the 2026 rebrand
+## 9. The 2026 rebrand's changes
 
 | Change | Effect |
 |---|---|

@@ -25,7 +25,7 @@ For the wider map of pretrained APIs, start at [What AI APIs are in Google Cloud
 
 Five products. Three still work, and two do not.
 
-| Product | Former name | Status | What it takes in |
+| Product | Former name | Status | Input accepted |
 |---|---|---|---|
 | **Cloud Vision API** | Never renamed | GA, frozen | One image, or a batch of images |
 | **Vision API Product Search** | Never renamed | GA | An image, plus your own product catalogue |
@@ -207,6 +207,6 @@ Google documentation:
 
 ---
 
-## Recap: What's Live and What's Not
+## Recap: Live Products, Dead Products
 
 Two products here are safe to use and two are not. **Cloud Vision API** gives you a menu of image features, billed per unit, with 1,000 units free each month, and it detects faces without ever identifying a person. **Video Intelligence API** does the same job for a video file, with 1,000 free minutes a month counted per feature. Both are GA, neither has been renamed, and both are frozen: Vision since 2024-12-19 and Video Intelligence since 2021-11-01. **Vision API Product Search** uses your own data, letting a shopper find a catalogue item from a photo once you have built and indexed a product set. **Vertex AI Vision**, renamed **Agent Platform Vision** in April 2026, was a streaming platform built from Streams, Applications, Processors and Vision Warehouse, and it reaches End of Life on 30 September 2026, so learn it only to recognise it in old material. **Visual Inspection AI** appears to be gone as well, though the only evidence is a redirect to Model Garden rather than any announcement. Google has published no guidance comparing these APIs with Gemini, so treat any such comparison, including mine in §8, as reasoning rather than a recommendation.

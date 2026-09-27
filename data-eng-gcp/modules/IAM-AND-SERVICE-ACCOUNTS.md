@@ -10,7 +10,7 @@ Who can do what, on which resource. Every permission problem you hit on Google C
 
 Google Cloud access has three parts. Learn these three words and most error messages start to make sense.
 
-| Part | What it is |
+| Part | Description |
 |---|---|
 | **Principal** | Who is asking. A person, a group, or a service account. |
 | **Role** | A named bundle of permissions, like `roles/bigquery.dataViewer`. |
@@ -132,7 +132,7 @@ Nothing is stored on your machine. That is the point.
 
 ---
 
-## 5. Why you should not create service account keys
+## 5. The risk of service account keys
 
 Google's guidance is short: *"We recommend that you avoid using service account keys whenever possible."*
 

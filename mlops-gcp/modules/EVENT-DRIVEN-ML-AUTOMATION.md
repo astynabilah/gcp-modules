@@ -77,15 +77,15 @@ def on_file_finalized(cloud_event):
     doc.update({"training_job_id": job.resource_name})
 ```
 
-### Why the transaction is not optional
+### The transaction's role
 
 A plain read-then-write has a race. Two retries can **both** read "not found" before either writes, and both then start a job. Retries are not guaranteed to be sequential. They can overlap.
 
 A transaction makes check-and-write a **single atomic step**, so exactly one attempt wins and the other sees the record. This is the step that often gets skipped, and it fails only under load, which is the worst way to fail.
 
-### Where to keep the record
+### Record storage location
 
-| Store | Why |
+| Store | Rationale |
 |---|---|
 | **Firestore** | Transactional, durable. The default choice. |
 | **Memorystore** | Faster and cheaper at very high volume; less durable. |
@@ -151,7 +151,7 @@ Pair this with a dead-letter topic if losing the event entirely is unacceptable.
 
 ---
 
-## 6. Where the trigger should live
+## 6. Trigger placement
 
 Idempotency is a property you need regardless of the trigger. But the trigger choice affects how much code you own.
 

@@ -1,4 +1,4 @@
-# What AI APIs are in Google Cloud?
+# Google Cloud's pretrained AI APIs
 
 Google sells a set of **pretrained AI APIs**: models it has already trained, that you call over HTTP and pay for per request. You bring no training data and no model. You send an image, an audio file, a document or a sentence, and you get structured JSON back.
 
@@ -42,7 +42,7 @@ The habit worth building is trying these left to right, rather than reaching for
 
 ---
 
-## 2. Why They Still Exist Next to Gemini
+## 2. Their Rationale Next to Gemini
 
 Gemini can read an image, transcribe audio and classify text. So can these APIs. It is a fair question why both exist.
 
@@ -158,7 +158,7 @@ The endpoint is still `retail.googleapis.com`. So Recommendations AI and Retail 
 
 ---
 
-## 7. What's Dead, and What Dies Soon
+## 7. Products Already Dead, and Products Dying Soon
 
 **Switched off already:**
 

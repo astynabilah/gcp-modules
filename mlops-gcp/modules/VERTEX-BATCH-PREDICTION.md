@@ -49,7 +49,7 @@ Read Google's wording closely. It separates two requirements that are easy to me
 
 So the rule covers **all three**, not only input and output.
 
-### What counts as "the same place"
+### Region equivalence rules
 
 | Model is in | Input may be in | Output may be in | Not |
 |---|---|---|---|
@@ -115,7 +115,7 @@ job = model.batch_predict(
 
 ---
 
-## 4. What a batch job costs
+## 4. Batch job cost drivers
 
 You pay for **machine time while the job runs**, at the same node-hour rates as training and online prediction, times the replica count. Nothing between runs.
 

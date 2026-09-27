@@ -42,7 +42,7 @@ In this lab, you learn how to:
 
 Written against the console as of **August 2026**:
 
-| Change | What it means for you |
+| Change | Effect |
 |---|---|
 | **Vertex AI became the Gemini Enterprise Agent Platform** (announced 22 Apr 2026; the Vertex AI console entry was removed 21 May 2026). | Model Registry now lives at **Agent Platform → Govern → Registry**. Searching "Vertex AI" in the console redirects you. **None of the SQL changed** — the `CREATE MODEL` option is still `MODEL_REGISTRY = 'VERTEX_AI'`, and the API is still `aiplatform.googleapis.com`. |
 | Boosted-tree training is still **not available in every BigQuery region**. | Use the **US multi-region** for this lab. If you must use another region, check the BigQuery ML locations page first — a region mismatch surfaces as an unhelpful "model type not supported" error. |
@@ -138,7 +138,7 @@ To do it in the console instead: **BigQuery → Studio → ⋮ next to `telco_ch
 
 ![Preview of the raw Telco table](figures/l2-01-preview.svg)
 
-### Why not just use Auto detect?
+### The problem with Auto detect here
 
 Try it and BigQuery types `TotalCharges` as `STRING` anyway — because of those 11 blank rows, the whole column fails numeric inference. The difference is that auto-detect does it *silently*. Learners who don't notice go on to train a model in which a genuinely predictive feature is being treated as a high-cardinality categorical string, and the model quietly gets worse with no error anywhere. Declaring it `STRING` on purpose means you have to deal with it consciously.
 
@@ -300,7 +300,7 @@ Training takes roughly **1–3 minutes**.
 
 Every option, and why it is there:
 
-| Option | Why |
+| Option | Rationale |
 |---|---|
 | `BOOSTED_TREE_CLASSIFIER` | Gradient-boosted trees (XGBoost). The right default for tabular data with mixed categorical and numeric columns — it handles interactions and non-linearity without you scaling or one-hot encoding anything. |
 | `AUTO_CLASS_WEIGHTS = TRUE` | **The most important option here.** Only 26.5% of customers churn. Without weighting, the model can score ~73% accuracy by predicting "No" for everyone and finding almost no churners. This reweights the classes so missing a churner is expensive. |
@@ -469,7 +469,7 @@ The row with `is_optimal = true` is the model you get when you query `churn_mode
 
 **The five methods:**
 
-| `DATA_SPLIT_METHOD` | What it does |
+| `DATA_SPLIT_METHOD` | Behavior |
 |---|---|
 | `AUTO_SPLIT` *(default)* | BigQuery ML decides by row count. Under 500 rows, everything is training data; between 500 and 50,000, a random 20% becomes evaluation data. |
 | `RANDOM` | Rows are randomised, then split by the fractions you give |

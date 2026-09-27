@@ -110,7 +110,7 @@ ORDER BY centroid_id, ABS(numerical_value) DESC;
 
 > **Set `STANDARDIZE` to TRUE here.** The argument defaults to `FALSE` on `ML.CENTROIDS`, which is the opposite of the training default. Standardizing *"allows the absolute magnitude of the values to be compared to each other"*. Without it, a feature measured in thousands looks more important than one measured in single digits.
 
-### How features are handled
+### Feature handling under the hood
 
 Categorical columns are one-hot encoded automatically. This applies to `BOOL`, `STRING`, `BYTES`, `DATE`, `DATETIME` and `TIME`.
 
@@ -254,7 +254,7 @@ And:
 
 This matters more than it sounds. A Davies-Bouldin index tells you the clusters are geometrically tight and well separated. It cannot tell you they are the **right** clusters, because there is no right answer to compare against.
 
-### What to do instead
+### Practical substitutes for ground truth
 
 **Name the clusters in business terms.** Google's own tutorial does this. It looks at a centroid and writes *"Centroid 3 shows a busy city station that is close to the city center."* If you cannot describe a cluster in a sentence a colleague would recognise, the clustering is probably not useful.
 

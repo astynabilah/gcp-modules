@@ -20,7 +20,7 @@ The centrepiece is **leakage**, which none of the previous labs covered and whic
 
 ### If you come from Python
 
-| What you'd do | Here | The difference that matters |
+| Python/pandas equivalent | Here | The difference that matters |
 |---|---|---|
 | `pd.merge` / `groupby().agg()` | `JOIN` + `GROUP BY` | Same semantics, runs over billions of rows without leaving the warehouse |
 | Rolling windows in pandas | `OVER (PARTITION BY … RANGE BETWEEN …)` | SQL windows are exact and declarative; no index alignment bugs |
@@ -487,7 +487,7 @@ LIMIT 15;
 
 Large `rank_gap` values usually mean correlated features sharing credit — the two methods split that credit differently. It is a signal to revisit Task 5's redundancy check.
 
-### Which method answers the selection question
+### The right method for the selection question
 
 Neither of the above tells you whether you can *remove* a feature. Both describe one fitted model; if two features carry the same signal, dropping either may cost nothing while both show as important. Only retraining answers it:
 
@@ -590,7 +590,7 @@ The scaler statistics are computed **once at training** and frozen into the mode
 
 Useful `TRANSFORM` functions: `ML.STANDARD_SCALER`, `ML.MIN_MAX_SCALER`, `ML.QUANTILE_BUCKETIZE`, `ML.BUCKETIZE` (fixed boundaries), `ML.FEATURE_CROSS`, `ML.NGRAMS`, `ML.HASH_BUCKETIZE`, `ML.IMPUTER`.
 
-### What belongs where
+### Placement of preprocessing logic
 
 | Put it in the SQL that builds the feature table | Put it in `TRANSFORM` |
 |---|---|

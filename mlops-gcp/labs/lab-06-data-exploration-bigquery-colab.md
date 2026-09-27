@@ -457,16 +457,16 @@ Anyone with **BigQuery Data Viewer** on the table can see them. Nobody has to ru
 
 > **Two caveats worth knowing before you promise a colleague a link.** Published results are not visible until the **first scan has finished**, and the publish checkbox can be greyed out — either because you lack the permission, or because another data quality scan on that table is already publishing.
 
-### Why this beats the alternatives on a wide table
+### The advantage over alternatives on a wide table
 
-| Approach | Why it falls short at 200 columns |
+| Approach | Limitation at 200 columns |
 |---|---|
 | Hand-written SQL aggregates (Tasks 2–4) | 200 columns × 5 statistics is a query nobody wants to write or maintain, and the output lives in whatever table you happened to write it to |
 | `pandas-profiling` in a notebook | Requires pulling the data down — memory limits, cost, and it produces an HTML file you then have to host or email |
 | BigQuery data insights (Gemini) | Generates *questions and queries* from table metadata. Genuinely useful for discovery, but it is not systematic statistical profiling of every column |
 | **Dataplex profile scan** | Automatic across all columns, scheduled, and published where the data already lives |
 
-### Where this approach stops
+### Limitations of this approach
 
 Profile scans and manual exploration are not competitors — they answer different questions:
 
@@ -530,7 +530,7 @@ Nothing. The notebook environment and the query bill are separate: free Colab sa
 
 ---
 
-## What You Practiced in This Lab
+## Skills Practiced in This Lab
 
 You connected a free notebook to BigQuery, used all six import paths, and explored 1.7 million rows while moving only kilobytes.
 
@@ -540,7 +540,7 @@ The three habits worth keeping:
 2. **Push computation down; pull results up.** Aggregate in BigQuery, plot in Python. If the answer fits on a screen, don't move a table.
 3. **`LIMIT` is not a sample and not a discount.** Use `TABLESAMPLE` for a look, `FARM_FINGERPRINT` for anything that matters.
 
-### Where to Take This Next
+### Next Steps
 
 - Explore your own Lab 2 table: `SELECT * FROM telco_churn.customers_ml` — then do it properly with `bigframes`
 - Try `bigframes.ml`, which wraps BigQuery ML in a scikit-learn-shaped API — Lab 2's model in Python syntax, still trained in BigQuery

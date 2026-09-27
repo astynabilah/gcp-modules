@@ -17,7 +17,7 @@ Predicting what comes next, when the data has an order. This is the one part of 
 
 ---
 
-## 1. Why regression is the wrong tool
+## 1. Regression's mismatch with time-ordered data
 
 A common question: if I have a date column and a number column, why not just run linear regression on the date?
 
@@ -39,9 +39,9 @@ And in the Vertex data-split docs:
 
 > **A caution about vocabulary.** The autocorrelation and non-stationarity arguments above are standard statistics, not something Google states in those words. Rule #33 and the split guidance are Google's. The rest is the field's.
 
-### How to split instead
+### Splitting by time instead
 
-| Where | What to do |
+| Context | Split approach |
 |---|---|
 | **BigQuery ML**, non-forecasting model on time data | `DATA_SPLIT_METHOD = 'SEQ'` with `DATA_SPLIT_COL` |
 | **BigQuery ML**, `ARIMA_PLUS` | No split options exist. Hold out data yourself and pass it to `ML.EVALUATE`. |
@@ -54,7 +54,7 @@ The field calls the proper approach **forward chaining** or **walk-forward valid
 
 ---
 
-## 2. `ARIMA_PLUS`: what it does for you
+## 2. `ARIMA_PLUS`: the automatic pipeline
 
 ```sql
 CREATE OR REPLACE MODEL `mydataset.sales_forecast`

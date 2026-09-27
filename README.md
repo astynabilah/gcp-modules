@@ -10,20 +10,20 @@ Everything is plain Markdown and renders on GitHub. The figures are hand-drawn S
 
 Each folder below is a **path** — a self-contained set of labs and modules on one topic, with its own README and roadmap.
 
-| Folder | Path | What it covers | Size |
+| Folder | Path | Focus | Size |
 |---|---|---|---|
 | [`mlops-gcp/`](mlops-gcp/) | **MLOps on Google Cloud** | Raw data → trained model → served, monitored and automated. Mostly SQL and the console, with training compute, serving, networking, orchestration and Git explained alongside. | labs + modules |
 
 Supporting folders:
 
-| Folder | What it is |
+| Folder | Description |
 |---|---|
 | [`tools/`](tools/) | The entire build system: figure generators, SVG validator, Markdown→HTML renderer. One command, no config. |
 | `site/` | Generated HTML. Gitignored; rebuild it rather than reading it from here. |
 
 ---
 
-## Where to start
+## Getting started
 
 **[→ `mlops-gcp/`](mlops-gcp/)** is the only path so far.
 
@@ -31,7 +31,7 @@ Inside it: [`ROADMAP.md`](mlops-gcp/ROADMAP.md) is the big picture. It covers th
 
 ---
 
-## How a path is laid out
+## Anatomy of a path
 
 ```
 <path-name>/

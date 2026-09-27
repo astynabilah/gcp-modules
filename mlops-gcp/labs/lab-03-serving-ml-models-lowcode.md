@@ -46,7 +46,7 @@ In this lab, you learn how to:
 
 Serving is the area the 2026 reorganization touched most. Four things to know:
 
-| Change | What it means for you |
+| Change | Impact on You |
 |---|---|
 | **Vertex AI → Gemini Enterprise Agent Platform** (announced 22 Apr 2026; Vertex AI left the console navigation 21 May 2026). | **Endpoints are now Deployments**, under **Scale**. **Model Registry is now Registry**, under **Govern**. Monitoring is under **Govern** too. The `gcloud ai endpoints …` commands and the `aiplatform.googleapis.com` API are **unchanged**. |
 | **Feature Store optimized online serving is deprecated.** No new features since **17 May 2026**; APIs sunset **17 Feb 2027**. | Only **Bigtable online serving** is supported for new work. Task 10 covers this as an awareness topic — don't build anything new on optimized serving. |
@@ -324,7 +324,7 @@ gcloud ai endpoints deploy-model $ENDPOINT_ID \
 
 ---
 
-## Task 4. Why the model type decided your deployment path
+## Task 4. Model type as the deployment-path decision
 
 You deployed the logistic regression first for a concrete reason: **the model type determines the serving artifact**, and the serving artifact determines how much work deployment is.
 

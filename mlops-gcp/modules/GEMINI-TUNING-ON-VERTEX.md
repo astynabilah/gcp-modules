@@ -8,7 +8,7 @@
 
 ## Recent changes to the tuning workflow
 
-| When | What |
+| When | Update |
 |---|---|
 | **22 Apr – 21 May 2026** | Vertex AI → **Gemini Enterprise Agent Platform**. Tuning moved in the console. The API surface and SDK are unchanged. |
 | **24 Jun 2026** | The **generative modules were removed from `google-cloud-aiplatform`**. Generative work, including tuning, now goes through the **`google-genai`** SDK. `PipelineJob` and the classic ML surface are unaffected. |
@@ -88,7 +88,7 @@ job = client.tunings.tune(
 
 **The main knobs:**
 
-| Parameter | What it does |
+| Parameter | Effect |
 |---|---|
 | `epoch_count` | Passes over the dataset. Too many overfits. The model parrots your examples and generalises worse. |
 | `learning_rate_multiplier` | Scales the default rate. Leave it alone unless you have a measured reason. |
@@ -98,7 +98,7 @@ job = client.tunings.tune(
 
 ---
 
-## 3. Where the tuned model goes — the constraint
+## 3. Tuned-model endpoint placement — the constraint
 
 When tuning finishes, the model is **automatically uploaded to the Model Registry and deployed to a shared public endpoint.** You do not choose the endpoint.
 

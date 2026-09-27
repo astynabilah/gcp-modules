@@ -23,11 +23,11 @@ The traversal is not a Vertex design choice. It follows from the type of the `me
 
 ---
 
-## 1. Why the path looks like that
+## 1. The reason behind that path
 
 ![Why the path is metadata.field.number_value](assets/mlmd/m-01-struct.svg)
 
-### Layer 1 — what you write
+### Layer 1 — the value you write
 
 ```python
 artifact.metadata = {
@@ -40,7 +40,7 @@ artifact.metadata = {
 
 Ordinary JSON-shaped data. The API accepts arbitrary keys: there is no fixed column list.
 
-### Layer 2 — how it is stored
+### Layer 2 — its storage representation
 
 That flexibility is why the field is a `Struct`. From protobuf's `struct.proto`:
 
@@ -63,7 +63,7 @@ message Value {
 
 `Struct` is protobuf's canonical representation of arbitrary JSON. Each value carries its own type tag because the schema isn't known at compile time.
 
-### Layer 3 — how you query it
+### Layer 3 — the query syntax it forces
 
 Because a `Value` is a `oneof`, a query must name **which** field it means. Hence:
 
@@ -81,7 +81,7 @@ The official grammar is `metadata.<fieldName>.<typeValue>`, with the documented 
 
 ---
 
-## 2. What Vertex ML Metadata is
+## 2. The Vertex ML Metadata service
 
 It is a **lineage store** — Google's managed implementation of the open-source [ML Metadata (MLMD)](https://github.com/google/ml-metadata) project. It answers questions like:
 
@@ -94,7 +94,7 @@ It is a **lineage store** — Google's managed implementation of the open-source
 
 Five resource types, and the mental model is grammatical:
 
-| Resource | What it is | Think of it as |
+| Resource | Description | Think of it as |
 |---|---|---|
 | **MetadataStore** | Top-level container, one per project + region, named `default` | The database |
 | **Artifact** | A discrete thing produced or consumed — dataset, model, metrics file | A **noun** |
@@ -555,7 +555,7 @@ Google's own framing for the second is that phrase verbatim: audit logs exist to
 
 **That second row explains the usual complaint**: "creation and deletion are logged but the run details aren't". You are seeing Admin Activity, which is always on. Everything else is off until enabled, and it does **not** backfill.
 
-### Where Vertex AI operations land
+### Log placement for Vertex AI operations
 
 | Operation | Log | Sub-type |
 |---|---|---|

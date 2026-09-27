@@ -47,7 +47,7 @@ In this lab, you learn how to:
 
 This lab is written against the console as it stands in **August 2026**. Two changes will trip you up if you follow older tutorials:
 
-| Change | What it means for you |
+| Change | Impact |
 |---|---|
 | **Vertex AI was reorganized into the Gemini Enterprise Agent Platform.** Announced 22 Apr 2026; the "Vertex AI" entry left the console navigation on 21 May 2026. | In the console, look for **Agent Platform**, not Vertex AI. Searching "Vertex AI" redirects you there. The API (`aiplatform.googleapis.com`), the IAM role IDs (`roles/aiplatform.user`), and every line of BigQuery ML SQL are **unchanged** — only names and menu paths moved. |
 | **The `AI.*` scalar functions are GA and are now the recommended entry point.** | Prefer `AI.GENERATE` over the older `ML.GENERATE_TEXT`. It returns cleaner columns, accepts an `output_schema`, and does not require you to create a remote model first. `ML.GENERATE_TEXT` still works. |

@@ -8,7 +8,7 @@
 
 ## Recent shifts in the private-networking picture
 
-| When | What |
+| When | Change |
 |---|---|
 | **22 Apr – 21 May 2026** | Vertex AI → **Gemini Enterprise Agent Platform**. VPC Service Controls still lists the service as `aiplatform.googleapis.com`; perimeter configs did not need editing. |
 | **30 Mar 2026** | **Managed notebooks retired.** Workbench **instances** are the only Workbench form. This simplifies the networking story: one instance type, one set of VPC options. |
@@ -252,7 +252,7 @@ The full configuration for "notebooks handling sensitive data, no direct interne
 
 **And why the alternatives fail:**
 
-| Approach | Why it isn't enough |
+| Approach | Shortfall |
 |---|---|
 | Default VPC + IAM + audit logs | Audit logs are **detective**, not preventive. They tell you afterwards. No network isolation, no exfiltration control. |
 | Colab Enterprise "because it handles VPC for you" | Colab Enterprise provisions runtimes *for* you, which is the opposite of the control this scenario needs. When the requirement is customisability inside a VPC, Workbench instances are the documented choice. |

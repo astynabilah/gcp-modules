@@ -26,7 +26,7 @@ Full descriptions in [`modules/README.md`](modules/README.md).
 
 ---
 
-## Where this meets the ML path
+## Overlap with the ML path
 
 These modules deliberately keep the ML usage of each mechanism **in one place** rather than duplicating it into a stub on the other side. Where a mechanism has an ML-facing application, the section stays with the explanation of how the mechanism works, and the ML path links in:
 

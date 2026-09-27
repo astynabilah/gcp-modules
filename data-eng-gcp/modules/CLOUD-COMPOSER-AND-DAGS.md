@@ -8,7 +8,7 @@
 
 ## Deprecations and Version Notes
 
-| When | What |
+| When | Detail |
 |---|---|
 | **Ongoing** | **`SubDagOperator` is deprecated** in Airflow and Google's docs recommend against it — performance and deadlock problems. Use `TaskGroup` for visual grouping and `TriggerDagRunOperator` for cross-DAG dependencies. |
 | **Composer 3** | The current generation, with more of the Airflow infrastructure managed for you. Composer 1 is end-of-life. |
@@ -16,7 +16,7 @@
 
 ---
 
-## 1. What a DAG is
+## 1. DAG basics
 
 **DAG = Directed Acyclic Graph.** Each of the three words matters:
 
@@ -46,7 +46,7 @@ That's a DAG. Five tasks, and the arrows say **what must finish before what star
 
 **Apache Airflow** is the most widely used DAG orchestrator. You write DAGs in Python; Airflow schedules and runs them.
 
-| Term | What it is |
+| Term | Description |
 |---|---|
 | **DAG** | The whole workflow. One Python file, usually one DAG. |
 | **Task** | One node. A thing that runs. |
@@ -203,7 +203,7 @@ Pools are managed in the Airflow UI under **Admin → Pools**, or via the CLI, s
 
 > **`priority_weight` orders the queue *within* a pool**, not across pools. It decides who goes first when a team's own tasks compete for their own slots. It cannot let one team jump another's allocation. That is the behaviour you want.
 
-### Why the other three settings don't solve it
+### Limits of the other three settings
 
 **Lowering `[core] parallelism`** shrinks the environment for everyone. The well-behaved teams get slower alongside the greedy one, and the ratio between them doesn't change at all. You have made the shared resource smaller without dividing it.
 
@@ -215,7 +215,7 @@ Pools are managed in the Airflow UI under **Admin → Pools**, or via the CLI, s
 
 ---
 
-## 5. What Composer costs
+## 5. Composer cost model
 
 **Composer runs continuously.** The scheduler, the web server, and the Airflow metadata database are always up, whether or not any DAG is running. That's a standing bill measured in **hundreds of dollars a month** for a small environment, before any of your tasks execute.
 

@@ -6,7 +6,7 @@ Three products sit here: audio in, audio out, and language in between. All three
 
 ---
 
-## What This Page Covers, Fast
+## This Page at a Glance
 
 - Speech-to-Text **V1 and V2 are both GA**. V1 is **not deprecated**, and no sunset notice exists anywhere.
 - V1 has the **60 minutes per month free tier**. **V2 has none.** Migrating to V2 costs you the free minutes.
@@ -349,7 +349,7 @@ So the choice is quality against latency, with NMT still the fast option.
 
 **Advanced.**
 
-| What | Price |
+| Item | Price |
 |---|---|
 | NMT, text | **$20 per 1M characters**, input only |
 | NMT, document | **$0.08 per page** |
@@ -402,7 +402,7 @@ The Gemini API audio documentation on `ai.google.dev` says:
 
 From it, and from the published limits, four decision axes follow. **These are my reasoning, not Google's recommendation**, except for the first row.
 
-| What you need | Pick | Why |
+| Requirement | Pick | Rationale |
 |---|---|---|
 | Real-time or streaming transcription | **Speech-to-Text** | Gemini audio is request and response over a file |
 | A very long file in one prompt | **Gemini** | Gemini accepts **up to 9.5 hours** per prompt at 32 tokens per second, against **8 hours per file** for STT batch |

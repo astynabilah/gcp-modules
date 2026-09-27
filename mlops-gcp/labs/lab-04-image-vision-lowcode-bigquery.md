@@ -24,7 +24,7 @@ Then you look honestly at the fourth option — actually training a custom image
 
 This lab is written for you. You will not be told what precision is. What you will get instead is the mapping, because the concepts are all familiar and only the surface is new:
 
-| What you'd do in Python | What it is here | Where it differs |
+| Python equivalent | BigQuery equivalent | Key difference |
 |---|---|---|
 | `PIL.Image.open()` over a directory | An **object table** — one row per file | The bytes never move. The table holds metadata plus a reference. |
 | Calling a hosted vision API | `ML.ANNOTATE_IMAGE` | It's a table function; results come back as JSON columns. |
@@ -119,7 +119,7 @@ ORDER BY uri;
 
 ![Object table over images](figures/l4-01-object-table.svg)
 
-### What an object table is
+### The object table concept
 
 **It is not a copy of your images.** It is a read-only external table with one row per object, holding metadata (`uri`, `size`, `content_type`, `updated`, `generation`, `md5_hash`) plus a `ref` column containing an `ObjectRef` — a handle that lets BigQuery's AI functions fetch the bytes on your behalf, using the connection's identity.
 
@@ -452,7 +452,7 @@ That order is the single most useful thing in this lab, and it inverts the insti
 
 ---
 
-## Task 8. What this cost
+## Task 8. This lab's total cost
 
 Run it for real:
 

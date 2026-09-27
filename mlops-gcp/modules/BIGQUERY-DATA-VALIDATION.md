@@ -8,7 +8,7 @@
 
 ## When the Five Functions Shipped
 
-| When | What |
+| When | Milestone |
 |---|---|
 | **4 Apr 2024** | All five functions enter preview together. |
 | **19 Sep 2024** | **All five reach GA together.** No preview caveats apply today. |
@@ -101,7 +101,7 @@ Only columns matching the model's feature columns are computed. Extra columns in
 
 > **For `TRANSFORM` models, statistics are on the raw, pre-`TRANSFORM` data.** That is what you want. Skew is a property of the data that arrives, not of what your feature engineering turns it into. See [Lab 5](../labs/lab-05-feature-engineering-tabular.md) for `TRANSFORM` itself.
 
-### What it doesn't support
+### Unsupported model types
 
 Not every model carries training statistics:
 
@@ -339,7 +339,7 @@ Profiling is more than a report. It **generates the rules for you**:
 
 That is the intended path from "unfamiliar table" to "monitored table", and it means you rarely start rule-writing from a blank page. One limitation: *"Rule recommendations aren't supported in the gcloud CLI"* — console and API only.
 
-### And what data insights is instead
+### Data insights, a separate Gemini feature
 
 **BigQuery data insights** is a **Gemini** feature, not a profiler. It *"analyzes your metadata"* to generate natural-language descriptions, suggested questions with their SQL, and relationship graphs across a dataset. Useful, and a different tool: profiling is deterministic SQL aggregation over the **data**; insights is generative inference over the **metadata**.
 
@@ -361,7 +361,7 @@ They are **transformation-time gates**, not monitoring. [Lab 5](../labs/lab-05-f
 | *"Is this table trustworthy right now, and how has that trended?"* | **Knowledge Catalog scans** — scheduled, scored, dimensioned, catalog-visible |
 | *"Has the distribution moved since training?"* | **The `ML.VALIDATE_*` functions above** — statistical, model-aware |
 
-**And what not to build.** A Composer DAG running `COUNTIF` queries and writing custom Cloud Monitoring metrics reproduces the scan's scoring, storage and alerting by hand, on top of Composer's [always-on cost](../../data-eng-gcp/modules/CLOUD-COMPOSER-AND-DAGS.md#5-what-composer-costs). A BigQuery scheduled query using `ASSERT` works too, but `ASSERT` **raises an error**. It is a gate rather than a report, so you get a failed job instead of a score you can trend. If you want quality *monitoring* with little operational overhead, the managed scan is the answer. If you want a *gate*, `ASSERT` and Dataform assertions are the right shape.
+**And what not to build.** A Composer DAG running `COUNTIF` queries and writing custom Cloud Monitoring metrics reproduces the scan's scoring, storage and alerting by hand, on top of Composer's [always-on cost](../../data-eng-gcp/modules/CLOUD-COMPOSER-AND-DAGS.md#5-composer-cost-model). A BigQuery scheduled query using `ASSERT` works too, but `ASSERT` **raises an error**. It is a gate rather than a report, so you get a failed job instead of a score you can trend. If you want quality *monitoring* with little operational overhead, the managed scan is the answer. If you want a *gate*, `ASSERT` and Dataform assertions are the right shape.
 
 ---
 

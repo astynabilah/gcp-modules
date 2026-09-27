@@ -40,7 +40,7 @@ Google keeps a standing banner on the docs, listing the old names:
 
 Note that **Enterprise Search** appears in that list but never got its own dated rename note. It was an early informal name for the same thing.
 
-### What did not move
+### Unchanged Elements
 
 The 2 April 2025 note says it plainly: *"The product functionality and endpoints remain the same."* That has held at every step. Google also admits the console lags behind:
 
@@ -60,7 +60,7 @@ The documentation URLs are still under `/generative-ai-app-builder/`, which is t
 
 It now backs **two** products at once:
 
-| Product | What it is |
+| Product | Description |
 |---|---|
 | **Agent Search** | The builder-facing search and RAG product |
 | **Gemini Enterprise** | The finished end-user assistant (formerly Agentspace) |
@@ -130,7 +130,7 @@ Agentspace launched around **December 2024**. Treat that date as approximate. Th
 
 ---
 
-## 5. What these products do
+## 5. Product Roles and Functions
 
 ### Agent Search
 
@@ -138,7 +138,7 @@ Three things: enterprise search over your own content, recommendations, and grou
 
 The core concepts have not changed since 2023, which helps when you read old tutorials.
 
-| Concept | What it is |
+| Concept | Description |
 |---|---|
 | **Data store** | The indexed corpus. Your documents, websites, or structured records. |
 | **App** (also called an engine) | The thing you query. It attaches to one or more data stores. |
@@ -321,11 +321,11 @@ So the table above was built by reading release notes end to end. This matters f
 
 ---
 
-## 9. What I could not verify
+## 9. Unverified Claims
 
 Four things in this module are unconfirmed. They are marked in place, and collected here.
 
-| Item | What is missing |
+| Item | Missing Documentation |
 |---|---|
 | **Reasoning Engine → Agent Engine** | No dated release note announces this rename. Only the LangChain on Vertex AI rename is documented. |
 | **"Customer Engagement Suite with Google AI" → "Gemini Enterprise for Customer Experience"** | The new name is live across the docs, but no dated announcement exists. It falls between **12 January 2026** and **29 June 2026**. |

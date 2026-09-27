@@ -120,7 +120,7 @@ PARTITION BY DATE(order_date)
 CLUSTER BY country, status;
 ```
 
-### What you need to know
+### Key facts
 
 **Maximum four columns.** If you need more, combine clustering with partitioning.
 
@@ -152,7 +152,7 @@ Choose **both** when partitions average at least 10 GB and you want cost estimat
 
 ---
 
-## 4. What you pay for
+## 4. Cost drivers
 
 There are two compute pricing models and one storage model.
 
@@ -216,7 +216,7 @@ Batch loading, table copies, exports, deletes and automatic reclustering cost no
 
 ## 5. Controlling cost
 
-| Tool | What it does |
+| Tool | Effect |
 |---|---|
 | **`maximum_bytes_billed`** | Kills the query if it would scan more than a limit you set |
 | **Dry run** | Estimates bytes without running the query |
@@ -244,7 +244,7 @@ The failure message is clear: `Error: Query exceeded limit for bytes billed: 100
 
 **Stored in BigQuery:**
 
-| Type | What it is |
+| Type | Description |
 |---|---|
 | **Standard table** | Structured data in BigQuery storage |
 | **Table clone** | A writeable copy. Only the difference from the base table is stored. |
@@ -254,7 +254,7 @@ Clones are for development branches off production data. Snapshots are for backu
 
 **Stored outside BigQuery:**
 
-| Type | What it is |
+| Type | Description |
 |---|---|
 | **Lakehouse tables** (formerly BigLake) | Structured data in Cloud Storage, S3 or Azure Blob, **with fine-grained security** |
 | **Object tables** | Unstructured files such as images and PDFs |
@@ -290,7 +290,7 @@ On-demand has its own caps: **2,000 concurrent slots per project** and **20,000 
 
 ---
 
-## 8. What changed in 2026
+## 8. 2026 changes
 
 | When | Change |
 |---|---|

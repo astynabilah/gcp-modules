@@ -8,7 +8,7 @@
 
 ## The 2026 hardware updates
 
-| When | What |
+| When | Update |
 |---|---|
 | **2026** | **TPU v6e (Trillium)** is generally available. Its MXU is larger than the 128×128 of every generation up to v5e. This matters for the tiling rule in §6. v5e remains the cost-efficiency workhorse. |
 | **22 Apr – 21 May 2026** | The rebrand to **Gemini Enterprise Agent Platform** changed console paths. Machine type names, accelerator names and `WorkerPoolSpec` fields are unchanged. |
@@ -30,7 +30,7 @@ The only distinction that matters for ML:
 
 > **The first question is always "do I need an accelerator at all?"** Gradient-boosted trees, linear models, and anything on tabular data of ordinary size: **no**. A GPU does nothing for XGBoost on 7,000 rows except cost money. Accelerators are for deep learning on images, text, and audio.
 
-### Why they're different, not just faster
+### Architectural differences, not just speed
 
 The three architectures differ in *where the data goes*, and that single fact predicts which workloads each wins.
 
@@ -98,7 +98,7 @@ So `n1-highmem-16` is 16 vCPUs with about 104 GB of RAM, and `a2-highgpu-8g` is 
 
 ### Attached versus built-in
 
-| Style | Example | How the GPU is specified |
+| Style | Example | Specification method |
 |---|---|---|
 | **Attached** | `n1-standard-8` + 2× `NVIDIA_TESLA_T4` | You choose machine type *and* accelerator type *and* count |
 | **Built in** | `a2-highgpu-8g` | The machine type *is* the GPU configuration. No accelerator fields. |
@@ -296,9 +296,9 @@ Halving the bit width halves the memory traffic. That matters because many opera
 
 XLA already converts some operations automatically. **Explicitly casting activations to bfloat16 where appropriate goes further** and is the standard optimisation.
 
-### What does *not* help
+### Ineffective suggestions
 
-| Suggestion | Why not |
+| Suggestion | The catch |
 |---|---|
 | "Enable XLA with `TF_XLA_FLAGS`" | **XLA is already on** for TPU workloads — TPUs only execute XLA-compiled programs. Setting the flag adds nothing. |
 | "Just maximise batch size" | Helps utilisation, but does not fix tiling. A huge batch of 130 still wastes half of every second tile. |

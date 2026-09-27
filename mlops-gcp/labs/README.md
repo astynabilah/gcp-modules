@@ -169,7 +169,7 @@ Every other module carries a matching **API version note** pointing back here.
 
 The four tiers ordered by *who supplies what* (pretrained APIs, generative, AutoML, BigQuery ML), and which to pick per data type. Centrepiece is **AutoML's Cloud/Edge fork**, chosen before training and irreversible: Cloud models deploy to endpoints and cannot be exported; Edge models export to TF Lite / Core ML / TF.js and cannot be served by Google. Also: what Vertex AI Vision really is, and AutoML Edge's 2026 maintenance-mode status.
 
-### [Where model training runs](../modules/VERTEX-TRAINING-COMPUTE.md)
+### [Model training compute options](../modules/VERTEX-TRAINING-COMPUTE.md)
 
 The five places training can happen (BigQuery ML, the notebook kernel, the **notebook executor**, a custom training job, a pipeline step), and how to pick. Covers the Workbench **G2 ↔ non-G2** resize restriction, why the executor beats resizing your instance, the four worker pools of a custom training job, Reduction Server, and why you should fill one machine before reaching for distributed training.
 
@@ -195,7 +195,7 @@ Everything here is written against the August 2026 console. These will trip you 
 
 ---
 
-## What's in this repository
+## Repository contents
 
 ```
 Portfolio/
@@ -252,7 +252,7 @@ Numbers shown in result grids are consistent with the real datasets — row coun
 
 ---
 
-## What order to do them in
+## Recommended lab order
 
 The numbering reflects when each lab was written, **not** the order to work through them. There is one recommended path and two shortcuts.
 
@@ -262,7 +262,7 @@ Three tracks. Do **Track 1 first** — it is the spine, and the only track with 
 
 **Track 1 — the tabular spine** (~5 hours)
 
-| Order | Lab | Why here |
+| Order | Lab | Rationale |
 |---|---|---|
 | 1 | **[Lab 6 — Exploration](lab-06-data-exploration-bigquery-colab.md)** | Free, 45 min, no prerequisites. Teaches BigQuery's cost model, which every later lab depends on. |
 | 2 | **[Lab 2 — Churn with BigQuery ML](lab-02-customer-churn-lowcode-bqml.md)** | The core. Baseline → train → evaluate → explain → decide. |
@@ -273,7 +273,7 @@ Three tracks. Do **Track 1 first** — it is the spine, and the only track with 
 
 **Track 2 — unstructured data** (~2.5 hours, independent of Track 1)
 
-| Order | Lab | Why here |
+| Order | Lab | Rationale |
 |---|---|---|
 | 1 | **[Lab 1 — Sentiment with Gemini](lab-01-sentiment-analysis-bigquery-gemini.md)** | Introduces `AI.GENERATE` and `output_schema` on text. |
 | 2 | **[Lab 4 — Vision](lab-04-image-vision-lowcode-bigquery.md)** | The same pattern on images, plus object tables. Cheaper and shorter — swap the order if you want the quick win first. |
@@ -306,6 +306,6 @@ Skip Lab 6. Go **Lab 2 → Lab 3 → Lab 5**, then read all four modules. Lab 2'
 
 Done in order (the Scaling module, then Labs 1 → 2 → 3), they walk the whole path from "it works in a notebook" to "it runs in production and someone knows when it breaks."
 
-### Where the tracks join up
+### Convergence of the two tracks
 
 Track 1 and Track 2 meet at the end: customers who are both **high churn risk** and **writing negative reviews** are the highest-priority contacts in the business. Both scores live in the same warehouse, so that is a join, not an integration project.

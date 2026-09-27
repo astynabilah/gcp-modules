@@ -10,7 +10,7 @@
 
 Before any table, answer these. They eliminate most of the option space in about ten seconds.
 
-| # | Question | Why it decides so much |
+| # | Question | Its impact on the answer |
 |---|---|---|
 | **1** | **Where does the data already live?** | If it's in BigQuery and the model can be BigQuery ML, you may need **no compute spec at all** — no machine type, no region matching, no endpoint. |
 | **2** | **Is anything *waiting* for the answer?** | No → batch, which costs nothing between runs. Yes → online, which means a machine is up around the clock. This is the single biggest cost lever in the whole path. |
@@ -20,7 +20,7 @@ Before any table, answer these. They eliminate most of the option space in about
 
 ---
 
-## 0a. How to read a requirement
+## 0a. Reading a requirement correctly
 
 Most wrong spec answers come from misreading the requirement, not from missing knowledge. They answer a question next to the one that was asked. The method below has four steps, and step 1 does most of the work.
 
@@ -28,7 +28,7 @@ Most wrong spec answers come from misreading the requirement, not from missing k
 
 Requirements contain two kinds of phrase, and they are not equal:
 
-| Phrase type | Example | What it does |
+| Phrase type | Example | Effect |
 |---|---|---|
 | **Hard constraint** | "hardware-level isolation" · "must not traverse the internet" · "both HTTP and gRPC" · "cannot be preempted" | **Eliminates options.** Often down to one. |
 | **Soft preference** | "cost-effective" · "small models" · "minimal overhead" · "efficient" | **Ranks** whatever survives. |
@@ -130,7 +130,7 @@ The pattern: **more infrastructure to reimplement a built-in feature.** When one
 
 ### By what you're training
 
-| Case | Spec | Why |
+| Case | Spec | Rationale |
 |---|---|---|
 | Tabular, data in BigQuery, < ~100M rows | **BigQuery ML `CREATE MODEL`** — no machine spec | [Low-code AI](LOW-CODE-AI-ON-GCP.md) |
 | Tabular, needs Python (sklearn / XGBoost) | `n1-standard-8`, **no accelerator** | A GPU does nothing for trees — [GPUs and TPUs §1](GPUS-AND-TPUS-FOR-ML.md) |
@@ -182,7 +182,7 @@ Mixed precision and adapter methods change this a lot. The point is to **do the 
 
 ### Start here
 
-| Is anything waiting? | Where's the model? | Answer |
+| Is anything waiting? | Model location | Answer |
 |---|---|---|
 | **No** | BigQuery ML | **`ML.PREDICT` on a schedule.** No spec. |
 | **No** | Model Registry | **Batch prediction job** — [colocation rules apply](VERTEX-BATCH-PREDICTION.md) |
@@ -410,7 +410,7 @@ Most spec questions are settled by three prior questions: **where the data lives
 
 ---
 
-## Where each answer comes from
+## Source Material for Each Answer
 
 - Hardware and TPUs → [GPUs and TPUs, from zero](GPUS-AND-TPUS-FOR-ML.md)
 - Training jobs, containers, capacity → [Where model training actually runs](VERTEX-TRAINING-COMPUTE.md)

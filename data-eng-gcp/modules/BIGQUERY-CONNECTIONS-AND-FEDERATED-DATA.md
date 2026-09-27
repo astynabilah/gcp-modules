@@ -8,14 +8,14 @@
 
 ## AI Function Support and the Rebrand
 
-| When | What |
+| When | Change |
 |---|---|
 | **2026** | Connections are how BigQuery reaches Gemini. Every `AI.GENERATE` / `AI.EMBED` / `ML.ANNOTATE_IMAGE` call goes through a **`CLOUD_RESOURCE`** connection whose service account holds `roles/aiplatform.user` — the same mechanism as a Cloud SQL connection, different target service. |
 | **22 Apr – 21 May 2026** | The Vertex AI → Gemini Enterprise Agent Platform rebrand did not change connection resources, role names, or `EXTERNAL_QUERY`. |
 
 ---
 
-## 1. What a connection is
+## 1. Connection basics
 
 A **connection** is a first-class BigQuery resource. It has a name, a location, an IAM policy, and its own **service account**. BigQuery creates that service account for you.
 
@@ -25,7 +25,7 @@ That service account is the core of the design. When BigQuery reaches out to Clo
 
 So a federated query is **two hops with two different grants**:
 
-| Hop | Who | Needs | On what |
+| Hop | Who | Needs | Target |
 |---|---|---|---|
 | 1 | The **analyst** | `roles/bigquery.connectionUser` | the **connection** |
 | 2 | The **connection's service account** | `roles/cloudsql.client` | the **Cloud SQL project** |
@@ -52,7 +52,7 @@ Same shape every time: create the connection, find its auto-generated service ac
 
 **Connection permissions live on the connection resource. Nothing else grants them by implication.**
 
-| Role | What it grants | Enables a federated query? |
+| Role | Grants | Enables a federated query? |
 |---|---|---|
 | `roles/bigquery.dataViewer` | Read tables and views in a dataset | **No.** Says nothing about connections. |
 | `roles/bigquery.user` | Run jobs, create datasets, list resources | **No.** Still no connection permission. |
@@ -64,7 +64,7 @@ Same shape every time: create the connection, find its auto-generated service ac
 
 The analyst also still needs ordinary BigQuery access on the BigQuery side: `roles/bigquery.dataViewer` on the datasets they read, and `roles/bigquery.jobUser` to run jobs at all. Connection access is *additional*, not a replacement.
 
-### Why not just grant the analyst `cloudsql.client`?
+### The risk of a direct `cloudsql.client` grant
 
 It works, and it defeats the design.
 
@@ -270,7 +270,7 @@ A BigQuery **connection** is a resource with its own **auto-created service acco
 
 ---
 
-## Where to Read More
+## Further Reading
 
 - [Cloud SQL federated queries](https://cloud.google.com/bigquery/docs/cloud-sql-federated-queries)
 - [Working with connections](https://cloud.google.com/bigquery/docs/working-with-connections)

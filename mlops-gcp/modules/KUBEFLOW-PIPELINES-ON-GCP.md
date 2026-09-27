@@ -21,7 +21,7 @@ Use pipelines when you have real branching, expensive steps worth caching, or a 
 
 Four names get used interchangeably. They mean different things:
 
-| Name | What it is |
+| Name | Description |
 |---|---|
 | **Kubeflow** | A full open-source ML platform for Kubernetes. Large. You almost certainly do not want to run it. |
 | **Kubeflow Pipelines (KFP)** | One component of Kubeflow: a way to define ML DAGs, plus an SDK to author them. |
@@ -402,7 +402,7 @@ job = aiplatform.PipelineJob(
 
 ### Three things that are not `failure_policy`
 
-| | What it actually does |
+| | Actual behavior |
 |---|---|
 | **`dsl.If`** (formerly `dsl.Condition`) | Conditional *execution* on a runtime value — "deploy only if AUC > 0.82". It branches on **data**, not on failure. |
 | **`.set_retry(num_retries=...)`** | How many times **one task** retries before it counts as failed. It is a separate control: it changes *when* a failure happens, not what the pipeline does about it. `num_retries=0` does not make sibling branches continue. They already would. |
@@ -527,7 +527,7 @@ job.create_schedule(
 
 ### The four main parameters
 
-| Parameter | What it controls |
+| Parameter | Controls |
 |---|---|
 | `cron` + `timezone` | When runs start. The timezone is separate — set it, or you inherit UTC and your "3am" retrain lands at 10am local. |
 | `max_concurrent_run_count` | **How many runs may execute at the same time.** Set it to `1` and an overrunning run *delays* the next one instead of running alongside it. |
@@ -546,7 +546,7 @@ Pass the partition date as a parameter rather than computing `CURRENT_DATE()` in
 
 ---
 
-## 11. What it costs
+## 11. Pipeline cost breakdown
 
 | Item | Cost |
 |---|---|
@@ -595,7 +595,7 @@ Read the figure top to bottom and stop at the first row that fits your problem.
 
 KFP is where version numbers pile up, and they're on **three separate axes**:
 
-| Thing | Axis | Where it sits |
+| Thing | Axis | Location |
 |---|---|---|
 | `kfp` SDK **2.x** | library semver | your `pip install` |
 | `aiplatform.PipelineJob` | API version | **GA, `v1`** |
@@ -626,7 +626,7 @@ A real scenario if your organisation runs its own Kubeflow Pipelines installatio
 
 This works, and it works because of the compile step from §2.
 
-### Why it works
+### The mechanism behind it
 
 **KFP SDK v2 compiles to a YAML intermediate representation that both backends execute.** Vertex AI Pipelines is one conformant backend; an OSS Kubeflow Pipelines installation on your own Kubernetes cluster is another. The YAML describes containers and a DAG — nothing in it is inherently Google-specific.
 
@@ -634,7 +634,7 @@ So the portability question is about **what your components do**, not about the 
 
 ### The two kinds of component
 
-| | Portable? | Why |
+| | Portable? | Rationale |
 |---|---|---|
 | **`@dsl.component`** (your own) | ✅ Yes | It's a container plus a typed interface. Anything that runs in a container runs on either backend. |
 | **`@dsl.container_component`** | ✅ Yes | Same reasoning — you supply the image. |
@@ -703,7 +703,7 @@ Three things that make this hold up in practice:
 
 ---
 
-## 14. Where to start
+## 14. A learning path
 
 To learn this properly, work in this order:
 

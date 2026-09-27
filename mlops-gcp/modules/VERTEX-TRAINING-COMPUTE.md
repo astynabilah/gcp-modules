@@ -1,4 +1,4 @@
-# Where model training runs on Google Cloud
+# Training compute options on Google Cloud
 
 > **Type** Explanation module (theory, no console steps)  **Reading time** 35–45 minutes
 > **Related** [Lab 2 — Churn with BigQuery ML](../labs/lab-02-customer-churn-lowcode-bqml.md) · [Kubeflow Pipelines](KUBEFLOW-PIPELINES-ON-GCP.md) · [Vertex AI autoscaling](VERTEX-AUTOSCALING.md) · [Scaling prototypes into ML models](SCALING-PROTOTYPES-TO-ML.md)
@@ -24,7 +24,7 @@ There is a fourth option that is less well known, and it was designed for exactl
 
 These are not tiers of sophistication. They are different answers to *where does the compute live?*
 
-| Where | What it is | When |
+| Option | Description | When |
 |---|---|---|
 | **BigQuery ML** | `CREATE MODEL` inside the warehouse | Tabular data already in BigQuery — [Labs 2](../labs/lab-02-customer-churn-lowcode-bqml.md) and [5](../labs/lab-05-feature-engineering-tabular.md) |
 | **The notebook kernel** | On the VM your notebook runs on | Prototyping. Where you start — and where you should stop |
@@ -71,7 +71,7 @@ The executor runs a notebook file **from start to finish as a job on Vertex AI c
 
 One-time or scheduled. The notebook is the job, and there is no export step.
 
-### Why this is the right shape for that problem
+### The rationale for this shape
 
 Compare the two approaches:
 
