@@ -40,7 +40,7 @@ A support chatbot usually needs both: RAG for what the docs say, tuning for how 
 
 ---
 
-## 2. What supervised fine-tuning does
+## 2. Mechanics of supervised fine-tuning
 
 **Supervised fine-tuning (SFT)** trains the model on **labelled input-output pairs** — your prompts, and the responses you wanted. Gradient descent nudges the weights toward producing your outputs for your kinds of input.
 
@@ -117,7 +117,7 @@ This is easy to miss. For **custom-trained** models all four endpoint types are 
 | Private Service Connect | ✅ | ❌ |
 | Private services access (peering) | ✅ | ❌ |
 
-### So how do you restrict access?
+### Restricting access to a public endpoint
 
 Since you cannot make the endpoint private, you make it **unreachable from outside your perimeter**:
 
@@ -159,7 +159,7 @@ The real cost is **iteration**: dataset curation, tuning, evaluating, discoverin
 
 ---
 
-## 6. Anti-patterns
+## 6. Common tuning mistakes
 
 **Tuning to add knowledge.** Use RAG. Tuned facts cannot be updated without retuning, and the model still hallucinates around them.
 
@@ -175,7 +175,7 @@ The real cost is **iteration**: dataset curation, tuning, evaluating, discoverin
 
 ---
 
-## 7. Test your understanding
+## 7. Tuning questions worth answering yourself
 
 <details markdown="1">
 <summary><b>1.</b> A tuned Gemini support chatbot must be reachable only from the corporate VPC. What do you do?</summary>
@@ -207,13 +207,13 @@ It is **parameter-efficient**: the base model's weights are frozen and only a sm
 
 ---
 
-## Summary
+## Recap: when and how to tune Gemini
 
 Supervised fine-tuning is the **fourth** thing to try, after prompting, few-shot, and RAG. The diagnostic is whether the model is missing **facts** (retrieval) or **behaviour** (tuning). On Vertex it is **parameter-efficient**: a small adapter trains over a frozen base, which is why it costs hours and serves near base-model rates. The dataset is **JSONL chat-format pairs**, where a few hundred consistent examples beat thousands of sloppy ones, and `epoch_count` is the knob that overfits. Memorise the constraint: a **tuned Gemini model can only be deployed to a shared public endpoint**. Dedicated public, Private Service Connect and private services access are all unsupported. So "restrict it to the corporate network" is answered with **VPC Service Controls plus an IP-range access level**, not with a private endpoint, and never with IAP. Evaluate against a **frozen set and an untuned baseline**, because without the baseline there is no claim to make.
 
 ---
 
-## References
+## Sources on Gemini fine-tuning
 
 - [About supervised fine-tuning for Gemini models](https://cloud.google.com/vertex-ai/generative-ai/docs/models/gemini-supervised-tuning)
 - [Tune Gemini models by using supervised fine-tuning](https://cloud.google.com/vertex-ai/generative-ai/docs/models/gemini-use-supervised-tuning)
